@@ -1,5 +1,3 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
 const HeroBanner = () => {
     return (
         <div className="relative h-[150px] rounded-[20px] overflow-hidden" style={{padding:"10px"}}>
