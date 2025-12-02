@@ -55,7 +55,7 @@ const Dashboard = () => {
                         {/* Organization Engagement */}
                         <div style={{paddingTop:"20px"}}>
                             <div className="flex items-center justify-between mb-4" style={{paddingBottom:"10px"}}>
-                                <h1 className="text-lg font-semibold text-neutral-900 font-mulish">Organisation Engagement</h1>
+                                <h1 className="text-lg font-semibold text-neutral-1000 font-mulish" >Organisation Engagement</h1>
                                 <button className="bg-[#0A3D62] text-white px-6 py-2 rounded-sm text-xs font-semibold flex items-center gap-2 hover:bg-[#082E4A] transition-colors"style={{padding:"10px"}}>
                                     MAKE ANNOUNCEMENT
                                     <Plus size={18} />

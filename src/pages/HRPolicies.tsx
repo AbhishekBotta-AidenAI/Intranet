@@ -166,7 +166,7 @@ const HRPolicies = () => {
         <div className="w-full min-h-screen px-6 py-6" style={{paddingLeft:"40px",paddingRight:"40px", backgroundColor: '#EBF5FF'}}>
             {/* Header */}
             <div className="mb-8">
-                <p className="text-neutral-600" style={{fontSize:"20px",paddingBottom:"20px"}}>Organization Documents</p>
+                <p style={{fontSize:"20px",paddingBottom:"20px",fontWeight: 500}}>Organization Documents</p>
             </div>
 
             {/* Error Message */}
@@ -189,7 +189,7 @@ const HRPolicies = () => {
                         .custom-header {
                             background-color: #9BBAD8 !important;
                             color: #000000ff !important;
-                            font-weight: 600 !important;
+                            font-weight: 400 !important;
                         }
                         .ag-theme-quartz {
                             border-radius: 1rem !important;
