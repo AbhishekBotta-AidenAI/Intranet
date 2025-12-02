@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const MoodTracker = () => {
-    const [selectedMood, setSelectedMood] = useState(3); // Default to Awesome!
+    const [selectedMood, setSelectedMood] = useState(3); 
     
     const moods = [
         { label: 'Not Great', svg: '/Dashboard/NotGood.svg' },

@@ -1,6 +1,6 @@
 const HeroBanner = () => {
     return (
-        <div className="relative h-[150px] rounded-[20px] overflow-hidden" style={{padding:"10px"}}>
+        <div className="relative h-[150px] rounded-[20px] overflow-hidden" style={{padding:"5px"}}>
 
             {/* Background */}
             <img
@@ -22,17 +22,17 @@ const HeroBanner = () => {
                             FROM LEADERSHIP
                         </div>
                     </div>
-                    <h2 className="text-[20px] leading-tight font-light text-white" style={{fontWeight:'700'}}>
+                    <h2 className="text-[20px] leading-tight font-light text-white font-mulish" style={{fontWeight:'500'}}>
                         CEO's Vision for 2026
                     </h2>
 
-                    <p className="text-white/90 text-[15px]" style={{fontWeight: '300px'}}>
+                    <p className="text-white/90 text-[15px] font-mulish" >
                         Building Tomorrow's Workplace Today
                     </p>
                 </div>
 
                 {/* RIGHT BUTTON */}
-                <button className="absolute right-10 bottom-4 font-medium text-sm transition" style={{border: '2px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius:'8px',paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px'}}>
+                <button className="absolute right-10 bottom-4 font-medium text-sm font-mulish transition" style={{border: '2px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius:'8px',paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px'}}>
                     <span style={{fontSize: '8px',paddingBottom: '10px'}}>READ MORE</span>
                 </button>
             </div>

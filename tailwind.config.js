@@ -32,6 +32,7 @@ export default {
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],
+                mulish: ["Mulish", "sans-serif"],
             },
             boxShadow: {
                 'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1)',

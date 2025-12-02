@@ -14,7 +14,7 @@ const HolidayCalendarWidget = () => {
 
       {/* CONTENT OVERLAY */}
       <div className="absolute top-6 left-5 z-10 space-y-1">
-        <h2 className="w-80 text-white text-2xl font-bold font-['Mulish'] capitalize tracking-widest" style={{paddingTop:'3px'}}>Christmas</h2>
+        <h2 className="w-60 text-white font-Mulish capitalize tracking-widest" style={{paddingTop:'3px'}}>Christmas</h2>
         <p className="text-[8px] text-white/80">Thu, 25th December, 2025</p>
         <p className="pt-3 text-[12px] font-semibold text-white">HOLIDAY CALENDAR</p>
       </div>

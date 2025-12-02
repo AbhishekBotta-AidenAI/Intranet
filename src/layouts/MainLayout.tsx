@@ -9,9 +9,9 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     return (
-        <div className="min-h-screen flex flex-col" style={{backgroundColor: '#EBF5FF'}}>
+        <div className="min-h-screen flex flex-col" style={{backgroundColor: '#eff7ffff'}}>
             <TopNavbar />
-            <div className="flex flex-1" style={{padding:"20px"}}>
+            <div className="flex flex-1" style={{paddingLeft:"20px",paddingTop:"10px", paddingBottom:"10px",paddingRight:"10px"}}>
                 <LeftSidebar/>
                 <main className="flex-1">
                     {children}
