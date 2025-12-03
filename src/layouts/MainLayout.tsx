@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftSidebar from '../components/dashboard/LeftSidebar';
+import TextScroller from '../components/dashboard/TextScroller';
 import TopNavbar from '../components/dashboard/TopNavbar';
 import Footer from '../components/dashboard/Footer';
 
@@ -9,11 +9,12 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     return (
-        <div className="min-h-screen flex flex-col" style={{backgroundColor: '#eff7ffff'}}>
+        <div className="min-h-screen flex flex-col bg-[#F5F9FF]">
             <TopNavbar />
-            <div className="flex flex-1" style={{paddingLeft:"20px",paddingTop:"10px", paddingBottom:"10px",paddingRight:"10px"}}>
-                <LeftSidebar/>
-                <main className="flex-1">
+            <TextScroller />
+            <div className="flex flex-1">
+                {/* <LeftSidebar/> */}
+                <main className="flex-1 bg-white m-4 rounded-lg shadow-md">
                     {children}
                 </main>
             </div>

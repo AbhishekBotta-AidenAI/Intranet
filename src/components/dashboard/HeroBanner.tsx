@@ -1,92 +1,102 @@
-import { useState, useEffect } from 'react';
-
-const slides = [
-    {
-        image: '/Dashboard/Hero.png',
-        tag: 'FROM LEADERSHIP',
-        title: "CEO's Vision for 2026",
-        subtitle: "Building Tomorrow's Workplace Today",
-        buttonText: 'READ MORE',
-        tagStyle: {paddingLeft: '20px', paddingRight: '20px', border: '3px solid #75ff3fff', backgroundColor: '#D4FF7F', color: '#333'},
-        buttonStyle: {border: '2px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius:'8px',paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px'}
-    },
-    {
-        image: '/Dashboard/centerforexcellence.png',
-        tag: 'INTERNAL',
-        title: 'What is a Demo Launcher?',
-        subtitle: 'The Future For The COE Team',
-        buttonText: 'TRY NOW',
-        tagStyle: {paddingLeft: '20px', paddingRight: '20px', border: '3px solid #75ff3fff', backgroundColor: '#D4FF7F', color: '#333'},
-        buttonStyle: {border: '2px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius:'8px',paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px'}
-    },
-    {
-        image: '/Dashboard/CoffeeCulture.png',
-        tag: 'CULTURE',
-        title: 'Coffee Culture at Aiden AI',
-        subtitle: "You're not the only one on a coffee roll! See how others feel about this.",
-        buttonText: 'READ MORE',
-        tagStyle: {paddingLeft: '20px', paddingRight: '20px', border: '3px solid #75ff3fff', backgroundColor: '#D4FF7F', color: '#333'},
-        buttonStyle: {border: '2px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius:'8px',paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px'}
-   },
-    {
-        image: '/Dashboard/engangementCommittee.png',
-        tag: 'FROM LEADERSHIP',
-        title: 'Engagement Committee Open',
-        subtitle: 'Become a part of Aiden Internal, Apply Now',
-        buttonText: 'READ MORE',
-        tagStyle: {paddingLeft: '20px', paddingRight: '20px', border: '3px solid #75ff3fff', backgroundColor: '#D4FF7F', color: '#333'},
-        buttonStyle: {border: '2px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius:'8px',paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px'}
-   }
-];
+import { useState } from 'react';
 
 const HeroBanner = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [activePath, setActivePath] = useState('/');
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-        }, 10000); // 10 seconds
+    const tagStyle = { paddingLeft: '20px', paddingRight: '20px', border: '1px solid #75ff3fff', backgroundColor: '#D4FF7F', color: '#333' };
+    const buttonStyle = { border: '1px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius: '8px', paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px' };
 
-        return () => clearInterval(timer);
-    }, []);
-
-    const slide = slides[currentSlide];
+    const menuItems = [
+        { svg: '/Dashboard/home.svg', label: 'Home', path: '/' },
+        { svg: '/Dashboard/me.svg', label: 'Me', path: '/me' },
+        { svg: '/Dashboard/Hrpolicies.svg', label: 'HR Policies', path: '/hr-policies' },
+        { svg: '/Dashboard/Myteam.svg', label: 'My Team', path: '/my-team' },
+        { svg: '/Dashboard/myfinances.svg', label: 'My Finances', path: '/my-finances' },
+        { svg: '/Dashboard/org.svg', label: 'Org', path: '/org' },
+        { svg: '/Dashboard/Engage.svg', label: 'Engage', path: '/engage' },
+    ];
 
     return (
-        <div className="relative h-[150px] rounded-[20px] overflow-hidden" style={{padding:"5px"}}>
+        <div className="relative h-full overflow-hidden">
 
             {/* Background */}
             <img
-                src={slide.image}
+                src="/Dashboard/heroPicture.png"
                 className="absolute inset-0 w-full h-full object-cover"
                 alt="Hero Banner"
             />
 
             {/* Subtle overlay */}
-            <div className="absolute inset-0 bg-black/20"></div>
+            <div className="absolute inset-0 bg-black/40"></div>
+
+            {/* Sidebar Overlay */}
+            <div
+                className={`absolute top-0 left-0 h-full z-30 bg-[#073663] w-[60px] flex flex-col items-center py-4 gap-6 transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+            >
+                {/* Close/Toggle Button (Hamburger inside sidebar) */}
+                <button
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="w-[40px] h-[40px] flex items-center justify-center rounded-br-2xl hover:opacity-80 mb-4"
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+
+                {/* Menu Icons */}
+                {menuItems.map((item, index) => {
+                    const isActive = activePath === item.path;
+                    return (
+                        <div
+                            key={index}
+                            onClick={() => setActivePath(item.path)}
+                            className={`p-2 rounded-sm cursor-pointer transition ${isActive ? 'bg-blue-600' : 'hover:bg-white/10'}`}
+                            style={{ padding: "8px" }}
+                        >
+                            <img
+                                src={item.svg}
+                                alt={item.label}
+                                className={`w-6 h-6 object-contain ${isActive ? 'brightness-0 invert' : ''}`}
+                            />
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Hamburger Menu Trigger (Visible when sidebar is closed) */}
+            {!isSidebarOpen && (
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="absolute top-0 left-0 z-20 w-[50px] h-[50px] flex items-center justify-center transition hover:opacity-90"
+                    style={{ backgroundColor: '#073663' }}
+                >
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12H21M3 6H21M3 18H21" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+            )}
 
             {/* Content */}
-            <div className="relative z-10 h-full flex flex-col px-10 py-6">
+            <div className="relative z-10 h-full flex flex-col justify-between p-8 text-white" style={{ paddingLeft: "80px", paddingBottom: "100px" }}>
 
-                {/* LEFT */}
-                <div className="flex flex-col" style={{padding:"10px"}}>
-                    <div className="flex items-center gap-2 mb-4" style={{paddingBottom:"20px",paddingTop:"20px",paddingLeft:"30px"}}>
-                        <div className="text-[10px] text-gray-800 rounded-full font-semibold" style={slide.tagStyle}>
-                            {slide.tag}
+                <div >
+                    <div className="flex items-center gap-2 mb-4" style={{ paddingTop: "80px", paddingBottom: "30px" }}>
+                        <div className="text-sm font-semibold px-3 py-1 rounded-full" style={tagStyle}>
+                            FROM LEADERSHIP
                         </div>
                     </div>
-                    <h2 className="text-[20px] leading-tight font-light text-white font-mulish" style={{fontWeight:'500',paddingLeft:"30px"}}>
-                        {slide.title}
+                    <h2 className="text-lg font-bold leading-tight">
+                        A Bold Vision for 2026 - Discover What's Next
                     </h2>
-
-                    <p className="text-white/90 text-[15px] font-mulish mt-1" style={{paddingLeft:"30px"}} >
-                        {slide.subtitle}
-                    </p>
                 </div>
 
-                {/* RIGHT BUTTON */}
-                <button className="absolute right-10 bottom-4 font-medium text-sm font-mulish transition" style={slide.buttonStyle}>
-                    <span style={{fontSize: '8px',paddingBottom: '10px'}}>{slide.buttonText}</span>
+                <p className="text-sm max-w-md" style={{ paddingTop: "300px", paddingRight: "150px" }}>
+                    Explore our CEO's strategic priorities for 2026: operational excellence, AI transformation, culture-first innovation, and to...
+                </p>
+
+                <button className="self-start font-medium text-sm transition" style={buttonStyle}>
+                    <span>READ MORE</span>
                 </button>
             </div>
         </div>

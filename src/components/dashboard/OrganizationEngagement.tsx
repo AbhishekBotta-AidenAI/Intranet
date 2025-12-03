@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  MessageSquare, BarChart2 } from "lucide-react";
+import { MessageSquare, BarChart2 } from "lucide-react";
 
 const OrganizationEngagement = () => {
     const [activeTab, setActiveTab] = useState("post");
@@ -13,7 +13,7 @@ const OrganizationEngagement = () => {
                 flex items-center overflow-hidden mb-4
                 h-[44px]
             "
-            style={{padding:"5px"}}>
+                style={{ padding: "5px" }}>
 
                 {/* POST TAB */}
                 <button
@@ -27,8 +27,8 @@ const OrganizationEngagement = () => {
                         }
                     `}
                 >
-                    <MessageSquare size={16} />
                     Post
+                    <img src="/Dashboard/postIcon.png" style={{ width: "16px", height: "16px" }} />
                 </button>
 
                 {/* POLL TAB */}
@@ -43,8 +43,8 @@ const OrganizationEngagement = () => {
                         }
                     `}
                 >
-                    <BarChart2 size={16} />
                     Poll
+                    <img src="/Dashboard/PollIcon.png" style={{ width: "16px", height: "16px" }} />
                 </button>
             </div>
 
@@ -65,7 +65,7 @@ const OrganizationEngagement = () => {
                         resize-none
                         placeholder:text-neutral-400
                     "
-                    style={{padding:"10px"}}
+                    style={{ padding: "10px" }}
                 />
             </div>
         </div>
