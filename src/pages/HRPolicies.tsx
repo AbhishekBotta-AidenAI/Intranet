@@ -62,22 +62,7 @@ const HRPolicies = () => {
         }
     };
 
-    // Helper function to convert SharePoint link to embed URL
-    const getEmbedUrl = (link: string): string => {
-        if (link) {
-            // For SharePoint, replace 'view.aspx' with 'WopiFrame.aspx?sourcedoc=...' and action=embedview
-            if (link.includes('sharepoint.com')) {
-                const url = new URL(link);
-                const sourcedoc = url.searchParams.get('sourcedoc');
-                if (sourcedoc) {
-                    return `${url.origin}${url.pathname.replace(/[^/]*$/, 'WopiFrame.aspx')}?sourcedoc=${sourcedoc}&action=embedview`;
-                }
-                // Fallback for links that are not in the expected format
-                return link.split('?')[0] + '?web=1';
-            }
-        }
-        return link;
-    };
+    
 
     const columnDefs = useMemo<ColDef<PolicyDocument>[]>(
         () => [
