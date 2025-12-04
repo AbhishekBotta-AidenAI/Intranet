@@ -39,44 +39,30 @@ const HRPolicies = () => {
             }
         };
 
-        // Get user's location from the browser
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    console.log('User position:', latitude, longitude);
+        const fetchLocationAndDocuments = async () => {
+            try {
+                // Fetch location based on IP address
+                const locationResponse = await fetch('https://ipapi.co/json/');
+                if (!locationResponse.ok) {
+                    throw new Error('IP-based geolocation request failed');
+                }
+                const locationData = await locationResponse.json();
+                const country = locationData.country_name;
 
-                    try {
-                        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-                        if (!geoResponse.ok) {
-                            throw new Error('Reverse geocoding request failed');
-                        }
-                        const geoData = await geoResponse.json();
-                        const country = geoData.address?.country;
-
-                        if (country) {
-                            console.log('Detected country:', country);
-                            fetchDocuments(country);
-                        } else {
-                            console.error('Could not determine country from geocoding response. Defaulting to India.');
-                            fetchDocuments('India');
-                        }
-                    } catch (geoErr) {
-                        console.error('Error during reverse geocoding:', geoErr);
-                        fetchDocuments('India'); // Fallback on error
-                    }
-                },
-                (err) => {
-                    console.error('Geolocation error:', err.message);
-                    // If user denies permission or there's an error, default to India
+                if (country) {
+                    console.log('Detected country via IP:', country);
+                    fetchDocuments(country);
+                } else {
+                    console.error('Could not determine country from IP. Defaulting to India.');
                     fetchDocuments('India');
                 }
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-            // If browser doesn't support geolocation, default to India
-            fetchDocuments('India');
-        }
+            } catch (error) {
+                console.error('Error fetching IP-based location:', error);
+                fetchDocuments('India'); // Fallback to India on any error
+            }
+        };
+
+        fetchLocationAndDocuments();
     }, []);
 
     const handleView = (documentId: number) => {
