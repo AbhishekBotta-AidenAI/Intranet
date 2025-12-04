@@ -40,6 +40,13 @@ const HRPolicies = () => {
         };
 
         const fetchLocationAndDocuments = async () => {
+            const countryCodeMap: { [key: string]: string } = {
+                US: 'USA',
+                IN: 'India',
+                CA: 'Canada',
+                // Add other mappings as needed
+            };
+
             try {
                 // Fetch location based on IP address
                 const locationResponse = await fetch('https://ipapi.co/json/');
@@ -47,15 +54,14 @@ const HRPolicies = () => {
                     throw new Error('IP-based geolocation request failed');
                 }
                 const locationData = await locationResponse.json();
-                const country = locationData.country_name;
+                const countryCode = locationData.country; // e.g., 'US', 'IN'
 
-                if (country) {
-                    console.log('Detected country via IP:', country);
-                    fetchDocuments(country);
-                } else {
-                    console.error('Could not determine country from IP. Defaulting to India.');
-                    fetchDocuments('India');
-                }
+                // Map the code to the full name, defaulting to 'India'
+                const countryName = countryCodeMap[countryCode] || 'India';
+
+                console.log(`Detected country code: ${countryCode}, mapped to: ${countryName}`);
+                fetchDocuments(countryName);
+
             } catch (error) {
                 console.error('Error fetching IP-based location:', error);
                 fetchDocuments('India'); // Fallback to India on any error
