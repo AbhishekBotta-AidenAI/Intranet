@@ -19,7 +19,7 @@ const Dashboard = () => {
             </div>
 
             {/* Right side Content */}
-            <div className="w-[65%] p-6 space-y-6" style={{ paddingLeft: "20px" }}>
+            <div className="w-[65%] p-6 space-y-6" style={{ paddingLeft: "20px",paddingRight: "40px" }}>
                 {/* Greeting Section */}
                 <div className="mb-6" style={{ paddingBottom: "20px", paddingTop: "20px" }}>
                     <h2 className="text-2xl font-bold text-neutral-900 mb-1">
