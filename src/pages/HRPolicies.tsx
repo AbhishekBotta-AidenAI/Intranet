@@ -22,10 +22,12 @@ const HRPolicies = () => {
     const [documents, setDocuments] = useState<PolicyDocument[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedLocation, setSelectedLocation] = useState('India'); // Default location
 
-    // Fetch documents on component mount
+    // Fetch documents on component mount or when selectedLocation changes
     useEffect(() => {
         const fetchDocuments = async (location: string) => {
+            if (!location) return; // Do not fetch if no location is selected
             try {
                 setLoading(true);
                 const response = await DocumentAPI.getDocuments(location);
@@ -39,37 +41,39 @@ const HRPolicies = () => {
             }
         };
 
-        const fetchLocationAndDocuments = async () => {
-            const countryCodeMap: { [key: string]: string } = {
-                US: 'USA',
-                IN: 'India',
-                CA: 'Canada',
-                // Add other mappings as needed
-            };
+        fetchDocuments(selectedLocation);
 
-            try {
-                // Fetch location based on IP address
-                const locationResponse = await fetch('https://ipapi.co/json/');
-                if (!locationResponse.ok) {
-                    throw new Error('IP-based geolocation request failed');
-                }
-                const locationData = await locationResponse.json();
-                const countryCode = locationData.country; // e.g., 'US', 'IN'
+        // const fetchLocationAndDocuments = async () => {
+        //     const countryCodeMap: { [key: string]: string } = {
+        //         US: 'USA',
+        //         IN: 'India',
+        //         CA: 'Canada',
+        //         // Add other mappings as needed
+        //     };
 
-                // Map the code to the full name, defaulting to 'India'
-                const countryName = countryCodeMap[countryCode] || 'India';
+        //     try {
+        //         // Fetch location based on IP address
+        //         const locationResponse = await fetch('https://ipapi.co/json/');
+        //         if (!locationResponse.ok) {
+        //             throw new Error('IP-based geolocation request failed');
+        //         }
+        //         const locationData = await locationResponse.json();
+        //         const countryCode = locationData.country; // e.g., 'US', 'IN'
 
-                console.log(`Detected country code: ${countryCode}, mapped to: ${countryName}`);
-                fetchDocuments(countryName);
+        //         // Map the code to the full name, defaulting to 'India'
+        //         const countryName = countryCodeMap[countryCode] || 'India';
 
-            } catch (error) {
-                console.error('Error fetching IP-based location:', error);
-                fetchDocuments('India'); // Fallback to India on any error
-            }
-        };
+        //         console.log(`Detected country code: ${countryCode}, mapped to: ${countryName}`);
+        //         fetchDocuments(countryName);
 
-        fetchLocationAndDocuments();
-    }, []);
+        //     } catch (error) {
+        //         console.error('Error fetching IP-based location:', error);
+        //         fetchDocuments('India'); // Fallback to India on any error
+        //     }
+        // };
+
+        // fetchLocationAndDocuments();
+    }, [selectedLocation]);
 
     const handleView = (documentId: number) => {
         const doc = documents.find(d => d.id === documentId);
@@ -162,10 +166,23 @@ const HRPolicies = () => {
     );
 
     return (
-        <div className="w-full min-h-screen px-6 py-6" style={{paddingLeft:"40px",paddingRight:"40px", backgroundColor: '#EBF5FF'}}>
+        <div className="w-full min-h-screen px-6 py-6" style={{padding:"50px", backgroundColor: '#EBF5FF'}}>
             {/* Header */}
-            <div className="mb-8">
-                <p style={{fontSize:"20px",paddingBottom:"20px",fontWeight: 500}}>Organization Documents</p>
+            <div className="mb-8 flex justify-between items-center">
+                <p style={{fontSize:"20px", fontWeight: 500,paddingBottom:"40px"}}>Organization Documents</p>
+                <div className="flex items-center gap-2">
+                    <label htmlFor="location-select" className="text-sm font-medium text-gray-700">Location:</label>
+                    <select
+                        id="location-select"
+                        value={selectedLocation}
+                        onChange={(e) => setSelectedLocation(e.target.value)}
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    >
+                        <option>India</option>
+                        <option>USA</option>
+                        <option>Canada</option>
+                    </select>
+                </div>
             </div>
 
             {/* Error Message */}

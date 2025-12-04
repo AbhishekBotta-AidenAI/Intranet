@@ -63,7 +63,8 @@ const HeroBanner = () => {
                             <img
                                 src={item.svg}
                                 alt={item.label}
-                                className={`w-6 h-6 object-contain ${isActive ? 'brightness-0 invert' : ''}`}
+                                className="w-6 h-6 object-contain"
+                                style={{ filter: 'brightness(0) invert(1)' }}
                             />
                             <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                                 {item.label}
