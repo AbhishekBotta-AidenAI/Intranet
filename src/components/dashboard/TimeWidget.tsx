@@ -22,7 +22,7 @@ const TimeWidget = () => {
             />
 
             {/* Overlay Content */}
-            <div className="absolute top-4 left-5 space-y-1">
+            <div className="absolute bottom-4 left-5 space-y-1">
 
                 {/* TIME */}
                 <div className="flex items-end gap-1">

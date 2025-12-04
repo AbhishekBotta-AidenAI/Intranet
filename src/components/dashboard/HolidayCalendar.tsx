@@ -13,11 +13,11 @@ const HolidayCalendarWidget = () => {
       <div className="absolute inset-0 bg-black/30 rounded-2xl"></div>
 
       {/* CONTENT OVERLAY */}
-      <div className="absolute top-4 left-5 z-10 space-y-1">
-        <h2 className="w-60 text-white font-Mulish capitalize tracking-widest text-sm">Christmas</h2>
+      <div className="absolute bottom-4 left-5 z-10 space-y-1">
+        <h2 className="w-60 text-white font-Mulish capitalize tracking-widest text-[20px]">Christmas</h2>
         <p className="text-[10px] text-white/80">Thu, 25th December, 2025</p>
         <p className="pt-2 text-[11px] font-semibold text-white">HOLIDAY CALENDAR</p>
-      </div>
+      </div>  
 
       {/* VIEW ALL Button */}
       <button

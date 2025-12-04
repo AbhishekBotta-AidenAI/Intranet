@@ -1,8 +1,8 @@
 const QuickLinks = () => {
     const links = [
-        { label: "Payroll", sublabel: "ADP" },
-        { label: "Time & Attendance", sublabel: "KEKA" },
-        { label: "Wellness", sublabel: "SEQUIOA" },
+        { label: "Payroll", sublabel: "ADP", url: "https://www.adp.com/" },
+        { label: "Time & Attendance", sublabel: "KEKA", url: "https://www.keka.com/" },
+        { label: "Wellness", sublabel: "SEQUIOA", url: "https://www.sequoia.com/" },
     ];
 
     return (
@@ -46,6 +46,7 @@ const QuickLinks = () => {
 
                                 {/* Button */}
                                 <button
+                                    onClick={() => window.open(item.url, '_blank')}
                                     className="
                                         text-white backdrop-blur-sm
                                         text-[10px] font-semibold px-2 py-1
