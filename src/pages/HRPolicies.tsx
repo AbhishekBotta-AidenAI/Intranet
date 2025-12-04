@@ -2,7 +2,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { useMemo, useState, useEffect } from 'react';
-import { Eye, Download, Loader, X } from 'lucide-react';
+import { Eye, Download, Loader } from 'lucide-react';
 import type { ColDef } from 'ag-grid-community';
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import DocumentAPI from '../services/api';
@@ -22,8 +22,6 @@ const HRPolicies = () => {
     const [documents, setDocuments] = useState<PolicyDocument[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedDocument, setSelectedDocument] = useState<PolicyDocument | null>(null);
-    const [modalOpen, setModalOpen] = useState(false);
 
     // Fetch documents on component mount
     useEffect(() => {
@@ -47,49 +45,36 @@ const HRPolicies = () => {
     const handleView = (documentId: number) => {
         const doc = documents.find(d => d.id === documentId);
         if (doc) {
-            setSelectedDocument(doc);
-            setModalOpen(true);
+            window.open(doc.link, '_blank');
         }
     };
 
-    const handleDownload = async (documentId: number) => {
-        try {
-            const doc = documents.find(d => d.id === documentId);
-            if (doc && doc.link) {
-                // Extract file ID from Google Drive link
-                const fileIdMatch = doc.link.match(/\/d\/([a-zA-Z0-9-_]+)/);
-                if (fileIdMatch && fileIdMatch[1]) {
-                    const fileId = fileIdMatch[1];
-                    // Direct download link for Google Drive
-                    const downloadUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
-                    window.location.href = downloadUrl;
-                } else {
-                    // Fallback: open the link in new tab
-                    window.open(doc.link, '_blank');
-                }
-            }
-        } catch (err) {
-            console.error('Failed to download document:', err);
-            alert('Failed to download document');
+    const handleDownload = (doc: PolicyDocument) => {
+        if (doc && doc.link) {
+            // For SharePoint, append '?download=1' to force download
+            const downloadUrl = doc.link.split('?')[0] + '?download=1';
+            const linkElement = document.createElement('a');
+            linkElement.href = downloadUrl;
+            linkElement.setAttribute('download', doc.name || 'document'); // Use document name for the file
+            document.body.appendChild(linkElement);
+            linkElement.click();
+            document.body.removeChild(linkElement);
         }
     };
 
-    // Helper function to convert Google Drive link to embed URL
+    // Helper function to convert SharePoint link to embed URL
     const getEmbedUrl = (link: string): string => {
-        // Extract file ID from Google Drive link
-        const fileIdMatch = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (fileIdMatch && fileIdMatch[1]) {
-            const fileId = fileIdMatch[1];
-            // For Google Docs/Sheets/Slides
-            if (link.includes('docs.google.com')) {
-                return `https://docs.google.com/document/d/${fileId}/preview`;
-            } else if (link.includes('sheets.google.com')) {
-                return `https://docs.google.com/spreadsheets/d/${fileId}/preview`;
-            } else if (link.includes('slides.google.com')) {
-                return `https://docs.google.com/presentation/d/${fileId}/preview`;
+        if (link) {
+            // For SharePoint, replace 'view.aspx' with 'WopiFrame.aspx?sourcedoc=...' and action=embedview
+            if (link.includes('sharepoint.com')) {
+                const url = new URL(link);
+                const sourcedoc = url.searchParams.get('sourcedoc');
+                if (sourcedoc) {
+                    return `${url.origin}${url.pathname.replace(/[^/]*$/, 'WopiFrame.aspx')}?sourcedoc=${sourcedoc}&action=embedview`;
+                }
+                // Fallback for links that are not in the expected format
+                return link.split('?')[0] + '?web=1';
             }
-            // Default: Try document preview
-            return `https://docs.google.com/document/d/${fileId}/preview`;
         }
         return link;
     };
@@ -139,7 +124,7 @@ const HRPolicies = () => {
                             <Eye size={18} />
                         </button>
                         <button 
-                            onClick={() => handleDownload(params.data.id)}
+                            onClick={() => handleDownload(params.data)}
                             className="p-2 hover:bg-neutral-100 rounded-lg transition-colors text-neutral-600 hover:text-neutral-900"
                             title="Download document"
                         >
@@ -205,34 +190,6 @@ const HRPolicies = () => {
                         rowHeight={30}
                         domLayout='autoHeight'
                     />
-                </div>
-            )}
-
-            {/* Document Viewer Modal */}
-            {modalOpen && selectedDocument && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full h-[95vh] flex flex-col overflow-hidden relative">
-                        {/* Close Button - Top Right */}
-                        <button
-                            onClick={() => {
-                                setModalOpen(false);
-                                setSelectedDocument(null);
-                            }}
-                            className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white rounded-lg transition-colors z-10"
-                        >
-                            <X size={24} className="text-gray-600" />
-                        </button>
-
-                        {/* Modal Body - IFrame for document */}
-                        <div className="flex-1 overflow-auto">
-                            <iframe
-                                src={getEmbedUrl(selectedDocument.link)}
-                                title={selectedDocument.name}
-                                className="w-full h-full border-0"
-                                allow="fullscreen"
-                            />
-                        </div>
-                    </div>
                 </div>
             )}
         </div>

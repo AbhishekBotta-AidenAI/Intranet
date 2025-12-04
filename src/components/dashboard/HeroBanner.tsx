@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroBanner = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activePath, setActivePath] = useState('/');
+    const navigate = useNavigate();
 
     const tagStyle = { paddingLeft: '20px', paddingRight: '20px', border: '1px solid #75ff3fff', backgroundColor: '#D4FF7F', color: '#333' };
     const buttonStyle = { border: '1px solid #75ff3fff', color: '#A7EC1C', backgroundColor: '#A7EC1C24', borderRadius: '8px', paddingBottom: '3px', paddingLeft: '20px', paddingRight: '20px' };
@@ -50,7 +52,11 @@ const HeroBanner = () => {
                     return (
                         <div
                             key={index}
-                            onClick={() => setActivePath(item.path)}
+                            onClick={() => {
+                                setActivePath(item.path);
+                                navigate(item.path);
+                                setIsSidebarOpen(false); // Close sidebar on navigation
+                            }}
                             className={`p-2 rounded-sm cursor-pointer transition ${isActive ? 'bg-blue-600' : 'hover:bg-white/10'}`}
                             style={{ padding: "8px" }}
                         >
