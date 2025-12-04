@@ -9,6 +9,7 @@ export interface Document {
     description: string;
     last_updated: string;
     link: string;
+    location: string;
     created_at: string;
     updated_at: string;
 }
@@ -56,9 +57,13 @@ class DocumentAPI {
     /**
      * Fetch all documents
      */
-    async getDocuments(): Promise<DocumentListResponse> {
+    async getDocuments(location?: string): Promise<DocumentListResponse> {
         try {
-            const response = await this.client.get<DocumentListResponse>('/api/documents/');
+            const params = new URLSearchParams();
+            if (location) {
+                params.append('location', location);
+            }
+            const response = await this.client.get<DocumentListResponse>(`/api/documents/`, { params });
             return response.data;
         } catch (error) {
             console.error('Failed to fetch documents:', error);

@@ -16,6 +16,7 @@ interface PolicyDocument {
     description: string;
     last_updated: string;
     link: string;
+    location: string;
 }
 
 const HRPolicies = () => {
@@ -25,10 +26,10 @@ const HRPolicies = () => {
 
     // Fetch documents on component mount
     useEffect(() => {
-        const fetchDocuments = async () => {
+        const fetchDocuments = async (location: string) => {
             try {
                 setLoading(true);
-                const response = await DocumentAPI.getDocuments();
+                const response = await DocumentAPI.getDocuments(location);
                 setDocuments(response.documents);
                 setError(null);
             } catch (err) {
@@ -39,7 +40,26 @@ const HRPolicies = () => {
             }
         };
 
-        fetchDocuments();
+        // Get user's location from the browser
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log('User position:', position.coords);
+                    // TODO: Implement reverse geocoding to get country from coordinates
+                    // For now, defaulting to "India"
+                    fetchDocuments('India');
+                },
+                (err) => {
+                    console.error('Geolocation error:', err.message);
+                    // If user denies permission or there's an error, default to India
+                    fetchDocuments('India');
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+            // If browser doesn't support geolocation, default to India
+            fetchDocuments('India');
+        }
     }, []);
 
     const handleView = (documentId: number) => {
