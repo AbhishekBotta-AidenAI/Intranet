@@ -57,7 +57,7 @@ const HeroBanner = () => {
                                 navigate(item.path);
                                 setIsSidebarOpen(false); // Close sidebar on navigation
                             }}
-                            className={`p-2 rounded-sm cursor-pointer transition ${isActive ? 'bg-blue-600' : 'hover:bg-white/10'}`}
+                            className={`p-2 rounded-sm cursor-pointer transition relative group ${isActive ? 'bg-blue-600' : 'hover:bg-white/10'}`}
                             style={{ padding: "8px" }}
                         >
                             <img
@@ -65,6 +65,9 @@ const HeroBanner = () => {
                                 alt={item.label}
                                 className={`w-6 h-6 object-contain ${isActive ? 'brightness-0 invert' : ''}`}
                             />
+                            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                {item.label}
+                            </div>
                         </div>
                     );
                 })}

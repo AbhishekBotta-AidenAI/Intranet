@@ -1,5 +1,4 @@
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { useMemo, useState, useEffect } from 'react';
 import { Eye, Download, Loader } from 'lucide-react';
@@ -43,11 +42,29 @@ const HRPolicies = () => {
         // Get user's location from the browser
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    console.log('User position:', position.coords);
-                    // TODO: Implement reverse geocoding to get country from coordinates
-                    // For now, defaulting to "India"
-                    fetchDocuments('India');
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    console.log('User position:', latitude, longitude);
+
+                    try {
+                        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+                        if (!geoResponse.ok) {
+                            throw new Error('Reverse geocoding request failed');
+                        }
+                        const geoData = await geoResponse.json();
+                        const country = geoData.address?.country;
+
+                        if (country) {
+                            console.log('Detected country:', country);
+                            fetchDocuments(country);
+                        } else {
+                            console.error('Could not determine country from geocoding response. Defaulting to India.');
+                            fetchDocuments('India');
+                        }
+                    } catch (geoErr) {
+                        console.error('Error during reverse geocoding:', geoErr);
+                        fetchDocuments('India'); // Fallback on error
+                    }
                 },
                 (err) => {
                     console.error('Geolocation error:', err.message);
