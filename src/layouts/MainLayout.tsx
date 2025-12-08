@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNavbar from '../components/dashboard/TopNavbar';
 import Footer from '../components/dashboard/Footer';
 import ChatBot from '../components/dashboard/ChatBot';
-import { ChatContext } from '../context/ChatContext';
+// import { ChatContext } from '../context/ChatContext';
 
 interface MainLayoutProps {
     children: React.ReactNode;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-    const { isChatExpanded } = useContext(ChatContext);
+    // const { isChatExpanded } = useContext(ChatContext);
     return (
         <div className="flex flex-col h-screen" style={{background: 'radial-gradient(circle at 20% 80%, #a4d8ff 0%, transparent 40%), radial-gradient(circle at 80% 20%, #cfeaff 0%, transparent 50%), #f9fbe5ff'}}>
             {/* Top Navbar - Fixed */}
