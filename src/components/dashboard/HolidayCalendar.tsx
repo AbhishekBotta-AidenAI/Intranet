@@ -4,7 +4,7 @@ const HolidayCalendarWidget = () => {
 
       {/* Background Image */}
       <img
-        src="/Dashboard/christmas.png"
+        src="/dashboard/christmas.png"
         alt="Christmas"
         className="w-full h-[260px] object-cover rounded-lg"
       />
