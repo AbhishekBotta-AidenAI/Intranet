@@ -6,12 +6,12 @@ const TextScroller = () => {
     ];
 
     return (
-        <div className="w-full overflow-hidden bg-[#C3D7ED] text-[#0A3D62] py-2">
-            <div className="animate-scroll flex whitespace-nowrap gap-10 pr-12">
+        <div className="w-full overflow-hidden" style={{ background: '#e9f1e8', color: '#0A3D62' }}>
+            <div className="animate-scroll flex whitespace-nowrap gap-10 pr-12" style={{padding:"5px"}}>
                 {[...messages, ...messages].map((msg, index) => (
-                    <div key={index} className="flex items-center gap-10">
-                        <span className="text-sm font-medium font-mulish text-[#03172B]">{msg}</span>
-                        <span className="text-white text-2xl leading-none justify-center">•</span>
+                    <div key={index} className="flex items-center gap-8">
+                        <span className="text-[12px] font-medium font-mulish text-[#03172B]">{msg}</span>
+                        <span className="text-black text-2xl leading-none justify-center">•</span>
                     </div>
                 ))}
             </div>

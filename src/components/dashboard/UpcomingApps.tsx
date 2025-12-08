@@ -9,24 +9,20 @@ const UpcomingApps = () => {
 
     return (
         <div>
-            <h3 className="text-sm font-semibold text-neutral-900 mb-4" style={{paddingTop:"10px",paddingBottom:"20px"}}>
-                Upcoming On The App
-            </h3>
-
-            <div className="flex flex-wrap justify-center md:justify-start gap-8" >
+            <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3" >
                 {apps.map((app, index) => (
                     <button
                         key={index}
-                        className="flex flex-col items-center gap-2 hover:scale-105 transition-transform"
+                        className="flex flex-col items-center gap-1 hover:scale-105 transition-transform"
                     >
-                        <div className={`w-12 h-12 ${app.color} rounded-xl flex items-center justify-center text-white shadow-md p-2`}>
+                        <div className={`w-8 md:w-10 h-8 md:h-10 ${app.color} rounded-lg flex items-center justify-center text-white shadow-md p-1`}>
                             <img 
                                 src={app.icon} 
                                 alt={app.label}
                                 className="w-full h-full object-contain"
                             />
                         </div>
-                        <span className="text-xs text-neutral-700 font-medium text-center">
+                        <span className="text-[8px] md:text-xs text-neutral-700 font-medium text-center">
                             {app.label}
                         </span>
                     </button>

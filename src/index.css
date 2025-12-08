@@ -68,9 +68,82 @@ body {
 }
 
 .animate-scroll {
-    animation: scroll 20s linear infinite;
+    animation: scroll 5s linear infinite;
 }
 
 .animate-scroll:hover {
     animation-play-state: paused;
+}
+
+/* Avatar glow wrappers */
+.avatar-glow {
+    position: relative;
+    display: inline-flex;
+    /* border-radius: 9999px; */
+    overflow: visible;
+}
+
+.avatar-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;                  /* match the exact shape of the image */
+    transform: scale(1.4);     /* expand glow */
+    border-radius: 0;          /* no circle */
+    z-index: 0;
+    filter: blur(40px);
+    opacity: 1;
+    pointer-events: none;
+}
+
+
+/* Make sure the inner avatar element sits above the glow */
+.avatar-glow > * {
+    position: relative;
+    z-index: 10;
+}
+
+.glow-lime::before {
+    background: radial-gradient(circle at center, rgba(134,239,172,0.95) 0%, rgba(34,197,94,0.36) 30%, rgba(34,197,94,0) 60%);
+}
+
+.glow-blue::before {
+    background: radial-gradient(circle at center, rgba(147,197,253,0.95) 0%, rgba(59,130,246,0.36) 30%, rgba(59,130,246,0) 60%);
+}
+
+.glow-pink::before {
+    background: radial-gradient(circle at center, rgba(249,168,212,0.95) 0%, rgba(236,72,153,0.36) 30%, rgba(236,72,153,0) 60%);
+}
+
+/* MoodTracker hover mask and hover background */
+.mood-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.mood-circle {
+    position: relative;
+    z-index: 5;
+}
+
+.mood-hover-mask {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 160ms ease;
+    pointer-events: none;
+    z-index: 15;
+    filter: blur(0px);
+}
+
+.mood-wrapper:hover .mood-hover-mask {
+    opacity: 1;
+}
+
+.mood-wrapper:hover .mood-circle {
+    background: #368ADB !important;
 }

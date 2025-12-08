@@ -80,14 +80,14 @@ const TopNavbar = () => {
                             />
                         </div>
                         <div className="text-left hidden sm:block">
-                            <p className="text-sm font-semibold text-neutral-900">Vaishno Medavarom</p>
+                            <p className="text-sm font-semibold text-neutral-900">Vaishno Medavaram</p>
                             <p className="text-xs text-neutral-500">Center of Excellence</p>
-                            <p className="text-xs text-neutral-400">Seat at COE</p>
+                            <p className="text-xs text-neutral-400">head at COE</p>
                         </div>
                     </div>
 
                     <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors" style={{ paddingRight: "10px" }}>
-                        <img src="/Dashboard/LogoutIcon.png" alt="Logout" className="text-black hover:text-blue-600 transition-colors" style={{ width: "30px", height: "30px" }} />
+                        <img src="/Dashboard/LogoutIcon.png" alt="Logout" className="text-black hover:text-blue-600 transition-colors" style={{ width: "20px", height: "30px" }} />
                     </button>
                 </div>
             </div>

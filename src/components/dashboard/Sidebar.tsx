@@ -1,46 +1,61 @@
-import { Home, Newspaper, FileText, Users, Settings, LogOut } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+    const [activePath, setActivePath] = useState('/');
+    const navigate = useNavigate();
+
     const menuItems = [
-        { icon: Home, label: 'Dashboard', active: true },
-        { icon: Newspaper, label: 'News', active: false },
-        { icon: FileText, label: 'Documents', active: false },
-        { icon: Users, label: 'Directory', active: false },
-        { icon: Settings, label: 'Settings', active: false },
+        { svg: '/Dashboard/home.svg', label: 'Home', path: '/' },
+        { svg: '/Dashboard/me.svg', label: 'Me', path: '/me' },
+        { svg: '/Dashboard/Hrpolicies.svg', label: 'HR Policies', path: '/hr-policies' },
+        { svg: '/Dashboard/Myteam.svg', label: 'My Team', path: '/my-team' },
+        { svg: '/Dashboard/myfinances.svg', label: 'My Finances', path: '/my-finances' },
+        { svg: '/Dashboard/org.svg', label: 'Org', path: '/org' },
+        { svg: '/Dashboard/Engage.svg', label: 'Engage', path: '/engage' },
+        { svg: '/Dashboard/QuestionIcon.png', label: 'Info', path: '/info' },
     ];
 
     return (
-        <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen fixed left-0 top-0 border-r border-slate-800">
-            <div className="p-6 flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-xl">
-                    A
-                </div>
-                <span className="text-xl font-bold tracking-tight">Aiden</span>
+        <div className="w-[60px] bg-[#03172B] flex flex-col items-center py-4 gap-6 h-full" style={{boxShadow: '-23px 12px 62.9px 0px #1F89EF61 inset'}}>
+            {/* Menu Icons */}
+            <div className="flex flex-col gap-4 flex-1" style={{paddingTop:"20px"}}>
+                {menuItems.map((item, index) => {
+                    const isActive = activePath === item.path;
+                    return (
+                        <button
+                            key={index}
+                            onClick={() => {
+                                setActivePath(item.path);
+                                navigate(item.path);
+                            }}
+                            className={`p-2 transition relative group flex items-center justify-center ${
+                                isActive ? 'bg-blue-600 rounded-sm' : 'hover:bg-white/10 rounded-sm'
+                            }`}
+                            style={{ padding: "8px" }}
+                            title={item.label}
+                        >
+                            <img
+                                src={item.svg}
+                                alt={item.label}
+                                className="w-5 h-5 object-contain"
+                                style={{ filter: 'brightness(0) invert(1)' }}
+                            />
+                            {/* <div className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 px-3 py-2 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 pointer-events-none">
+                                {item.label}
+                            </div> */}
+                        </button>
+                    );
+                })}
             </div>
 
-            <nav className="flex-1 px-4 py-4 space-y-1">
-                {menuItems.map((item) => (
-                    <a
-                        key={item.label}
-                        href="#"
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${item.active
-                            ? 'bg-blue-600 text-white'
-                            : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                            }`}
-                    >
-                        <item.icon size={20} />
-                        <span className="font-medium">{item.label}</span>
-                    </a>
-                ))}
-            </nav>
-
-            <div className="p-4 border-t border-slate-800">
-                <button className="flex items-center gap-3 px-4 py-3 w-full text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
-                    <LogOut size={20} />
-                    <span className="font-medium">Logout</span>
+            {/* Logout or bottom icon */}
+            <div className="mt-auto">
+                <button className="p-2 hover:bg-white/10 rounded-sm transition" title="Logout">
+                    <img src="/Dashboard/LogoutIcon.png" alt="Logout" className="w-6 h-6 object-contain" />
                 </button>
             </div>
-        </aside>
+        </div>
     );
 };
 

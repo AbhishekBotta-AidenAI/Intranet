@@ -34,37 +34,37 @@ const RecommendedSection = () => {
     ];
 
     return (
-        <div className="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm flex-1" style={{ padding: "20px" }}>
+        <div className="bg-white rounded-md md:rounded-md border border-neutral-200 p-4 md:p-7 shadow-sm flex-1" style={{ padding: "16px" }}>
             {/* RECOMMENDED ITEMS */}
-            <div className="space-y-4">
+            <div className="space-y-2 md:space-y-4">
                 {recommendations.map((item, index) => (
                     <div
                         key={index}
                         className="
-                            flex gap-3 p-2 rounded-xl 
+                            flex gap-3 md:gap-4 p-2 md:p-3 rounded-lg md:rounded-xl 
                             hover:bg-neutral-50 transition cursor-pointer
                         "
-                        style={{ paddingBottom: "8px", paddingTop: "8px" }}
+                        style={{ paddingBottom: "8px", paddingTop: "20px" }}
                     >
 
                         {/* IMAGE */}
                         <img
                             src={item.image}
-                            alt={item.title}
-                            className="w-14 h-14 rounded-lg object-cover flex-shrink-0"
+                            alt={item.title}    
+                            className="w-12 h-12 md:w-14 md:h-14 rounded-lg object-cover flex-shrink-0"
                         />
 
                         {/* TEXT CONTENT */}
                         <div className="flex-1 min-w-0">
-                            <h4 className="text-[12px] font-semibold text-neutral-900 leading-tight mb-1">
+                            <h4 className="text-[12px] md:text-[14px] font-semibold text-neutral-900 leading-tight mb-1">
                                 {item.title}
                             </h4>
 
-                            <p className="text-[10px] text-neutral-600 leading-tight line-clamp-2 mb-1">
+                            <p className="text-[10px] md:text-[12px] text-neutral-600 leading-tight line-clamp-2 mb-1">
                                 {item.description}
                             </p>
 
-                            <p className="text-[9px] text-neutral-400">
+                            <p className="text-[9px] md:text-[11px] text-neutral-900 font-semibold">
                                 {item.stats}
                             </p>
                         </div>
@@ -72,15 +72,15 @@ const RecommendedSection = () => {
                 ))}
             </div>
 
-            {/* View All Button */}
-            <div className="flex justify-end mt-4" >
+            {/* View All Button
+            <div className="flex justify-end mt-3 md:mt-4" >
                 <button
-                    className="text-[12px] font-bold text-[#073663] border border-[#073663] rounded-xl px-4 py-1 uppercase hover:bg-[#073663] hover:text-white transition"
-                    style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }}
+                    className="text-[10px] md:text-[12px] font-bold text-[#073663] border border-[#073663] rounded-lg md:rounded-xl px-3 md:px-4 py-1 uppercase hover:bg-[#073663] hover:text-white transition"
+                    style={{ paddingLeft: "8px", paddingRight: "8px", paddingTop: "2px", paddingBottom: "2px" }}
                 >
                     VIEW ALL
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 };

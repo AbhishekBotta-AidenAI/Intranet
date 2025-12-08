@@ -6,67 +6,44 @@ const QuickLinks = () => {
     ];
 
     return (
-        <div className="w-full max-w-[370px] ">
-            {/* Card */}
-            <div
-                className="
-                    relative border border-neutral-200 rounded-2xl shadow-sm
-                    w-full h-[110px]
-                    px-4 py-3
-                    flex flex-col overflow-hidden
-                "
-                style={{
-                    backgroundImage: 'url(/Dashboard/QuickLinks.png)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                }}
-            >
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/20 rounded-2xl"></div>
+        <div className="w-full max-w-full md:max-w-[390px]">
+            {/* Content */}
+            <div className="flex flex-col h-auto">
+                {/* Links row */}
+                <div className="flex items-start gap-3">
 
-                {/* Content */}
-                <div className="relative z-10 flex flex-col h-full" style={{ paddingLeft: "10px" }}>
-                    {/* Title inside card */}
-                    <h3 className="text-[14px] font-semibold text-white mb-2" style={{ padding: "8px" }}>
-                        Quick Links
-                    </h3>
+                    {links.map((item, index) => (
+                        <div
+                            key={index}
+                            className="flex-1 flex flex-col items-start justify-start text-center relative"
+                        >
+                            {/* Label */}
+                            <p className="text-[9px] md:text-[10px] text-black font-semi-bold mb-4 md:mb-6" style={{paddingBottom: "10px",fontWeight:"600",paddingLeft:"2px" }}>
+                                {item.label}
+                            </p>
 
-                    {/* Links row */}
-                    <div className="flex flex-1 items-start">
-
-                        {links.map((item, index) => (
-                            <div
-                                key={index}
-                                className="flex-1 flex flex-col items-center justify-start text-center relative"
+                            {/* Button */}  
+                            <button
+                                onClick={() => window.open(item.url, '_blank')}
+                                className="
+                                    text-black backdrop-blur-sm
+                                    text-[10px] md:text-[13px] font-semibold
+                                    rounded-sm flex items-center justify-center gap-1
+                                    hover:opacity-80 transition w-23 h-6
+                                "
+                                style={{ paddingLeft: "7px", paddingRight: "10px", paddingBottom: "4px", paddingTop: "4px", backgroundColor: '#073663', border: '1px solid #A2D52E' }}
                             >
-                                {/* Label */}
-                                <p className="text-[11px] font-medium text-white mb-4" style={{ padding: "8px" }}>
-                                    {item.label}
-                                </p>
+                                <p style={{ color: '#83D725' }}>{item.sublabel}</p>
+                                <img src="/Dashboard/LinkArrow.svg" alt="arrow" className="w-2 md:w-3 h-2 md:h-3" />
+                            </button>
 
-                                {/* Button */}
-                                <button
-                                    onClick={() => window.open(item.url, '_blank')}
-                                    className="
-                                        text-white backdrop-blur-sm
-                                        text-[10px] font-semibold px-2 py-1
-                                        rounded-sm flex items-center gap-1
-                                        hover:opacity-80 transition
-                                    "
-                                    style={{ paddingLeft: "5px", paddingRight: "5px", paddingBottom: "5px", paddingTop: "5px", backgroundColor: '#34445D', border: '1px solid #A2D52E' }}
-                                >
-                                    <p style={{ color: '#83D725' }}>{item.sublabel}</p>
-                                    <img src="/Dashboard/LinkArrow.svg" alt="arrow" className="w-3 h-3" />
-                                </button>
+                            {/* Divider - Vertical line between links */}
+                            {index !== links.length - 1 && (
+                                <div className="absolute right-0 top-1 bottom-1 w-px bg-gray-300"></div>
+                            )}
+                        </div>
+                    ))}
 
-                                {/* Divider */}
-                                {index !== links.length - 1 && (
-                                    <div className="absolute right-0 top-1 bottom-1 w-px bg-white/30"></div>
-                                )}
-                            </div>
-                        ))}
-
-                    </div>
                 </div>
             </div>
         </div>
