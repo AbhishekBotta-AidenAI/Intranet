@@ -12,18 +12,14 @@ const HolidayCalendarWidget = () => {
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
 
-      {/* Navigation Arrows - Top */}
-      <div className="absolute top-4 md:top-5 right-4 flex gap-2 z-10">
-        {/* Left Arrow */}
-        <button className="p-1.5 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20 transition">
-          <img src="/Dashboard/LeftArrow.svg" alt="Left Arrow" className="w-4 md:w-5 h-4 md:h-5" />
-        </button>
+      {/* Navigation Arrows - Top Left & Top Right */}
+      <button className="absolute top-4 md:top-5 left-4 p-1.5 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20 transition z-10">
+        <img src="/Dashboard/LeftArrow.svg" alt="Left Arrow" className="w-4 md:w-5 h-4 md:h-5" />
+      </button>
 
-        {/* Right Arrow */}
-        <button className="p-1.5 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20 transition">
-          <img src="/Dashboard/RightArrow.svg" alt="Right Arrow" className="w-4 md:w-5 h-4 md:h-5" />
-        </button>
-      </div>
+      <button className="absolute top-4 md:top-5 right-4 p-1.5 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20 transition z-10">
+        <img src="/Dashboard/RightArrow.svg" alt="Right Arrow" className="w-4 md:w-5 h-4 md:h-5" />
+      </button>
 
       {/* CONTENT OVERLAY - Vertical Layout */}
       <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 text-white">

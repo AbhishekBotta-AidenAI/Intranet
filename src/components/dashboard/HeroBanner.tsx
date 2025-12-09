@@ -14,7 +14,7 @@ const HeroBanner = () => {
         {
             image: '/Dashboard/heroBanner/coffeeCulture.png',
             tag: 'FROM LEADERSHIP',
-            title: 'Coffee Culture at Aiden Ai - Caffiene Nerds',
+            title: 'Coffee Culture at Aiden Ai - Caffeine  Nerds',
             buttonText: 'READ MORE'
             },
         {

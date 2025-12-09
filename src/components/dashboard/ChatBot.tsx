@@ -157,18 +157,18 @@ const ChatBot = () => {
                             className="text-gray-600 hover:text-gray-800 p-2 hover:bg-gray-100 rounded-full transition"
                             title="Attachment"
                         >
-                            <img src="/Dashboard/chatBot/attachmentIcon.png" alt="Attachment" className="w-2 h-4" />
+                            <img src="/Dashboard/chatBot/attachmentIcon.png" alt="Attachment" className="w-8 h-4" />
                         </button>
                         <button
                             className="text-gray-600 hover:text-gray-800 p-2 hover:bg-gray-100 rounded-full transition"
                             title="Voice"
                         >
-                            <img src="/Dashboard/chatBot/micIcon.png" alt="Voice" className="w-3 h-4" />
+                            <img src="/Dashboard/chatBot/micIcon.png" alt="Voice" className="w-8 h-4" />
                         </button>
                         <button
                             onClick={handleSend}
                             className="text-white transition flex items-center justify-center"
-                            style={{ background: '#073663', width: '25px', height: '25px', borderRadius: '4px' }}
+                            style={{ background: '#073663', width: '90px', height: '25px', borderRadius: '4px' }}
                             title="Send"
                         >
                             <img src="/Dashboard/chatBot/sendIcon.png" alt="Send" className="w-3 h-3" />
