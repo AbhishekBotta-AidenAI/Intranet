@@ -34,7 +34,7 @@ const RecommendedSection = () => {
     ];
 
     return (
-        <div className="bg-white rounded-md md:rounded-md border border-neutral-200 p-4 md:p-7 shadow-sm flex-1" style={{ padding: "16px",marginBottom:"35px" }}>
+        <div className="bg-white rounded-2xl md:rounded-2xl border border-neutral-200 p-4 md:p-7 shadow-sm flex-1" style={{ padding: "16px",marginBottom:"35px" }}>
             {/* RECOMMENDED ITEMS */}
              <div className="flex items-center justify-between">
                 <h3 className="text-base md:text-lg font-semibold text-neutral-800">Recommended Reads</h3>

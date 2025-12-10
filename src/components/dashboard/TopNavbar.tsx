@@ -68,9 +68,10 @@ const TopNavbar = () => {
                             }}
                         />
                     </button>
+                    <div className="w-px h-6 bg-neutral-200 mx-1" aria-hidden="true" />
 
                     {/* User Profile */}
-                    <div className="flex items-center gap-3 border-neutral-200" style={{ paddingLeft: "10px" }}>
+                    <div className="flex items-center gap-3 border-neutral-200">
                         <div className="w-10 h-10 bg-neutral-300 rounded-full overflow-hidden">
                             <img
                                 src="/Dashboard/UserPic.png"
@@ -84,6 +85,7 @@ const TopNavbar = () => {
                             <p className="text-xs text-neutral-400">Head at COE</p>
                         </div>
                     </div>
+                    <div className="w-px h-6 bg-neutral-200 mx-1" aria-hidden="true" />
 
                     <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors" style={{ paddingRight: "10px" }}>
                         <img src="/Dashboard/LogoutIcon.png" alt="Logout" className="text-black hover:text-blue-600 transition-colors" style={{ width: "20px", height: "30px" }} />

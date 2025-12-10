@@ -70,7 +70,7 @@ const ChatBot = () => {
                 {/* Header */}
                 <div className="flex-shrink-0 bg-white p-4 md:p-6 border-b border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px" }}>
                     <div className="pt-0.5">
-                        <h3 className="font-bold text-base bg-gradient-to-r from-blue-600 to-lime-500 bg-clip-text text-transparent" style={{ background: 'linear-gradient(105.54deg, #016DAF 17.81%, #BFD385 48.96%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Eva</h3>
+                        <h3 className="font-bold text-base" style={{ background: '#1F89EF', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Evar</h3>
                         <p className="text-xs text-gray-600 mt-1">I'll make sure to help you with streamlining & fetching details.</p>
                     </div>
                     <div className="flex gap-1.5 flex-shrink-0 pt-0.5">
@@ -80,16 +80,16 @@ const ChatBot = () => {
                             style={{ background: '#DEDEDE' }}
                             title="Close"
                         >
-                            <img
-                                src="/Dashboard/chatBot/closeIcon.png"
-                                alt="Close"
-                                className="w-2 h-2 object-contain"
-                            />
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-2 h-2" fill="none" stroke="#ff0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
                         </button>
-                    </div>
-                </div>
 
-                {/* Messages */}
+                        </div>
+                    </div>
+
+                    {/* Messages */}
                 <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-gray-50" >
                     {messages.map((message, index) => (
                         <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} gap-3`}>
@@ -102,13 +102,12 @@ const ChatBot = () => {
                             )}
 
                             <div className="max-w-sm">
-                                <div
-                                    className={`rounded-2xl p-2 text-xs ${
-                                        message.type === "user"
-                                            ? "bg-blue-900 text-white rounded-br-none"
-                                            : "bg-blue-50 text-gray-800 border border-blue-200"
-                                    }`}
-                                    style={{ padding: "8px", fontSize: "12px" }}
+                                    <div
+                                    className={`rounded-md p-2 text-xs ${message.type === "user" ? 'text-gray-800' : 'text-gray-800'}`}
+                                    style={ message.type === 'bot'
+                                        ? { padding: '8px', fontSize: '12px', backgroundColor: '#EFFFCF8C', border: '1px solid rgba(180,180,180,0.25)' }
+                                        : { padding: '8px', fontSize: '12px', backgroundColor: '#e0e0e0ff', border: '1px solid rgba(180,180,180,0.25)' }
+                                    }
                                 >
                                     {message.text}
                                 </div>
@@ -134,7 +133,7 @@ const ChatBot = () => {
                                     <img src="Dashboard/Eva.png" alt="Eva" className="w-full h-full object-cover" />
                                 </div>
                             </div>
-                            <div className="rounded-2xl p-3 text-sm bg-blue-50 border border-blue-200">
+                            <div className="rounded-md p-3 text-sm" style={{ backgroundColor: '#EFFFCF8C', border: '1px solid rgba(180,180,180,0.25)' }}>
                                 Typing...
                             </div>
                         </div>
@@ -210,8 +209,8 @@ const ChatBot = () => {
                 {/* HEADER - FIXED TOP */}
                 <div className="flex-shrink-0 bg-white p-4 md:p-6 rounded-t-3xl border-b border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px" }}>
                     <div className="pt-0.5">
-                        <h3 className="font-bold text-base bg-gradient-to-r from-blue-600 to-lime-500 bg-clip-text text-transparent" style={{ background: 'linear-gradient(105.54deg, #016DAF 17.81%, #BFD385 48.96%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Eva</h3>
-                        <p className="text-xs text-gray-600 mt-1">I'll make sure to help you with streamlining & fetching details.</p>
+                        <h3 className="font-bold text-base bg-gradient-to-r from-blue-600 to-lime-500 bg-clip-text text-[#1F89EF]">Chat with Eva</h3>
+                        <p className="text-[10px] text-gray-600 mt-1">I'll make sure to help you with streamlining & fetching details.</p>
                     </div>
                     <div className="flex gap-1.5 flex-shrink-0 pt-0.5">
                         {/* Expand Button */}
@@ -230,15 +229,14 @@ const ChatBot = () => {
                         {/* Close Button */}
                         <button
                             onClick={() => { setIsOpen(false); setIsChatExpanded(false); }}
-                            className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-sm hover:opacity-80 transition"
-                            style={{ background: '#DEDEDE' }}
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-sm hover:opacity-80 transition color-red"
+                            style={{ background: '#F5D6D661' }}
                             title="Close"
                         >
-                            <img
-                                src="/Dashboard/chatBot/closeIcon.png"
-                                alt="Close"
-                                className="w-2 h-2 object-contain"
-                            />
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="#ff0000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -255,12 +253,11 @@ const ChatBot = () => {
 
                             <div className="max-w-sm">
                                 <div
-                                    className={`rounded-2xl p-2 text-xs ${
-                                        message.type === "user"
-                                            ? "bg-blue-900 text-white rounded-br-none"
-                                            : "bg-blue-50 text-gray-800 border border-blue-200"
-                                    }`}
-                                    style={{ padding: "8px", fontSize: "12px" }}
+                                    className={`rounded-md p-2 text-xs text-gray-800`}
+                                    style={ message.type === 'bot'
+                                        ? { padding: '8px', fontSize: '12px', backgroundColor: '#EFFFCF8C', border: '1px solid rgba(180,180,180,0.25)' }
+                                        : { padding: '8px', fontSize: '12px', backgroundColor: '#ffffff', border: '1px solid rgba(180,180,180,0.25)' }
+                                    }
                                 >
                                     {message.text}
                                 </div>
@@ -283,7 +280,7 @@ const ChatBot = () => {
                             <div className="w-8 h-8 rounded-full bg-lime-400 flex items-center justify-center overflow-hidden flex-shrink-0">
                                 <img src="Dashboard/Eva.png" alt="Eva" className="w-full h-full object-cover" />
                             </div>
-                            <div className="rounded-2xl p-3 text-sm bg-blue-50 border border-blue-200">
+                            <div className="rounded-md p-3 text-sm" style={{ backgroundColor: '#EFFFCF8C', border: '1px solid rgba(180,180,180,0.25)' }}>
                                 Typing...
                             </div>
                         </div>
@@ -291,7 +288,7 @@ const ChatBot = () => {
                 </div>
 
                 {/* INPUT AREA - FIXED BOTTOM */}
-                <div className="flex-shrink-0 border-t border-gray-200 p-4 md:p-6 bg-white rounded-b-3xl" style={{ padding: "20px" }}>
+                <div className="flex-shrink-0 border-gray-200 p-4 md:p-6 bg-white rounded-b-3xl" style={{ padding: "20px" }}>
                     <div className="flex items-center gap-4 border border-gray-300 rounded-full px-4 py-2 bg-gray-50 focus-within:border-blue-500" style={{ paddingRight: "20px" }}>
                         <input
                             type="text"

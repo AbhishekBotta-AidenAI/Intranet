@@ -23,6 +23,10 @@ const HRPolicies = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedLocation, setSelectedLocation] = useState('India'); // Default location
+    // UI tab state for banner navigation
+    const [activeTab, setActiveTab] = useState<'policies' | 'holidays' | null>('policies');
+    // Search query for filtering documents
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
     // Fetch documents on component mount or when selectedLocation changes
     useEffect(() => {
@@ -88,7 +92,7 @@ const HRPolicies = () => {
             const downloadUrl = doc.link.split('?')[0] + '?download=1';
             const linkElement = document.createElement('a');
             linkElement.href = downloadUrl;
-            linkElement.setAttribute('download', doc.name || 'document'); // Use document name for the file
+            linkElement.setAttribute('download', doc.name || 'document');
             document.body.appendChild(linkElement);
             linkElement.click();
             document.body.removeChild(linkElement);
@@ -133,7 +137,7 @@ const HRPolicies = () => {
                 filter: false,
                 headerClass: 'custom-header',
                 cellRenderer: (params: any) => (
-                    <div className="flex items-center gap-3 h-full">
+                    <div className="flex items-center gap-2 h-full">
                         <button 
                             onClick={() => handleView(params.data.id)}
                             className="p-2 hover:bg-neutral-100 rounded-lg transition-colors text-neutral-600 hover:text-neutral-900"
@@ -141,6 +145,10 @@ const HRPolicies = () => {
                         >
                             <Eye size={18} />
                         </button>
+
+                        {/* vertical divider between buttons */}
+                        <div className="w-px h-6 bg-neutral-200 mx-1" aria-hidden="true" />
+
                         <button 
                             onClick={() => handleDownload(params.data)}
                             className="p-2 hover:bg-neutral-100 rounded-lg transition-colors text-neutral-600 hover:text-neutral-900"
@@ -165,64 +173,156 @@ const HRPolicies = () => {
         []
     );
 
+    // Filter documents by search query across all columns
+    // Include formatted last_updated (dd/mm/yyyy) so searches with '/' match displayed dates
+    const filteredDocuments = useMemo(() => {
+        if (!searchQuery) return documents;
+        const q = searchQuery.trim().toLowerCase();
+        return documents.filter(d => {
+            // collect stringified values
+            const values: string[] = Object.values(d)
+                .filter(v => v !== null && v !== undefined)
+                .map(v => String(v));
+
+            // add formatted last_updated if present
+            if (d.last_updated) {
+                try {
+                    const formatted = new Date(d.last_updated).toLocaleDateString('en-GB');
+                    values.push(formatted);
+                } catch (e) {
+                    // ignore
+                }
+            }
+
+            const joined = values.join(' | ').toLowerCase();
+            return joined.includes(q);
+        });
+    }, [documents, searchQuery]);
+
     return (
-        <div className="w-full min-h-screen px-6 py-6" style={{padding:"50px", backgroundColor: '#EBF5FF'}}>
-            {/* Header */}
-            <div className="mb-8 flex justify-between items-center">
-                <p style={{fontSize:"20px", fontWeight: 500,paddingBottom:"40px"}}>Organization Documents</p>
-                <div className="flex items-center gap-2">
-                    <label htmlFor="location-select" className="text-sm font-medium text-gray-700">Location:</label>
-                    <select
-                        id="location-select"
-                        value={selectedLocation}
-                        onChange={(e) => setSelectedLocation(e.target.value)}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+        <div className="w-full min-h-screen px-6 py-6" style={{padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF'}}>
+            {/* Top banner that touches the navbar */}
+            <div className="relative w-full h-[120px] md:h-[120px] overflow-hidden rounded-b-3xl">
+                <img src="/Dashboard/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/30"></div>
+
+                {/* Bottom-left tab buttons (policies / holidays) */}
+                <div className="absolute left-10 bottom-0 z-40 flex items-center gap-6">
+                    {/* POLICIES TAB */}
+                    <button
+                        type="button"
+                        onClick={() => setActiveTab('policies')}
+                        className={`px-4 py-1 rounded-t-lg text-[14px] transition-all ${activeTab === 'policies' ? 'bg-[#ECFFD5] text-black ' : 'text-white/90 hover:text-black'}`}
+                        style={{padding:"5px 10px 5px 10px"}}
                     >
-                        <option>India</option>
-                        <option>USA</option>
-                        <option>Canada</option>
-                    </select>
+                        Policies & Process
+                    </button>
+
+                    {/* HOLIDAYS TAB */}
+                    <button
+                        type="button"
+                        onClick={() => setActiveTab('holidays')}
+                        className={`px-4 py-1 rounded-t-lg text-[14px] transition-all ${activeTab === 'holidays' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-white'}`}
+                        style={{padding:"5px 10px 5px 10px"}}
+                    >
+                        Holiday Calendar
+                    </button>
                 </div>
             </div>
 
-            {/* Error Message */}
-            {error && (
-                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                    {error}
+            {/* Card wrapper for Organization Documents header + table */}
+            <div className="bg-white rounded-2xl shadow-md p-6" style={{ marginTop: '30px',padding:"20px"}}>
+                {/* Greeting */}
+                <div className="mb-3">
+                    <h3 className="text-[25px] font-medium">Hey, <span style={{ color: '#1F89EF' }}>Vaishno</span></h3>
                 </div>
-            )}
+                <div className='text-black/60 text-[12px]' style={{paddingBottom:"20px"}}>Welcome To HR Policies</div>
+                {/* Header */}
+                <div className="mb-8 flex justify-between items-center">
+                <p style={{fontSize:"20px", fontWeight: 500}}>Organization Documents</p>
+                <div className="flex items-center gap-4">
+                    <div className="relative hidden md:flex items-center">
+                        <div className="absolute left-3 flex items-center pointer-events-none">
+                            <img
+                                src="/Dashboard/searchIcon.png"
+                                className="w-4 h-4"
+                                alt="search"
+                            />
+                        </div>
 
-            {/* Loading State */}
-            {loading ? (
-                <div className="flex items-center justify-center py-12">
-                    <Loader size={24} className="animate-spin text-neutral-400 mr-2" />
-                    <p className="text-neutral-600">Loading documents...</p>
+                        <input
+                            type="text"
+                            placeholder="Search Document"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-10 pr-4 h-8 w-72 text-sm bg-white border border-neutral-300 rounded-sm placeholder:text-neutral-500 focus:outline-none focus:border-neutral-400"
+                            style={{ paddingLeft: '35px' }}
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <label htmlFor="location-select" className="text-sm font-medium text-gray-700">Location:</label>
+                        <select
+                            id="location-select"
+                            value={selectedLocation}
+                            onChange={(e) => setSelectedLocation(e.target.value)}
+                            className="mt-1 block pl-3 pr-10 py-2 text-base border border-neutral-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        >
+                            <option>India</option>
+                            <option>USA</option>
+                            <option>Canada</option>
+                        </select>
+                    </div>
                 </div>
-            ) : (
-                /* AG Grid Table */
-                <div className="ag-theme-quartz rounded-2xl overflow-hidden" style={{ width: '100%' }}>
-                    <style>{`
-                        .custom-header {
-                            background-color: #9BBAD8 !important;
-                            color: #000000ff !important;
-                            font-weight: 400 !important;
-                        }
-                        .ag-theme-quartz {
-                            border-radius: 1rem !important;
-                        }
-                    `}</style>
-                    <AgGridReact
-                        rowData={documents}
-                        columnDefs={columnDefs}
-                        defaultColDef={defaultColDef}
-                        pagination={false}
-                        suppressPaginationPanel={true}
-                        headerHeight={40}
-                        rowHeight={30}
-                        domLayout='autoHeight'
-                    />
-                </div>
-            )}
+            </div>
+
+                {/* Error Message */}
+                {error && (
+                    <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                        {error}
+                    </div>
+                )}
+
+                {/* Loading State */}
+                {loading ? (
+                    <div className="flex items-center justify-center py-12">
+                        <Loader size={24} className="animate-spin text-neutral-400 mr-2" />
+                        <p className="text-neutral-600">Loading documents...</p>
+                    </div>
+                ) : (
+                    /* AG Grid Table */
+                    <div className="ag-theme-quartz rounded-t-2xl overflow-hidden mt-2" style={{ width: '100%',paddingTop:"25px"}}>
+                        <style>{`
+                            .custom-header {
+                                background-color: #9BBAD8 !important;
+                                color: #000000ff !important;
+                                font-size: 13px !important;
+                                font-weight: 450 !important;
+                            }
+                            .ag-theme-quartz {
+                                border-radius: 1rem !important;
+                            }
+                            /* reduce font size for row cells */
+                            .ag-theme-quartz .ag-cell {
+                                font-size: 12px !important;
+                                padding-top: 8px !important;
+                                padding-bottom: 8px !important;
+                                color: #47505E;
+                            }
+                        `}</style>
+                        <AgGridReact
+                            rowData={filteredDocuments}
+                            columnDefs={columnDefs}
+                            defaultColDef={defaultColDef}
+                            pagination={false}
+                            suppressPaginationPanel={true}
+                            headerHeight={40}
+                            rowHeight={70}
+                            domLayout='autoHeight'
+                        />
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

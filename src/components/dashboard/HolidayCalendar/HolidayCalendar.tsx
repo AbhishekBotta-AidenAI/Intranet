@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import HolidayCalendarModal from './HolidayCalendar/HolidayCalendarModal';
+import HolidayCalendarModal from './HolidayCalendarModal';
 
 const HolidayCalendarWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,15 +62,15 @@ const HolidayCalendarWidget = () => {
                 px-6 py-1.5 rounded-full w-full
               "
               style={{height:"35px"}}
-              onClick={() => setIsOpen(true)}
-            >
-              VIEW ALL
+              onClick={() => setIsOpen(false)}
+            > 
+              View All
               <img src ="/Dashboard/CalendarIcon.png" alt="Arrow Right" className="inline-block w-5 h-4 ml-2" style={{paddingLeft:"5px"}}/>
             </button>
           </div>
         </div>
       </div>  
-    </div>
+      </div>
       <HolidayCalendarModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );

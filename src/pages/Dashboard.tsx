@@ -1,6 +1,6 @@
 import HeroBanner from '../components/dashboard/HeroBanner';
 import TextScroller from '../components/dashboard/TextScroller';
-import HolidayCalendar from '../components/dashboard/HolidayCalendar';
+import HolidayCalendar from '../components/dashboard/HolidayCalendar/HolidayCalendar';
 import QuickLinks from '../components/dashboard/QuickLinks';
 import MoodTracker from '../components/dashboard/MoodTracker';
 import OrganizationEngagement from '../components/dashboard/OrganizationEngagement';
@@ -33,7 +33,7 @@ const Dashboard = () => {
                 {/* Greeting Section */}
                 <div className="mb-4 md:mb-6" style={{ paddingBottom: "12px", paddingTop: "20px" ,paddingLeft:"25px"}}>
                     <h2 className="text-lg md:text-2xl font-bold text-neutral-900 mb-1">
-                        <div className="justify-start"><span className="text-stone-900 font-normal font-['Mulish'] capitalize">Hey </span><span className="text-sky-900 font-bold font-['Mulish'] capitalize italic">Vaishno,</span></div>
+                        <div className="justify-start"><span className="text-stone-900 font-normal font-['Mulish'] capitalize">Hey </span><span className="text-[#1F89EF] font-bold font-['Mulish'] capitalize">Vaishno,</span></div>
                     </h2>
                     <p className="text-neutral-600 text-xs md:text-sm">
                         Happy To See You ! Have A Look At Your Personalised Dashboard.
@@ -58,7 +58,7 @@ const Dashboard = () => {
                             <div className="w-full rounded-2xl" style={{padding: '15px', border: '1px solid #e1e1e1'}}>
                                 <div className="bg-transparent rounded-lg p-3">
                                     <div className="flex items-center justify-between">
-                                        <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organization Engagement</h3>
+                                        <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
                                     </div>
 
                                     <div className="mt-3">
@@ -82,7 +82,7 @@ const Dashboard = () => {
                         <div className="w-full md:w-[35%] flex flex-col gap-4" style={{paddingRight:"20px"}}>
                                 {/* Daily Picks Card moved to right column */}
                                 <div className="w-full rounded-2xl" style={{padding: '10px', border: '1px solid #e1e1e1'}}>
-                                    <div className="bg-transparent rounded-lg p-3" style={{padding:"10px"}}>
+                                    <div className="bg-transparent rounded-lg p-3">
                                         <h3 className="text-md font-semibold" style={{paddingBottom:"10px"}}>Daily Picks</h3>
                                         <div className="flex flex-col md:flex-row gap-3 mt-3">
                                             <div className="flex-1 flex justify-center items-start">

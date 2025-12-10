@@ -26,7 +26,7 @@ const HeroBanner = () => {
             buttonText: 'READ MORE'
         },
         {
-            image: '/Dashboard/heroBanner/OngoingCOETeam.png',
+            image: '/Dashboard/heroBanner/COETeam.png',
             tag: 'FROM AIDEN INTERNAL',
             title: 'On-going with the COE Team: Revolution with Demos',
             buttonText: 'READ MORE'
@@ -50,12 +50,22 @@ const HeroBanner = () => {
             {/* Background Image - with transition */}
             <img
                 src={currentBanner.image}
-                className="w-full h-full object-cover transition-opacity duration-500"
+                className="w-full h-full object-cover "
                 alt="Hero Banner"
             />
 
             {/* Subtle overlay */}
-            <div className="absolute inset-0 bg-black/40"></div>
+            <div className="absolute inset-0 "></div>
+
+            {/* Navigation arrows - top-right with 10px padding */}
+            <div className="absolute flex" style={{ top: '10px', right: '10px', zIndex: 30 }}>
+                <button type="button" className="p-1 rounded-md">
+                    <img src="/Dashboard/heroBanner/leftArrow.png" alt="Arrow left" className="w-6 h-6"/>
+                </button>
+                <button type="button" className="p-1 rounded-md">
+                    <img src="/Dashboard/heroBanner/rightArrow.png" alt="Arrow Right" className="w-6 h-6"/>
+                </button>
+            </div>
 
             {/* Content - with transition */}
             <div className="absolute inset-0 flex items-center justify-between px-4 md:px-6 text-white transition-opacity duration-500" style={{paddingLeft:"30px",paddingRight:"30px"}}>
@@ -70,16 +80,16 @@ const HeroBanner = () => {
                         </h2>
                 </div>
 
-                <div className="flex items-end gap-4 max-w-xl">
+                <div className="flex items-start gap-4 max-w-xl">
                     {currentBanner.subtitle && (
                         <p className="hidden md:block text-[13px] text-white/90 max-w-md">
                             {currentBanner.subtitle}
                         </p>
                     )}
-
-                    <button className="font-medium text-xs md:text-sm transition flex-shrink-0 hero-button">
+                    {/* arrows moved to top-right */}
+                    {/* <button className="font-medium text-xs md:text-sm transition flex-shrink-0 hero-button">
                         <span>{currentBanner.buttonText}</span>
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>

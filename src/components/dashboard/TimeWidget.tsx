@@ -16,7 +16,7 @@ const TimeWidget = () => {
     const ampm = currentDate.getHours() >= 12 ? 'PM' : 'AM';
 
     return (
-        <div className="relative w-full max-w-full md:max-w-[320px] h-auto rounded-md overflow-hidden">
+        <div className="relative w-full max-w-full md:max-w-[320px] h-auto rounded-lg overflow-hidden">
 
             {/* Background */}
             <img    
@@ -43,10 +43,10 @@ const TimeWidget = () => {
                         Current Time
                     </p>
                     <div className="flex items-baseline gap-0.5">
-                        <span className="text-[20px] md:text-[20px] font-semibold tracking-tight text-white">
+                        <span className="text-[15px] md:text-[15px] font-semibold tracking-tight text-white">
                             {hours}:{minutes} 
                         </span>
-                        <span className="text-[11px] md:text-[20px] text-white ml-1 font-semibold">{ampm}</span>
+                        <span className="text-[15px] md:text-[15px] text-white ml-1 font-semibold">{ampm}</span>
                     </div>
                 </div>
             </div>
