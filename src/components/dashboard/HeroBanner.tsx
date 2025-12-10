@@ -41,6 +41,14 @@ const HeroBanner = () => {
         return () => clearInterval(timer);
     }, [banners.length]);
 
+    const goPrev = () => {
+        setCurrentIndex((prev) => (prev - 1 + banners.length) % banners.length);
+    };
+
+    const goNext = () => {
+        setCurrentIndex((prev) => (prev + 1) % banners.length);
+    };
+
     const currentBanner = banners[currentIndex];
 
     
@@ -55,20 +63,20 @@ const HeroBanner = () => {
             />
 
             {/* Subtle overlay */}
-            <div className="absolute inset-0 "></div>
+            <div className="absolute inset-0 pointer-events-none"></div>
 
             {/* Navigation arrows - top-right with 10px padding */}
-            <div className="absolute flex" style={{ top: '10px', right: '10px', zIndex: 30 }}>
-                <button type="button" className="p-1 rounded-md">
-                    <img src="/Dashboard/heroBanner/leftArrow.png" alt="Arrow left" className="w-6 h-6"/>
+            <div className="absolute flex z-50 pointer-events-auto" style={{ top: '10px', right: '10px' }}>
+                <button type="button" onClick={() => { console.log('prev clicked'); goPrev(); }} aria-label="Previous banner" className="p-1 rounded-md pointer-events-auto" tabIndex={0}>
+                    <img src="/Dashboard/heroBanner/leftArrow.png" alt="Previous" className="w-6 h-6"/>
                 </button>
-                <button type="button" className="p-1 rounded-md">
-                    <img src="/Dashboard/heroBanner/rightArrow.png" alt="Arrow Right" className="w-6 h-6"/>
+                <button type="button" onClick={() => { console.log('next clicked'); goNext(); }} aria-label="Next banner" className="p-1 rounded-md pointer-events-auto" tabIndex={0}>
+                    <img src="/Dashboard/heroBanner/rightArrow.png" alt="Next" className="w-6 h-6"/>
                 </button>
             </div>
 
             {/* Content - with transition */}
-            <div className="absolute inset-0 flex items-center justify-between px-4 md:px-6 text-white transition-opacity duration-500" style={{paddingLeft:"30px",paddingRight:"30px"}}>
+            <div className="absolute inset-0 flex items-center justify-between px-4 md:px-6 text-white transition-opacity duration-500 z-10" style={{paddingLeft:"30px",paddingRight:"30px"}}>
                 <div>
                     <div className="flex items-center gap-2 mb-2">
                         <div className="text-[10px] md:text-sm font-semibold px-2 md:px-3 py-1 hero-tag">
@@ -76,7 +84,7 @@ const HeroBanner = () => {
                         </div>
                     </div>
                         <h2 className="text-xl md:text-2xl font-semi-bold leading-tight max-w-[36ch] md:max-w-[48ch] whitespace-normal break-words" style={{paddingTop:"10px"}}>
-                            <div style={{paddingRight:"61px"}}>{currentBanner.title}</div>
+                            <span style={{paddingRight:"61px"}}>{currentBanner.title}</span>
                         </h2>
                 </div>
 
