@@ -19,9 +19,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
 
             {/* Main Content Area with Sidebar, Pages and optional Chat panel */}
-            <div className="flex flex-1 overflow-hidden">
-                {/* Sidebar - Fixed on Left */}
-                <div className="flex-shrink-0 h-full">
+            <div className="flex flex-1 overflow-hidden" style={{ paddingTop: '60px', paddingLeft: '60px' }}>
+                {/* Sidebar is fixed on the left via its own styles; still render it here for accessibility/markup fallback */}
+                <div className="flex-shrink-0 h-full" aria-hidden>
                     <Sidebar />
                 </div>
 

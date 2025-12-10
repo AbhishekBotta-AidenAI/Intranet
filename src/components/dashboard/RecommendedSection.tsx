@@ -34,8 +34,14 @@ const RecommendedSection = () => {
     ];
 
     return (
-        <div className="bg-white rounded-md md:rounded-md border border-neutral-200 p-4 md:p-7 shadow-sm flex-1" style={{ padding: "16px" }}>
+        <div className="bg-white rounded-md md:rounded-md border border-neutral-200 p-4 md:p-7 shadow-sm flex-1" style={{ padding: "16px",marginBottom:"35px" }}>
             {/* RECOMMENDED ITEMS */}
+             <div className="flex items-center justify-between">
+                <h3 className="text-base md:text-lg font-semibold text-neutral-800">Recommended Reads</h3>
+                <button className="text-black font-semibold bg-[#F4F4F4] px-4 py-2 rounded-[25px] font-['Mulish'] text-[10px] h-[33px] w-[105px]">
+                        READ ALL
+                </button>
+            </div>
             <div className="space-y-2 md:space-y-4">
                 {recommendations.map((item, index) => (
                     <div

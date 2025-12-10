@@ -147,3 +147,27 @@ body {
 .mood-wrapper:hover .mood-circle {
     background: #368ADB !important;
 }
+
+/* HeroBanner custom styles (moved from inline styles in HeroBanner.tsx) */
+.hero-tag {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #75ff3fff;
+    background-color: #EAFFB9;
+    color: #333;
+    border-radius: 10px;
+    font-size: 10px;
+    display: inline-block;
+}
+
+.hero-button {
+    color: #ffffff;
+    background-color: #1F89EF;
+    border-radius: 25px;
+    padding: 5px 30px;
+    font-size: 10px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

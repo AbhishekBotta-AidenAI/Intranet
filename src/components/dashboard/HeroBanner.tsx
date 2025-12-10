@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import '../../index.css';
 
 const HeroBanner = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,7 +9,8 @@ const HeroBanner = () => {
         {
             image: '/Dashboard/heroBanner/CEOVision.png',
             tag: 'FROM LEADERSHIP',
-            title: 'A Bold Vision for 2026 - Discover What’s Next',
+            title: 'A Bold Vision for 2026 - Discover What\'s Next',
+            subtitle: "Explore our CEO’s strategic priorities for 2026: operational excellence, AI transformation, culture-first innovation, and long-term customer impact",
             buttonText: 'READ MORE'
         },
         {
@@ -41,29 +43,10 @@ const HeroBanner = () => {
 
     const currentBanner = banners[currentIndex];
 
-    const tagStyle = { 
-        paddingLeft: '10px', 
-        paddingRight: '10px', 
-        border: '1px solid #75ff3fff', 
-        backgroundColor: '#dbff93ff', 
-        color: '#333',
-        borderRadius: '10px',
-        fontSize: '10px'
-    };
-
-    const buttonStyle = { 
-        border: '1px solid #75ff3fff', 
-        color: '#A7EC1C', 
-        backgroundColor: '#A7EC1C24', 
-        borderRadius: '8px', 
-        paddingBottom: '3px', 
-        paddingLeft: '10px', 
-        paddingRight: '10px',
-        fontSize: '10px'
-    };
+    
 
     return (
-        <div className="relative w-full h-[110px] overflow-hidden rounded-b-3xl">
+        <div className="relative w-full h-[160px] overflow-hidden rounded-2xl">
             {/* Background Image - with transition */}
             <img
                 src={currentBanner.image}
@@ -78,18 +61,26 @@ const HeroBanner = () => {
             <div className="absolute inset-0 flex items-center justify-between px-4 md:px-6 text-white transition-opacity duration-500" style={{paddingLeft:"30px",paddingRight:"30px"}}>
                 <div>
                     <div className="flex items-center gap-2 mb-2">
-                        <div className="text-[10px] md:text-sm font-semibold px-2 md:px-3 py-1" style={tagStyle}>
+                        <div className="text-[10px] md:text-sm font-semibold px-2 md:px-3 py-1 hero-tag">
                             {currentBanner.tag}
                         </div>
                     </div>
-                    <h2 className="text-sm md:text-base font-semi-bold leading-tight max-w-lg" style={{paddingTop:"10px"}}>
-                        {currentBanner.title}
-                    </h2>
+                        <h2 className="text-xl md:text-2xl font-semi-bold leading-tight max-w-[36ch] md:max-w-[48ch] whitespace-normal break-words" style={{paddingTop:"10px"}}>
+                            <div style={{paddingRight:"61px"}}>{currentBanner.title}</div>
+                        </h2>
                 </div>
 
-                <button className="font-medium text-xs md:text-sm transition flex-shrink-0" style={buttonStyle}>
-                    <span>{currentBanner.buttonText}</span>
-                </button>
+                <div className="flex items-end gap-4 max-w-xl">
+                    {currentBanner.subtitle && (
+                        <p className="hidden md:block text-[13px] text-white/90 max-w-md">
+                            {currentBanner.subtitle}
+                        </p>
+                    )}
+
+                    <button className="font-medium text-xs md:text-sm transition flex-shrink-0 hero-button">
+                        <span>{currentBanner.buttonText}</span>
+                    </button>
+                </div>
             </div>
         </div>
     );

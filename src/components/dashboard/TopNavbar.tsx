@@ -1,10 +1,10 @@
 const TopNavbar = () => {
     return (
-        <nav className="bg-white border-b border-neutral-200 px-6 py-3 sticky top-0 z-40">
+        <nav className="bg-white border-b border-neutral-200 px-6 py-3 fixed top-0 z-50" style={{ left: '60px', right: 0 }}>
             <div className="flex items-center justify-between" style={{ padding: "10px" }}>
                 {/* Left: Logo */}
                 <div className="flex items-center">
-                    <img src="/Dashboard/HeaderLogo.png" alt="Aiden Nexus" style={{ paddingLeft: "10px", height: "30px" }} />
+                    <img src="/Dashboard/HeaderLogo.png" alt="Aiden Nexus" style={{ paddingLeft: "10px", height: "18px" }} />
                 </div>
 
                 {/* Right: User Actions */}
@@ -40,7 +40,7 @@ const TopNavbar = () => {
 
                     <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors group">
                         <div
-                            className="w-5 h-5 bg-black group-hover:bg-blue-600 transition-colors"
+                            className="w-5 h-4 bg-black group-hover:bg-blue-600 transition-colors"
                             style={{
                                 maskImage: "url('/Dashboard/homeIcon.png')",
                                 maskSize: "contain",
@@ -67,7 +67,6 @@ const TopNavbar = () => {
                                 WebkitMaskPosition: "center"
                             }}
                         />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                     </button>
 
                     {/* User Profile */}
@@ -81,8 +80,8 @@ const TopNavbar = () => {
                         </div>
                         <div className="text-left hidden sm:block">
                             <p className="text-sm font-semibold text-neutral-900">Vaishno Medavaram</p>
-                            <p className="text-xs text-neutral-500">Center of Excellence</p>
-                            <p className="text-xs text-neutral-400">head at COE</p>
+                            {/* <p className="text-xs text-neutral-500">Center of Excellence</p> */}
+                            <p className="text-xs text-neutral-400">Head at COE</p>
                         </div>
                     </div>
 

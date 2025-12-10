@@ -20,9 +20,9 @@ const OrganizationEngagement = () => {
                     onClick={() => setActiveTab("post")}
                     className={`
                         flex-1 h-full flex items-center justify-center gap-2 
-                        text-xs md:text-sm font-semibold transition rounded-sm
+                        text-xs md:text-sm font-semibold transition rounded-lg
                         ${activeTab === "post"
-                            ? "bg-[#002D62] text-white"
+                            ? "bg-[#1F89EF] text-white"
                             : "text-neutral-700 hover:bg-neutral-50"
                         }
                     `}
@@ -36,9 +36,9 @@ const OrganizationEngagement = () => {
                     onClick={() => setActiveTab("poll")}
                     className={`
                         flex-1 h-full flex items-center justify-center gap-2 
-                        text-xs md:text-sm font-semibold transition rounded-sm
+                        text-xs md:text-sm font-semibold transition rounded-lg
                         ${activeTab === "poll"
-                            ? "bg-[#002D62] text-white"
+                            ? "bg-[#1F89EF] text-white"
                             : "text-neutral-700 hover:bg-neutral-50"
                         }
                     `}
@@ -53,26 +53,26 @@ const OrganizationEngagement = () => {
             <div className="
                 w-full bg-white 
                 border border-neutral-200 
-               shadow-sm rounded-lg
+               shadow-sm rounded-b-lg
                 p-3 md:p-4
             ">
                 <textarea
                     placeholder="Write your post here..."
                     className="
-                        w-full h-[60px] md:h-[80px]
+                        w-full h-[100px] md:h-[100px]
                         text-xs md:text-sm text-neutral-700
                         focus:outline-none
                         resize-none
                         placeholder:text-neutral-400
                     "
-                    style={{ padding: "8px" }}
+                    style={{ padding: "20px" }}
                 />
             </div>
 
-            {/* Decorative Post Button Icon - Bottom Right */}
-            <div className="absolute bottom-1 right-1 ">
-                <img src="/Dashboard/postButton.png" alt="Post" className="w-9 h-9 md:w-9 md:h-9 object-contain" />
-            </div>
+            {/* Decorative Post Button Icon - Bottom Right (20x20 square, centered svg) */}
+            <button type="button" aria-label="Send post" className="absolute bottom-3 right-3 w-8 h-8 bg-[#F4F4F4] flex items-center justify-center rounded-md">
+                <img src="/Dashboard/OrganisationEngagement/send.svg" alt="Post" className="w-4 h-4 object-contain" />
+            </button>
         </div>
     );
 };

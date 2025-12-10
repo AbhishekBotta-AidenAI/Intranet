@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="bg-[#073663] text-white py-6 mt-12 relative z-10">
+        <footer className="bg-[#ffffff] text-black py-6 mt-12 relative z-10">
             <div className="
                 max-w-7xl mx-auto 
                 px-6 
@@ -11,9 +11,9 @@ const Footer = () => {
                 {/* Logo */}
                 <div className="flex items-center">
                     <img 
-                        src="/Dashboard/FooterLogo.png" 
+                        src="/Dashboard/HeaderLogo.png" 
                         alt="Aiden Nexus" 
-                        className="h-5 p-[20px]"
+                        className="h-3 p-[20px]"
                     />
                 </div>
 
@@ -32,7 +32,7 @@ const Footer = () => {
 
                     <span className="text-neutral-300">|</span>
 
-                    <span className="text-neutral-200 text-[10px]">
+                    <span className="text-neutral-700 text-[10px]">
                         © 2025 AidenAI. All rights reserved.
                     </span>
                 </div>

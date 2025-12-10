@@ -6,7 +6,7 @@ const TextScroller = () => {
     ];
 
     return (
-        <div className="w-full overflow-hidden" style={{ background: '#e9f1e8', color: '#0A3D62' }}>
+        <div className="w-full overflow-hidden" style={{ background: '#eafdd4', color: '#0A3D62' }}>
             <div className="animate-scroll flex whitespace-nowrap gap-10 pr-12" style={{padding:"5px"}}>
                 {[...messages, ...messages].map((msg, index) => (
                     <div key={index} className="flex items-center gap-8">
