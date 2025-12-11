@@ -4,6 +4,7 @@ import { ChatProvider } from './context/ChatContext';
 import Dashboard from './pages/Dashboard';
 import HRPolicies from './pages/HRPolicies';
 import MePage from './pages/Me';
+import OrganizationEngagement from './pages/OrganisationEngagement';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
             <Route path="/hr-policies" element={<HRPolicies />} />
             <Route path="/my-team" element={<Dashboard />} />
             <Route path="/my-finances" element={<Dashboard />} />
-            <Route path="/org" element={<Dashboard />} />
+            <Route path="/org" element={<OrganizationEngagement />} />
             <Route path="/engage" element={<Dashboard />} />
           </Routes>
         </MainLayout>

@@ -203,7 +203,7 @@ const HRPolicies = () => {
         <div className="w-full min-h-screen px-6 py-6" style={{padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF'}}>
             {/* Top banner that touches the navbar */}
             <div className="relative w-full h-[120px] md:h-[120px] overflow-hidden rounded-b-3xl">
-                <img src="/Dashboard/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
+                <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/30"></div>
 
                 {/* Bottom-left tab buttons (policies / holidays) */}
