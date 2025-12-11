@@ -124,17 +124,24 @@ const HolidayCalendarModal = ({ isOpen, onClose }: Props) => {
                             onClick={() => setYear(year - 1)}
                         />
 
-                        <span className="text-lg font-medium">{year}</span>
+                        <span className="text-lg font-medium" style={{paddingLeft:"20px",paddingRight:"20px"}}>{year}</span>
 
                         <ChevronRight
                             className="cursor-pointer text-gray-600 hover:text-black"
                             onClick={() => setYear(year + 1)}
+                            style={{marginRight:"40px"}}
                         />
-
-                        <X
-                            className="ml-4 text-red-500 cursor-pointer hover:text-red-700"
-                            onClick={onClose}
-                        />
+                        <div
+                            className="flex items-center justify-center rounded-md"
+                            style={{ background: '#F5D6D661', width: 30, height: 30 }}
+                            title="Close"
+                        >
+                            <X
+                                className="text-red-500 cursor-pointer hover:text-red-700"
+                                onClick={onClose}
+                                style={{ width: 18, height: 18 }}
+                            />
+                        </div>
                     </div>
                 </div>
 
