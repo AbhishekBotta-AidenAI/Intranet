@@ -46,7 +46,7 @@ const HolidayCalendarWidget = () => {
             <h2 className="text-[20px] md:text-[20px] font-bold tracking-wide">Christmas</h2>
             <p className="text-[9px] md:text-[10px] text-white/80">Thu, 25th December, 2025</p>
           </div>
-          <div style={{height:"30px"}}></div>
+          <div style={{height:"36px"}}></div>
           <div className="w-full flex justify-start mb-2 pl-4 md:pl-6" style={{paddingBottom:"25px"}}>
               <div className="h-px bg-white/20 w-[80%] md:w-[100%]"></div>
           </div>
@@ -62,7 +62,7 @@ const HolidayCalendarWidget = () => {
                 px-6 py-1.5 rounded-full w-full
               "
               style={{height:"35px"}}
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsOpen(true)}
             > 
               View All
               <img src ="/Dashboard/CalendarIcon.png" alt="Arrow Right" className="inline-block w-5 h-4 ml-2" style={{paddingLeft:"5px"}}/>

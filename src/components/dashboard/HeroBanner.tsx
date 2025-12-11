@@ -88,7 +88,7 @@ const HeroBanner = () => {
                         </h2>
                 </div>
 
-                <div className="flex items-start gap-4 max-w-xl">
+                <div className="flex items-start gap-4 max-w-xl" style={{paddingTop:"50px"}}>
                     {currentBanner.subtitle && (
                         <p className="hidden md:block text-[13px] text-white/90 max-w-md">
                             {currentBanner.subtitle}

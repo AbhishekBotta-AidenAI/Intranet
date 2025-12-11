@@ -3,27 +3,31 @@ interface RecommendationItem {
     description: string;
     stats: string;
     image: string;
+    link:string;
 }
 
 const RecommendedSection = () => {
     const recommendations: RecommendationItem[] = [
         {
-            title: 'Trending In Digital Accelerators',
-            description: 'We are currently experiencing a rise in digital solution...',
-            stats: '1 month ago | 24 Impressions',
+            title: 'AI at Work: Momentum Builds, but Gaps Remain (2025)',
+            description: 'AI adoption is accelerating, but organizations struggle with uneven readiness and capability gaps.',
+            stats: '2025 Report | 12k Impressions',
             image: '/Dashboard/DigitalAccelerator.svg',
+            link:'https://www.bcg.com/publications/2025/ai-at-work-momentum-builds-but-gaps-remain?utm_source=chatgpt.com'
         },
         {
-            title: 'From Ideas to Solutions',
-            description: 'We are currently experiencing a rise in digital solution...',
-            stats: '1 month ago | 24 Impressions',
+            title: 'How Does AI Transform Cyber Risk Management?',
+            description: 'AI reshapes cyber defense by enhancing threat detection, response speed, and predictive risk analysis.',
+            stats: 'Research Article | 8.4k Impressions',
             image: '/Dashboard/IdeatoSolution.png',
+            link:'https://www.mdpi.com/2079-8954/13/10/835?utm_source=chatgpt.com'
         },
         {
-            title: 'AideNexus: What it Stands for',
-            description: 'We are currently experiencing a rise in digital solution...',
-            stats: '1 month ago | 24 Impressions',
+            title: 'AI in the Workplace: A Systematic Review of Skill Transformation in the Industry',
+            description: 'A broad review of how AI is changing workforce skill requirements across modern industries.',
+            stats: 'Systematic Review | 10.1k Impressions',
             image: '/Dashboard/AideNexus.png',
+            link:'https://www.mdpi.com/2076-3387/14/6/127?utm_source=chatgpt.com'
         },
         // {
         //     title: 'About Employee Culture',
@@ -46,6 +50,10 @@ const RecommendedSection = () => {
                 {recommendations.map((item, index) => (
                     <div
                         key={index}
+                        role="link"
+                        tabIndex={0}
+                        onClick={() => window.open(item.link, '_blank', 'noopener,noreferrer')}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { window.open(item.link, '_blank', 'noopener,noreferrer'); } }}
                         className="
                             flex gap-3 md:gap-4 p-2 md:p-3 rounded-lg md:rounded-xl 
                             hover:bg-neutral-50 transition cursor-pointer
