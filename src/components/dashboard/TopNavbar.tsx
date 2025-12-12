@@ -1,4 +1,9 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+
 const TopNavbar = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isHome = location.pathname === '/';
     return (
         <nav className="bg-white border-b border-neutral-200 px-6 py-3 fixed top-0 z-50" style={{ left: '60px', right: 0 }}>
             <div className="flex items-center justify-between" style={{ padding: "10px" }}>
@@ -38,33 +43,37 @@ const TopNavbar = () => {
                         />
                     </div>
 
-                    <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors group">
+                    <button
+                        className="p-2 font-bold transition-colors group"
+                        onClick={() => navigate('/')}
+                        aria-label="Home"
+                    >
                         <div
-                            className="w-5 h-4 bg-black group-hover:bg-blue-600 transition-colors"
+                            className={`w-5 h-4 ${isHome ? 'bg-blue-600' : 'bg-black'} group-hover:bg-blue-600 transition-colors`}
                             style={{
-                                maskImage: "url('/Dashboard/homeIcon.png')",
-                                maskSize: "contain",
-                                maskRepeat: "no-repeat",
-                                maskPosition: "center",
-                                WebkitMaskImage: "url('/Dashboard/homeIcon.png')",
-                                WebkitMaskSize: "contain",
-                                WebkitMaskRepeat: "no-repeat",
-                                WebkitMaskPosition: "center"
-                            }}
+                                    maskImage: "url('/Dashboard/heroBanner/home.svg')",
+                                    maskSize: "contain",
+                                    maskRepeat: "no-repeat",
+                                    maskPosition: "center",
+                                    WebkitMaskImage: "url('/Dashboard/heroBanner/home.svg')",
+                                    WebkitMaskSize: "contain",
+                                    WebkitMaskRepeat: "no-repeat",
+                                    WebkitMaskPosition: "center"
+                                }}
                         />
                     </button>
-                    <button className="p-2 hover:bg-neutral-100 rounded-lg transition-colors relative group">
+                    <button className="p-2 transition-colors relative group">
                         <div
                             className="w-5 h-5 bg-black group-hover:bg-blue-600 transition-colors"
                             style={{
-                                maskImage: "url('/Dashboard/BellIcon.png')",
-                                maskSize: "contain",
-                                maskRepeat: "no-repeat",
-                                maskPosition: "center",
-                                WebkitMaskImage: "url('/Dashboard/BellIcon.png')",
-                                WebkitMaskSize: "contain",
-                                WebkitMaskRepeat: "no-repeat",
-                                WebkitMaskPosition: "center"
+                                    maskImage: "url('/Dashboard/heroBanner/bell.svg')",
+                                    maskSize: "contain",
+                                    maskRepeat: "no-repeat",
+                                    maskPosition: "center",
+                                    WebkitMaskImage: "url('/Dashboard/heroBanner/bell.svg')",
+                                    WebkitMaskSize: "contain",
+                                    WebkitMaskRepeat: "no-repeat",
+                                    WebkitMaskPosition: "center"
                             }}
                         />
                     </button>
@@ -80,9 +89,9 @@ const TopNavbar = () => {
                             />
                         </div>
                         <div className="text-left hidden sm:block">
-                            <p className="text-sm font-semibold text-neutral-900">Vaishno Medavaram</p>
+                            <p className="text-[12px] font-semibold text-neutral-900">Vaishno Medavaram</p>
                             {/* <p className="text-xs text-neutral-500">Center of Excellence</p> */}
-                            <p className="text-xs text-neutral-400">Head at COE</p>
+                            <p className="text-[9px] text-neutral-400">Head at COE</p>
                         </div>
                     </div>
                     <div className="w-px h-6 bg-neutral-200 mx-1" aria-hidden="true" />

@@ -75,12 +75,12 @@ const HolidayCalendarWidget = () => {
       <div className="absolute inset-0 rounded-lg"></div>
 
       {/* Navigation Arrows - both positioned top-right */}
-      <button onClick={goPrev} className="absolute top-4 md:top-5 right-12 p-1.5 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20 transition z-20">
-        <img src="/Dashboard/LeftArrow.svg" alt="Left Arrow" className="w-4 md:w-5 h-4 md:h-5" />
+      <button onClick={goPrev} className="absolute top-4 md:top-4.5 right-9 p-1.5 transition z-20">
+        <img src="/Dashboard/heroBanner/leftArrow.png" alt="Left Arrow" className="w-4 md:w-6 h-4 md:h-6" />
       </button>
 
-      <button onClick={goNext} className="absolute top-4 md:top-5 right-4 p-1.5 rounded-full backdrop-blur-sm bg-white/10 hover:bg-white/20 transition z-20">
-        <img src="/Dashboard/RightArrow.svg" alt="Right Arrow" className="w-4 md:w-5 h-4 md:h-5" />
+      <button onClick={goNext} className="absolute top-4 md:top-5 right-3 p-1.5 transition z-20">
+        <img src="/Dashboard/heroBanner/rightArrow.png" alt="Right Arrow" className="w-4 md:w-5 h-4 md:h-5" />
       </button>
 
       {/* Holiday badge moved to top-left */}

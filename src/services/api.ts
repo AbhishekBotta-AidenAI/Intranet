@@ -1,8 +1,9 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 
-// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://intranet-mb42.vercel.app';
+// Use local backend by default for development
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://intranet-mb42.vercel.app/';
+// export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
 export interface Document {
     id: number;
@@ -39,7 +40,7 @@ class DocumentAPI {
     constructor() {
         this.client = axios.create({
             baseURL: API_BASE_URL,
-            timeout: 10000,
+            timeout: 40000,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -168,5 +169,46 @@ class DocumentAPI {
         }
     }
 }
+const documentAPI = new DocumentAPI();
 
-export default new DocumentAPI();
+// Posts API
+class PostsAPI {
+    private client = documentAPI['client'];
+
+    async listPosts(skip = 0, limit = 50) {
+        const res = await this.client.get<{ total: number; posts: any[] }>(`/api/posts/`, { params: { skip, limit } });
+        return res.data;
+    }
+
+    async getPost(id: number) {
+        const res = await this.client.get(`/api/posts/${id}`);
+        return res.data;
+    }
+
+    async addReaction(postId: number, user: string, reaction: string) {
+        const params = new URLSearchParams({ user, reaction });
+        const res = await this.client.post(`/api/posts/${postId}/reactions`, params, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+        return res.data;
+    }
+
+    async addReply(postId: number, user: string, content: string) {
+        // backend expects form data (user, content)
+        const params = new URLSearchParams({ user, content });
+        const res = await this.client.post(`/api/posts/${postId}/replies`, params, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+        return res.data;
+    }
+
+    async listReplies(postId: number) {
+        const res = await this.client.get<any[]>(`/api/posts/${postId}/replies`);
+        return res.data;
+    }
+
+    // helper to build attachment URL
+    attachmentUrl(postId: number, attId: number) {
+        return `${API_BASE_URL}/api/posts/${postId}/attachments/${attId}`;
+    }
+}
+
+export const postsAPI = new PostsAPI();
+
+export default documentAPI;

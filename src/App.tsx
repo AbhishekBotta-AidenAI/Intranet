@@ -17,8 +17,7 @@ function App() {
             <Route path="/hr-policies" element={<HRPolicies />} />
             <Route path="/my-team" element={<Dashboard />} />
             <Route path="/my-finances" element={<Dashboard />} />
-            <Route path="/org" element={<OrganizationEngagement />} />
-            <Route path="/engage" element={<Dashboard />} />
+            <Route path="/engage" element={<OrganizationEngagement />} />
           </Routes>
         </MainLayout>
       </ChatProvider>

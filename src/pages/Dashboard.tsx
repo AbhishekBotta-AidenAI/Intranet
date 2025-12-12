@@ -1,126 +1,3 @@
-// import HeroBanner from '../components/dashboard/HeroBanner';
-// import TextScroller from '../components/dashboard/TextScroller';
-// import HolidayCalendar from '../components/dashboard/HolidayCalendar/HolidayCalendar';
-// import QuickLinks from '../components/dashboard/QuickLinks';
-// import MoodTracker from '../components/dashboard/MoodTracker';
-// import OrganizationEngagement from '../components/dashboard/OrganizationEngagement';
-// import RecommendedSection from '../components/dashboard/RecommendedSection';
-// import UpcomingApps from '../components/dashboard/UpcomingApps';
-// import TimeWidget from '../components/dashboard/TimeWidget';
-// import { useContext } from 'react';
-// import { ChatContext } from '../context/ChatContext';
-
-// const Dashboard = () => {
-//     const { isChatExpanded } = useContext(ChatContext);
-
-//     // Always keep the md breakpoint multi-column layout so the middle column
-//     // (Organization Engagement) doesn't get pushed below when the chat expands.
-//     const gridClass = 'flex flex-col md:flex-row gap-3 md:gap-4 items-start';
-
-//     return (
-//         <div className="w-full" style={{ paddingBottom :"20px",background: '#F0F2F5'}}>
-//             {/* Text Scroller - Dashboard only */}
-//             <div className="mb-8 rounded-lg overflow-hidden" style={{paddingBottom:"20px"}}>
-//                 <TextScroller />
-//             </div>
-
-//             {/* Hero Banner */}
-//             <div className="h-[160px] w-full mt-4 mb-6 rounded-lg overflow-hidden" style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-//                 <HeroBanner />
-//             </div>
-
-//             <div className="bg-white rounded-2xl" style={{marginLeft:"10px",marginRight:"10px",marginTop:"20px"}}>
-//                 {/* Greeting Section */}
-//                 <div className="mb-4 md:mb-6" style={{ paddingBottom: "12px", paddingTop: "20px" ,paddingLeft:"25px"}}>
-//                     <h2 className="text-lg md:text-2xl font-bold text-neutral-900 mb-1">
-//                         <div className="justify-start"><span className="text-stone-900 font-normal font-['Mulish'] capitalize">Hey </span><span className="text-[#1F89EF] font-bold font-['Mulish'] capitalize">Vaishno,</span></div>
-//                     </h2>
-//                     <p className="text-neutral-600 text-xs md:text-sm">
-//                         Happy To See You ! Have A Look At Your Personalised Dashboard.
-//                     </p>
-//                 </div>
-
-//                 {/* Main Content Grid: Left (66%) and Right (33%) */}
-//                 <div className={gridClass} style={{paddingLeft:"20px"}}>
-//                     {/* Left Column (66%): Quick Access + UpcomingApps on top, Organization Engagement below */}
-//                     <div className="w-full md:w-[65%] flex flex-col gap-4">
-//                         <div className="flex items-start gap-4">
-//                             <div className="w-[50%]">
-//                                 <QuickLinks />
-//                             </div>
-
-//                             <div className="w-[50%] hidden md:block">
-//                                 <UpcomingApps />
-//                             </div>
-//                         </div>
-
-//                         <div className="mt-4" style={{paddingTop:"10px"}}>
-//                             <div className="w-full rounded-2xl" style={{padding: '15px', border: '1px solid #e1e1e1'}}>
-//                                 <div className="bg-transparent rounded-lg p-3">
-//                                     <div className="flex items-center justify-between">
-//                                         <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
-//                                     </div>
-
-//                                     <div className="mt-3">
-//                                         <OrganizationEngagement />
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         {/* <div className="flex items-center justify-between">
-//                             <h3 className="text-base md:text-lg font-bold text-neutral-800">Recommended Reads</h3>
-//                             <button className="border-2 border-[#073663] text-[#073663] px-4 py-2 rounded font-semibold text-sm hover:bg-blue-50 transition" style={{height: '33px', width: '105px',borderRadius:'25px'}}>
-//                                 Read All
-//                             </button>
-//                         </div> */}
-//                         <RecommendedSection />
-                        
-//                     </div>
-
-//                     {/* Right Column (33%): Recommended Reads / other side content - hidden when chat expanded */}
-//                     {!isChatExpanded && (
-//                         <div className="w-full md:w-[35%] flex flex-col gap-4" style={{paddingRight:"20px"}}>
-//                                 {/* Daily Picks Card moved to right column */}
-//                                 <div className="w-full rounded-2xl" style={{padding: '10px', border: '1px solid #e1e1e1'}}>
-//                                     <div className="bg-transparent rounded-lg p-3">
-//                                         <h3 className="text-md font-semibold" style={{paddingBottom:"10px"}}>Daily Picks</h3>
-//                                         <div className="flex flex-col md:flex-row gap-3 mt-3">
-//                                             <div className="flex-1 flex justify-center items-start">
-//                                                 <div className="w-[120px] md:w-[160px]">
-//                                                     <TimeWidget />
-//                                                 </div>
-//                                             </div>
-
-//                                             <div className="flex-1 flex justify-center items-start">
-//                                                 <div className="w-[120px] md:w-[160px]">
-//                                                     <HolidayCalendar />
-//                                                 </div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div className="w-full rounded-2xl" style={{ border: '1px solid #e1e1e1'}}>
-//                                     <div className="bg-transparent rounded-lg p-3" style={{padding:"10px"}}>
-//                                         <MoodTracker />
-//                                     </div>
-//                                 </div>
-//                         </div>
-//                     )}
-//                 </div>
-//             </div>
-
-//             {/* When chat is expanded, show right-column content below content for responsive layout */}
-//             {isChatExpanded && (
-//                 <div className="w-full px-5" style={{ paddingRight: '10px', paddingTop: '20px', paddingLeft: '20px' }}>
-//                     <RecommendedSection />
-//                 </div>
-//             )}
-//             {/* ChatBot is mounted in MainLayout for split-screen behaviour */}
-//         </div>
-//     );
-// };
-
-// export default Dashboard;
 import HeroBanner from '../components/dashboard/HeroBanner';
 import TextScroller from '../components/dashboard/TextScroller';
 import HolidayCalendar from '../components/dashboard/HolidayCalendar/HolidayCalendar';
@@ -136,13 +13,14 @@ import { ChatContext } from '../context/ChatContext';
 const Dashboard = () => {
     const { isChatExpanded } = useContext(ChatContext);
 
+    // Always keep the md breakpoint multi-column layout so the middle column
+    // (Organization Engagement) doesn't get pushed below when the chat expands.
     const gridClass = 'flex flex-col md:flex-row gap-3 md:gap-4 items-start';
 
     return (
-        <div className="w-full" style={{ paddingBottom: "20px", background: '#F0F2F5' }}>
-
-            {/* Text Scroller */}
-            <div className="mb-8 rounded-lg overflow-hidden" style={{ paddingBottom: "20px" }}>
+        <div className="w-full" style={{ paddingBottom :"20px",background: '#F0F2F5'}}>
+            {/* Text Scroller - Dashboard only */}
+            <div className="mb-8 rounded-lg overflow-hidden" style={{paddingBottom:"20px"}}>
                 <TextScroller />
             </div>
 
@@ -151,48 +29,36 @@ const Dashboard = () => {
                 <HeroBanner />
             </div>
 
-            <div className="bg-white rounded-2xl" style={{ marginLeft: "10px", marginRight: "10px", marginTop: "20px" }}>
-
+            <div className="bg-white rounded-2xl" style={{marginLeft:"10px",marginRight:"10px",marginTop:"20px"}}>
                 {/* Greeting Section */}
-                <div className="mb-4 md:mb-6" style={{ paddingBottom: "12px", paddingTop: "20px", paddingLeft: "25px" }}>
-                    <h2 className="text-lg md:text-2xl font-bold text-neutral-900 mb-1">
-                        <div className="justify-start">
-                            <span className="text-stone-900 font-normal">Hey </span>
-                            <span className="text-[#1F89EF] font-bold">Vaishno,</span>
-                        </div>
+                <div className="mb-4 md:mb-6" style={{ paddingBottom: "12px", paddingTop: "20px" ,paddingLeft:"25px"}}>
+                    <h2 className="text-lg md:text-2xl font-semibold text-neutral-900 mb-1">
+                        <div className="justify-start"><span className="text-stone-900 font-normal font-['Mulish'] capitalize">Hey </span><span className="text-[#1F89EF] font-semibold font-['Mulish'] capitalize">Vaishno,</span></div>
                     </h2>
                     <p className="text-neutral-600 text-xs md:text-sm">
                         Happy To See You ! Have A Look At Your Personalised Dashboard.
                     </p>
                 </div>
 
-
-                {/* MAIN CONTENT GRID */}
-                <div className={gridClass} style={{ paddingLeft: "20px" }}>
-
-                    {/* LEFT SIDE */}
-                    <div className={`w-full md:w-[65%] flex flex-col gap-4`}>
-
-                        {/* QuickLinks + UpcomingApps */}
-                        <div className={`flex items-start gap-4 ${isChatExpanded ? "flex-col md:flex-row" : ""}`}>
-
-                            <div className={`${isChatExpanded ? "w-full md:w-1/2" : "w-[50%]"}`}>
+                {/* Main Content Grid: Left (66%) and Right (33%) */}
+                <div className={gridClass} style={{paddingLeft:"20px"}}>
+                    {/* Left Column (66%): Quick Access + UpcomingApps on top, Organization Engagement below */}
+                    <div className="w-full md:w-[65%] flex flex-col gap-4">
+                        <div className="flex items-start gap-4">
+                            <div className="w-[50%]">
                                 <QuickLinks />
                             </div>
 
-                            <div className={`${isChatExpanded ? "w-full md:w-1/2" : "w-[50%] hidden md:block"}`}>
+                            <div className="w-[50%] hidden md:block">
                                 <UpcomingApps />
                             </div>
                         </div>
 
-                        {/* Organisation Engagement */}
-                        <div className="mt-4" style={{ paddingTop: "10px" }}>
-                            <div className="w-full rounded-2xl" style={{ padding: '15px', border: '1px solid #e1e1e1' }}>
+                        <div className="mt-4" style={{paddingTop:"10px"}}>
+                            <div className="w-full rounded-2xl" style={{padding: '15px', border: '1px solid #e1e1e1'}}>
                                 <div className="bg-transparent rounded-lg p-3">
                                     <div className="flex items-center justify-between">
-                                        <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{ paddingBottom: "15px" }}>
-                                            Organisation Engagement
-                                        </h3>
+                                        <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
                                     </div>
 
                                     <div className="mt-3">
@@ -201,64 +67,58 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Recommended Section */}
+                        {/* <div className="flex items-center justify-between">
+                            <h3 className="text-base md:text-lg font-bold text-neutral-800">Recommended Reads</h3>
+                            <button className="border-2 border-[#073663] text-[#073663] px-4 py-2 rounded font-semibold text-sm hover:bg-blue-50 transition" style={{height: '33px', width: '105px',borderRadius:'25px'}}>
+                                Read All
+                            </button>
+                        </div> */}
                         <RecommendedSection />
-
+                        
                     </div>
 
+                    {/* Right Column (33%): Recommended Reads / other side content - hidden when chat expanded */}
+                    {!isChatExpanded && (
+                        <div className="w-full md:w-[35%] flex flex-col gap-4" style={{paddingRight:"20px"}}>
+                                {/* Daily Picks Card moved to right column */}
+                                <div className="w-full rounded-2xl" style={{padding: '10px', border: '1px solid #e1e1e1'}}>
+                                    <div className="bg-transparent rounded-lg p-3">
+                                        <h3 className="text-md font-semibold" style={{paddingBottom:"10px",marginTop:"3px"}}>Daily Picks</h3>
+                                        <div className="flex flex-col md:flex-row gap-3 mt-3">
+                                            <div className="flex-1 flex justify-center items-start">
+                                                <div className="w-[120px] md:w-[170px]">
+                                                    <TimeWidget />
+                                                </div>
+                                            </div>
 
-                    {/* RIGHT SIDE */}
-                    <div
-                        className={`w-full md:w-[35%] flex flex-col gap-4 
-                        ${isChatExpanded ? "" : "hidden md:flex"}`}
-                        style={{ paddingRight: "20px" }}
-                    >
-
-                        {/* DAILY PICKS */}
-                        <div className="w-full rounded-2xl" style={{ padding: '10px', border: '1px solid #e1e1e1' }}>
-                            <div className="bg-transparent rounded-lg p-3">
-                                <h3 className="text-md font-semibold" style={{ paddingBottom: "10px" }}>Daily Picks</h3>
-
-                                <div className="flex flex-col md:flex-row gap-3 mt-3">
-                                    {/* Time */}
-                                    <div className="flex-1 flex justify-center items-start">
-                                        <div className="w-[120px] md:w-[160px]">
-                                            <TimeWidget />
-                                        </div>
-                                    </div>
-
-                                    {/* Holiday */}
-                                    <div className="flex-1 flex justify-center items-start">
-                                        <div className="w-[120px] md:w-[160px]">
-                                            <HolidayCalendar />
+                                            <div className="flex-1 flex justify-center items-start">
+                                                <div className="w-[120px] md:w-[170px]">
+                                                    <HolidayCalendar />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div className="w-full rounded-2xl" style={{ border: '1px solid #e1e1e1'}}>
+                                    <div className="bg-transparent rounded-lg p-3" style={{padding:"10px"}}>
+                                        <MoodTracker />
+                                    </div>
+                                </div>
                         </div>
-
-                        {/* Mood Tracker only in normal mode */}
-                        {!isChatExpanded && (
-                            <div className="w-full rounded-2xl" style={{ border: '1px solid #e1e1e1' }}>
-                                <div className="bg-transparent rounded-lg p-3" style={{ padding: "10px" }}>
-                                    <MoodTracker />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
+                    )}
                 </div>
             </div>
 
-            {/* When chat is expanded: Recommended Section already handled */}
+            {/* When chat is expanded, show right-column content below content for responsive layout */}
             {isChatExpanded && (
                 <div className="w-full px-5" style={{ paddingRight: '10px', paddingTop: '20px', paddingLeft: '20px' }}>
                     <RecommendedSection />
                 </div>
             )}
+            {/* ChatBot is mounted in MainLayout for split-screen behaviour */}
         </div>
     );
 };
 
 export default Dashboard;
+

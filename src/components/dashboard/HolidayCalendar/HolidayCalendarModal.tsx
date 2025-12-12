@@ -73,7 +73,7 @@ const HolidayCalendarModal = ({ isOpen, onClose }: Props) => {
 
     return (
         <div className="fixed inset-0 flex justify-center items-center z-50">
-            <div className="w-[80%] h-[80%] bg-white rounded-xl shadow-xl overflow-hidden">
+            <div className="w-[80%] h-[80%] bg-white rounded-xl overflow-hidden">
 
                 {/* Header */}
                 <div
@@ -118,7 +118,7 @@ const HolidayCalendarModal = ({ isOpen, onClose }: Props) => {
                             .map((month) => (
                                 <div
                                     key={month.month}
-                                    className="bg-white rounded-xl shadow-sm border p-5 hover:shadow-md transition"
+                                    className="bg-white rounded-xl  border p-5 transition"
                                     style={{ borderColor: "#E1E1E1" , }}
                                 >
                                     <div

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
-    const [activePath, setActivePath] = useState('/');
     const navigate = useNavigate();
+    const location = useLocation();
+    const activePath = location.pathname;
 
     const menuItems = [
         { svg: '/Dashboard/home.svg', label: 'Home', path: '/' },
@@ -11,7 +11,6 @@ const Sidebar = () => {
         { svg: '/Dashboard/Hrpolicies.svg', label: 'HR Policies', path: '/hr-policies' },
         { svg: '/Dashboard/Myteam.svg', label: 'My Team', path: '/my-team' },
         { svg: '/Dashboard/myfinances.svg', label: 'My Finances', path: '/my-finances' },
-        { svg: '/Dashboard/org.svg', label: 'Org', path: '/org' },
         { svg: '/Dashboard/Engage.svg', label: 'Engage', path: '/engage' },
         { svg: '/Dashboard/QuestionIcon.png', label: 'Info', path: '/info' },
     ];
@@ -22,10 +21,9 @@ const Sidebar = () => {
             <div className="w-full">
                 <div className="flex items-center justify-center w-full h-15 px-2">
                     <button
-                        onClick={() => { setActivePath('/'); navigate('/'); }}
+                        onClick={() => { navigate('/'); }}
                         className="w-full h-full flex items-center justify-center"
                         title="Home"
-                        
                     >
                         <img src="/Dashboard/aidenaiShortLogo.png" alt="AideNexus Logo" className="max-w-full max-h-8 object-contain" style={{ marginTop: '2px' }}/>
                     </button>
@@ -44,7 +42,6 @@ const Sidebar = () => {
                         <button
                             key={index}
                             onClick={() => {
-                                setActivePath(item.path);
                                 navigate(item.path);
                             }}
                             className={`p-2 transition relative group flex items-center justify-center rounded-sm ${!isActive ? 'hover:bg-white/10' : ''}`}
@@ -57,9 +54,6 @@ const Sidebar = () => {
                                 className="w-4 h-4 object-contain"
                                 style={{ filter: 'brightness(0) invert(1)' }}
                             />
-                            {/* <div className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 px-3 py-2 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 pointer-events-none">
-                                {item.label}
-                            </div> */}
                         </button>
                     );
                 })}
