@@ -39,9 +39,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 </div>
 
                 {/* Pages Content */}
-                <div className={`flex-1 flex flex-col`}>
+                <div className={`flex-1 flex flex-col ${!isChatExpanded ? 'overflow-y-auto' : ''}`}>
                     {/* Page Content */}
-                    <main className="flex-1 p-4 md:p-6 bg-[#E7EEFF] m-4 rounded-lg shadow-md">
+                    <main className="flex flex-col flex-1 min-h-0 p-4 md:p-6 bg-[#E7EEFF] m-4 rounded-lg shadow-md">
                         {children}
                     </main>
 

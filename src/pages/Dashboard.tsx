@@ -29,7 +29,15 @@ const Dashboard = () => {
                 <HeroBanner />
             </div>
 
-            <div className="bg-white rounded-2xl" style={{marginLeft:"10px",marginRight:"10px",marginTop:"20px", maxHeight: 'calc(100vh - 200px)', overflowY: 'auto'}}>
+            <div
+                className={`bg-white rounded-2xl flex flex-col flex-1 min-h-0 ${isChatExpanded ? 'overflow-y-auto h-full' : ''}`}
+                style={{
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                    marginTop: "20px",
+                    maxHeight: isChatExpanded ? 'calc(100vh - 300px)' : undefined,
+                }}
+            >
                 {/* Greeting Section */}
                 <div className="mb-4 md:mb-6" style={{ paddingBottom: "12px", paddingTop: "20px" ,paddingLeft:"25px"}}>
                     <h2 className="text-lg md:text-2xl font-semibold text-neutral-900 mb-1">
@@ -39,6 +47,9 @@ const Dashboard = () => {
                         Happy To See You ! Have A Look At Your Personalised Dashboard.
                     </p>
                 </div>
+
+                {/* Make the main content area scrollable inside this white card */}
+                <div className={`flex-1 px-4 pb-6 ${isChatExpanded ? 'overflow-y-auto h-full' : ''}`}>
 
                 {/* Main Content Grid: Left (66%) and Right (33%) */}
                 <div className={gridClass} style={{paddingLeft:"20px"}}>
@@ -182,6 +193,7 @@ const Dashboard = () => {
                     ) : (
                         <div className="hidden md:block md:w-[1%]" />
                     )}
+                </div>
                 </div>
             </div>
 
