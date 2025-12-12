@@ -43,7 +43,7 @@ const Dashboard = () => {
                 {/* Main Content Grid: Left (66%) and Right (33%) */}
                 <div className={gridClass} style={{paddingLeft:"20px"}}>
                     {/* Left Column (66%): Quick Access + UpcomingApps on top, Organization Engagement below */}
-                    <div className={isChatExpanded ? "w-full md:w-[95%] flex flex-col gap-4" : "w-full md:w-[65%] flex flex-col gap-4"}>
+                    <div className={isChatExpanded ? "w-full md:w-[98%] flex flex-col gap-4" : "w-full md:w-[65%] flex flex-col gap-4"}>
                         <div className={isChatExpanded ? "flex w-full gap-4 items-stretch" : "flex items-start gap-4 w-full"}>
                             {!isChatExpanded ? (
                                 <>
@@ -180,7 +180,7 @@ const Dashboard = () => {
                                 </div>
                         </div>
                     ) : (
-                        <div className="hidden md:block md:w-[5%]" />
+                        <div className="hidden md:block md:w-[1%]" />
                     )}
                 </div>
             </div>
