@@ -64,11 +64,11 @@ const ChatBot = () => {
     };
 
     // If chat is expanded we want the panel to participate in layout (non-fixed)
-    if (isChatExpanded) {
+    if (isChatExpanded) {   
         return (
-            <div className="flex flex-col bg-white shadow-2xl w-80 h-full border-l border-gray-200">
+            <div className="flex flex-col bg-white shadow-2xl w-full h-full border-l border-gray-200 pt-4 md:pt-6 relative z-50" style={{borderRadius:"10px"}}>
                 {/* Header */}
-                <div className="flex-shrink-0 bg-white p-4 md:p-6 border-b border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px" }}>
+                <div className="flex-shrink-0 bg-white p-4 md:p-6 border border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px",borderRadius:"10px" }}>
                     <div className="pt-0.5">
                         <h3 className="font-bold text-base" style={{ background: '#1F89EF', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Evar</h3>
                         <p className="text-xs text-gray-600 mt-1">I'll make sure to help you with streamlining & fetching details.</p>
@@ -90,7 +90,7 @@ const ChatBot = () => {
                     </div>
 
                     {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-gray-50" >
+                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 bg-gray-50" >
                     {messages.map((message, index) => (
                         <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} gap-3`}>
                             {message.type === "bot" && (
@@ -156,18 +156,18 @@ const ChatBot = () => {
                             className="text-gray-600 hover:text-gray-800 p-2 hover:bg-gray-100 rounded-full transition"
                             title="Attachment"
                         >
-                            <img src="/Dashboard/chatBot/attachmentIcon.png" alt="Attachment" className="w-8 h-4" />
+                            <img src="/Dashboard/chatBot/attachmentIcon.png" alt="Attachment" className="w-3 h-4" />
                         </button>
                         <button
                             className="text-gray-600 hover:text-gray-800 p-2 hover:bg-gray-100 rounded-full transition"
                             title="Voice"
                         >
-                            <img src="/Dashboard/chatBot/micIcon.png" alt="Voice" className="w-8 h-4" />
+                            <img src="/Dashboard/chatBot/micIcon.png" alt="Voice" className="w-3 h-4" />
                         </button>
                         <button
                             onClick={handleSend}
                             className="text-white transition flex items-center justify-center"
-                            style={{ background: '#073663', width: '90px', height: '25px', borderRadius: '4px' }}
+                            style={{ background: '#073663', padding:"10px 5px 10px 5px", height: '20px', borderRadius: '4px' }}
                             title="Send"
                         >
                             <img src="/Dashboard/chatBot/sendIcon.png" alt="Send" className="w-3 h-3" />
@@ -242,7 +242,7 @@ const ChatBot = () => {
                 </div>
 
                 {/* CHAT MESSAGES - SCROLLABLE MIDDLE */}
-                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-gray-50" style={{ padding: "10px" }}>
+                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 bg-gray-50">
                     {messages.map((message, index) => (
                         <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} gap-3`}>
                             {message.type === "bot" && (
