@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://intranet-mb42.vercel.app/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
