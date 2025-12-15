@@ -72,8 +72,8 @@ const HolidayCalendarModal = ({ isOpen, onClose }: Props) => {
     }));
 
     return (
-        <div className="fixed inset-0 flex justify-center items-center z-50">
-            <div className="w-[80%] h-[80%] bg-white rounded-xl overflow-hidden">
+        <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm">
+            <div className="w-[60%] h-[60%] bg-white rounded-xl overflow-hidden">
 
                 {/* Header */}
                 <div
