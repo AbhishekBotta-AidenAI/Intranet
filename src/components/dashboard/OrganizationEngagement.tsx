@@ -2,15 +2,12 @@ import { useState, useRef, useEffect } from "react";
 
 
 const OrganizationEngagement = () => {
-    const [activeTab, setActiveTab] = useState("post");
-    const descRef = useRef<HTMLDivElement | null>(null);
+    // const [activeTab, setActiveTab] = useState("post");
+    // const descRef = useRef<HTMLDivElement | null>(null);
 
     
 
-    const redirectToOrganisationPage = () => {
-        // redirect to the full Organisation Engagement page
-        window.location.href = '/engage';
-    };
+    
 
     function Composer() {
         const [title, setTitle] = useState("");

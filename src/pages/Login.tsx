@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import LoginNavbar from '../components/common/LoginNavbar';
-import { FaMicrosoft } from 'react-icons/fa6';
+
 import { authAPI } from '../services/auth';
 
 const Login: React.FC = () => {
@@ -48,20 +48,22 @@ const Login: React.FC = () => {
 
     finishLogin();
   }, [location.search, navigate]);
+  console.log("error",error);
+  console.log("loading",loading);
 
-  const handleMicrosoftLogin = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const { auth_url, state } = await authAPI.getLoginUrl();
-      sessionStorage.setItem('ms_oauth_state', state);
-      window.location.assign(auth_url);
-    } catch (err) {
-      console.error(err);
-      setError('Unable to start Microsoft sign-in.');
-      setLoading(false);
-    }
-  };
+//   const handleMicrosoftLogin = async () => {
+//     try {
+//       setLoading(true);
+//       setError(null);
+//       const { auth_url, state } = await authAPI.getLoginUrl();
+//       sessionStorage.setItem('ms_oauth_state', state);
+//       window.location.assign(auth_url);
+//     } catch (err) {
+//       console.error(err);
+//       setError('Unable to start Microsoft sign-in.');
+//       setLoading(false);
+//     }
+//   };
 
   return (
     <div className="min-h-screen bg-[#F6F8FF] flex flex-col overflow-hidden">
@@ -98,7 +100,6 @@ const Login: React.FC = () => {
               <span className="font-[10px] text-white ">Continue with Microsoft</span>
             </button>
 
-            
           </div>
         </div>
       </div>
