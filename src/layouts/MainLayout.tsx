@@ -41,12 +41,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 {/* Pages Content */}
                 <div className={`flex-1 flex flex-col ${!isChatExpanded ? 'overflow-y-auto' : ''}`}>
                     {/* Page Content */}
-                    <main className="flex flex-col flex-1 min-h-0 p-4 md:p-6 bg-[#E7EEFF] m-4 rounded-lg shadow-md">
+                    <main className="flex flex-col flex-1 min-h-0 p-4 md:p-6 bg-[#E7EEFF] m-4 rounded-lg  pb-20">
                         {children}
                     </main>
 
-                    {/* Footer - Sticks to bottom */}
-                    <div className="flex-shrink-0">
+                    {/* Footer - Fixed bottom, starts after sidebar */}
+                    <div className="fixed bottom-0 right-0 z-30" style={{ marginLeft: '60px', width: 'calc(100% - 60px)' }}>
                         <Footer />
                     </div>
                 </div>

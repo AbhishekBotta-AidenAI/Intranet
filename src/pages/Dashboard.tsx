@@ -18,7 +18,7 @@ const Dashboard = () => {
     const gridClass = 'flex flex-col md:flex-row gap-3 md:gap-4 items-start';
 
     return (
-        <div className="w-full" style={{ paddingBottom :"20px",background: '#F0F2F5'}}>
+        <div className="w-full" style={{ paddingBottom :"20px",background: '#E7EEFF'}}>
             {/* Text Scroller - Dashboard only */}
             {/* <div className="mb-8 rounded-lg overflow-hidden" style={{paddingBottom:"20px"}}>
                 <TextScroller />
@@ -35,7 +35,7 @@ const Dashboard = () => {
                     marginLeft: "10px",
                     marginRight: "10px",
                     marginTop: "20px",
-                    maxHeight: isChatExpanded ? 'calc(100vh - 300px)' : undefined,
+                    maxHeight: isChatExpanded ? 'calc(100vh - 360px)' : undefined,
                 }}
             >
                 {/* Greeting Section */}

@@ -66,7 +66,8 @@ const ChatBot = () => {
     // If chat is expanded we want the panel to participate in layout (non-fixed)
     if (isChatExpanded) {   
         return (
-            <div className="flex flex-col bg-white shadow-2xl w-full h-full border-l border-gray-200 pt-4 md:pt-6 relative z-50" style={{borderRadius:"10px"}}>
+              <div className="flex flex-col bg-white  w-full border-l border-gray-200 pt-4 md:pt-6 relative z-50 overflow-hidden min-h-0"
+                  style={{ borderRadius: "10px", height: "calc(100vh - 180px)" }}>
                 {/* Header */}
                 <div className="flex-shrink-0 bg-white p-4 md:p-6 border border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px",borderRadius:"10px" }}>
                     <div className="pt-0.5">
@@ -105,7 +106,7 @@ const ChatBot = () => {
                     </div>
 
                     {/* Messages */}
-                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 bg-gray-50" >
+                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 bg-gray-50 min-h-0">
                     {messages.map((message, index) => (
                         <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} gap-3`}>
                             {message.type === "bot" && (
