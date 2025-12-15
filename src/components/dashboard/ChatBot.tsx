@@ -72,7 +72,7 @@ const ChatBot = () => {
                 <div className="flex-shrink-0 bg-white p-4 md:p-6 border border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px",borderRadius:"10px" }}>
                     <div className="pt-0.5">
                         <h3 className="font-bold text-base" style={{ background: '#1F89EF', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Eva</h3>
-                        <p className="text-xs text-gray-600 mt-1">I'll make sure to help you with streamlining & fetching details.</p>
+                        <p className="text-[10px] text-gray-400 mt-1" >I'll make sure to help you with streamlining & fetching details.</p>
                     </div>
                     <div className="flex gap-1.5 flex-shrink-0 pt-0.5">
                         {/* Compress Button */}
@@ -85,7 +85,7 @@ const ChatBot = () => {
                             <img
                                 src="/Dashboard/chatBot/compressIcon.svg"
                                 alt="Compress"
-                                className="w-2 h-2 object-contain"
+                                className="w-3 h-3 object-contain"
                             />
                         </button>
 
@@ -106,7 +106,7 @@ const ChatBot = () => {
                     </div>
 
                     {/* Messages */}
-                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 bg-gray-50 min-h-0">
+                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 bg-gray-50 min-h-0 flex flex-col" style={{padding:"10px", gap: '10px'}}>
                     {messages.map((message, index) => (
                         <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} gap-3`}>
                             {message.type === "bot" && (
@@ -122,14 +122,14 @@ const ChatBot = () => {
                                     className={`rounded-md p-2 text-xs ${message.type === "user" ? 'text-gray-800' : 'text-gray-800'}`}
                                     style={ message.type === 'bot'
                                         ? { padding: '8px', fontSize: '12px', backgroundColor: '#EFFFCF8C', border: '1px solid rgba(180,180,180,0.25)' }
-                                        : { padding: '8px', fontSize: '12px', backgroundColor: '#e0e0e0ff', border: '1px solid rgba(180,180,180,0.25)' }
+                                        : { padding: '8px', fontSize: '12px', backgroundColor: '#ffffffff', border: '1px solid rgba(180,180,180,0.25)' }
                                     }
                                 >
-                                    {message.text}
+                                    <div>{message.text}</div>
+                                    <p className={`text-gray-500 text-[6px] ${message.type === "user" ? "text-right" : ""}`} style={{ marginTop: '4px' }}>
+                                        {message.time}
+                                    </p>
                                 </div>
-                                <p className={`mt-1 text-gray-500 ${message.type === "user" ? "text-right" : ""}`} style={{ fontSize: '6px' }}>
-                                    {message.time}
-                                </p>
                             </div>
 
                             {message.type === "user" && (
@@ -258,11 +258,11 @@ const ChatBot = () => {
                 </div>
 
                 {/* CHAT MESSAGES - SCROLLABLE MIDDLE */}
-                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 space-y-4 bg-gray-50">
-                    {messages.map((message, index) => (
+                <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 bg-gray-50 flex flex-col" style={{padding:"15px", gap: '10px'}}>
+                    {messages.map((message, index) => ( 
                         <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} gap-3`}>
                             {message.type === "bot" && (
-                                <div className="w-8 h-8 rounded-full bg-lime-400 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <div className="w-6 h-6 rounded-full bg-lime-400 flex items-center justify-center flex-shrink-0 overflow-hidden">
                                     <img src="Dashboard/Eva.png" alt="Eva" className="w-full h-full object-cover" />
                                 </div>
                             )}
@@ -275,15 +275,15 @@ const ChatBot = () => {
                                         : { padding: '8px', fontSize: '12px', backgroundColor: '#ffffff', border: '1px solid rgba(180,180,180,0.25)' }
                                     }
                                 >
-                                    {message.text}
+                                    <div>{message.text}</div>
+                                    <p className={`text-gray-500 text-[7px] ${message.type === "user" ? "text-right" : ""}`} style={{ marginTop: '4px' }}>
+                                        {message.time}
+                                    </p>
                                 </div>
-                                <p className={`mt-1 text-gray-500 ${message.type === "user" ? "text-right" : ""}`} style={{ fontSize: '7px' }}>
-                                    {message.time}
-                                </p>
                             </div>
 
                             {message.type === "user" && (
-                                <div className="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center text-white text-xs font-bold">
+                                <div className="w-6 h-6 rounded-full bg-blue-900 flex items-center justify-center text-white text-[10px] font-bold">
                                     {message.avatar}
                                 </div>
                             )}
