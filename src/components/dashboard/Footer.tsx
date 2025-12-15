@@ -26,6 +26,7 @@ const Footer = () => {
                             hover:text-neutral-200 transition-colors 
                             p-[10px] text-[10px]
                         "
+                        style={{textDecoration:"underline"}}
                     >
                         Terms & Conditions
                     </button>
