@@ -175,7 +175,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="mt-4">
+                                <div className="mt-4" style={{paddingTop:"20px"}}>
                                     <RecommendedSection />
                                 </div>
                             </div>
