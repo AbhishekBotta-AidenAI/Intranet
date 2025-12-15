@@ -6,9 +6,11 @@ import HRPolicies from './pages/HRPolicies';
 import MePage from './pages/Me';
 import OrganizationEngagement from './pages/OrganisationEngagement';
 import Login from './pages/Login';
+import { useAuthRefresh } from './hooks/useAuthRefresh';
 
 const AppRoutes = () => {
   const location = useLocation();
+  useAuthRefresh();
   const isLogin = location.pathname.startsWith('/login');
 
   if (isLogin) {

@@ -7,12 +7,12 @@ const Sidebar = () => {
 
     const menuItems = [
         { svg: '/Dashboard/home.svg', label: 'Home', path: '/' },
-        { svg: '/Dashboard/me.svg', label: 'Me', path: '/me' },
+        { svg: '/Dashboard/me.svg', label: 'Me', path: '/me', disabled: true },
         { svg: '/Dashboard/Hrpolicies.svg', label: 'HR Policies', path: '/hr-policies' },
-        { svg: '/Dashboard/Myteam.svg', label: 'My Team', path: '/my-team' },
-        { svg: '/Dashboard/myfinances.svg', label: 'My Finances', path: '/my-finances' },
+        { svg: '/Dashboard/Myteam.svg', label: 'My Team', path: '/my-team', disabled: true },
+        { svg: '/Dashboard/myfinances.svg', label: 'My Finances', path: '/my-finances', disabled: true },
         { svg: '/Dashboard/Engage.svg', label: 'Engage', path: '/engage' },
-        { svg: '/Dashboard/QuestionIcon.png', label: 'Info', path: '/info' },
+        { svg: '/Dashboard/QuestionIcon.png', label: 'Info', path: '/info', disabled: true  },
     ];
 
     return (
@@ -38,14 +38,17 @@ const Sidebar = () => {
             <div className="flex flex-col gap-3 flex-1 -mt-2">
                 {menuItems.map((item, index) => {
                     const isActive = activePath === item.path;
+                    const isDisabled = !!item.disabled;
                     return (
                         <button
                             key={index}
                             onClick={() => {
+                                if (isDisabled) return;
                                 navigate(item.path);
                             }}
-                            className={`p-2 transition relative group flex items-center justify-center rounded-sm ${!isActive ? 'hover:bg-white/10' : ''}`}
+                            className={`p-2 transition relative group flex items-center justify-center rounded-sm ${!isActive && !isDisabled ? 'hover:bg-white/10' : ''} ${isDisabled ? 'opacity-40 cursor-not-allowed' : ''}`}
                             style={{ padding: "8px", backgroundColor: isActive ? '#1F89EF' : undefined }}
+                            disabled={isDisabled}
                             title={item.label}
                         >
                             <img

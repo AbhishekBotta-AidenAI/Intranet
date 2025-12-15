@@ -1,9 +1,11 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 
-// Use local backend by default for development
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://intranet-service-1.onrender.com/';
-// export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+// Base URL (normalized, no trailing slash)
+const RAW_BASE = import.meta.env.VITE_API_BASE_URL || 'https://intranet-service-1.onrender.com';
+export const API_BASE_URL = String(RAW_BASE).replace(/\/+$/, '');
+// Example local override:
+// export const API_BASE_URL = 'http://127.0.0.1:8000';
 
 export interface Document {
     id: number;
@@ -206,6 +208,14 @@ class PostsAPI {
     // helper to build attachment URL
     attachmentUrl(postId: number, attId: number) {
         return `${API_BASE_URL}/api/posts/${postId}/attachments/${attId}`;
+    }
+
+    // create post (multipart/form-data)
+    async createPost(form: FormData) {
+        const res = await this.client.post(`/api/posts/`, form, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        return res.data;
     }
 }
 

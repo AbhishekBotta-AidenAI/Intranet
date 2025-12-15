@@ -1,8 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import LoginNavbar from '../components/common/LoginNavbar';
 import { FaMicrosoft } from 'react-icons/fa6';
+import { authAPI } from '../services/auth';
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -10,6 +17,51 @@ const Login: React.FC = () => {
       document.body.style.overflow = previousOverflow;
     };
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    if (!code) return;
+
+    const storedState = sessionStorage.getItem('ms_oauth_state');
+    if (storedState && state && storedState !== state) {
+      setError('State mismatch. Please try signing in again.');
+      return;
+    }
+
+    const finishLogin = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        await authAPI.exchangeCode(code, state || undefined);
+        // Clean query params
+        navigate('/?login=success', { replace: true });
+      } catch (err) {
+        console.error(err);
+        setError('Sign-in failed. Please try again.');
+      } finally {
+        setLoading(false);
+        sessionStorage.removeItem('ms_oauth_state');
+      }
+    };
+
+    finishLogin();
+  }, [location.search, navigate]);
+
+  const handleMicrosoftLogin = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const { auth_url, state } = await authAPI.getLoginUrl();
+      sessionStorage.setItem('ms_oauth_state', state);
+      window.location.assign(auth_url);
+    } catch (err) {
+      console.error(err);
+      setError('Unable to start Microsoft sign-in.');
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F6F8FF] flex flex-col overflow-hidden">
@@ -37,13 +89,13 @@ const Login: React.FC = () => {
 
         {/* Right - 55% login actions */}
         <div className="w-full md:w-[55%] flex flex-col items-center justify-center p-8">
-          <div className="w-full max-w-md">
-            <h2 className="text-2xl font-semibold mb-4" style={{paddingBottom:"40px"}}>Login To <em className="italic text-[#073663]">AidenNexus</em></h2>
+          <div className="w-full max-w-md flex flex-col items-center">
+            <h2 className="text-2xl font-semibold mb-4 text-center" style={{paddingBottom:"40px"}}>Login To <em className="italic text-[#073663]">Aiden Nexus</em></h2>
             {/* <p className="text-neutral-500 mb-6">Sign in to continue to the intranet.</p> */}
 
-            <button className="w-full flex items-center justify-center gap-3 border border-neutral-300 rounded-md py-3 px-4 hover:shadow-sm transition" style={{padding:"10px"}}>
-              <FaMicrosoft className="text-2xl text-blue-600" />
-              <span className="font-medium">Continue with Microsoft</span>
+            <button className="w-[300px] flex items-center justify-center gap-3 border border-neutral-300 rounded-md py-3 px-4 hover:shadow-sm transition bg-[#073663]" style={{padding:"5px 10px 5px 10px",borderRadius:"25px"}}>
+              <img src="/login/microsoftLogo.svg" alt="Microsoft Logo" className="w-5 h-5" />
+              <span className="font-[10px] text-white ">Continue with Microsoft</span>
             </button>
 
             

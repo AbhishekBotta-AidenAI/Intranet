@@ -23,10 +23,13 @@ const HRPolicies = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedLocation, setSelectedLocation] = useState('India'); // Default location
+    const [open, setOpen] = useState(false);
     // UI tab state for banner navigation
     const [activeTab, setActiveTab] = useState<'policies' | 'holidays' | null>('policies');
     // Search query for filtering documents
     const [searchQuery, setSearchQuery] = useState<string>('');
+
+    const options = ['India', 'USA', 'Canada'];
 
     // Fetch documents on component mount or when selectedLocation changes
     useEffect(() => {
@@ -88,14 +91,22 @@ const HRPolicies = () => {
 
     const handleDownload = (doc: PolicyDocument) => {
         if (doc && doc.link) {
-            // For SharePoint, append '?download=1' to force download
-            const downloadUrl = doc.link.split('?')[0] + '?download=1';
-            const linkElement = document.createElement('a');
-            linkElement.href = downloadUrl;
-            linkElement.setAttribute('download', doc.name || 'document');
-            document.body.appendChild(linkElement);
-            linkElement.click();
-            document.body.removeChild(linkElement);
+            // For SharePoint, ensure download parameter is present
+            let downloadUrl = doc.link;
+            
+            // Check if the link already has query parameters
+            if (downloadUrl.includes('?')) {
+                // If it already has download=1, keep it, otherwise add it
+                if (!downloadUrl.includes('download=1')) {
+                    downloadUrl += '&download=1';
+                }
+            } else {
+                // No query parameters, add download=1
+                downloadUrl += '?download=1';
+            }
+            
+            // // Open in current window to trigger direct download
+            // window.location.href = downloadUrl;
         }
     };
 
@@ -173,12 +184,24 @@ const HRPolicies = () => {
         []
     );
 
-    // Filter documents by search query across all columns
-    // Include formatted last_updated (dd/mm/yyyy) so searches with '/' match displayed dates
+    // Filter documents based on active tab and search query
     const filteredDocuments = useMemo(() => {
-        if (!searchQuery) return documents;
+        let filtered = documents;
+
+        // Filter by tab - show only holiday-related documents in Holiday Calendar tab
+        if (activeTab === 'holidays') {
+            filtered = documents.filter(d => {
+                const name = d.name?.toLowerCase() || '';
+                const description = d.description?.toLowerCase() || '';
+                return name.includes('holiday') || name.includes('calendar') || 
+                       description.includes('holiday') || description.includes('calendar');
+            });
+        }
+
+        // Apply search filter
+        if (!searchQuery) return filtered;
         const q = searchQuery.trim().toLowerCase();
-        return documents.filter(d => {
+        return filtered.filter(d => {
             // collect stringified values
             const values: string[] = Object.values(d)
                 .filter(v => v !== null && v !== undefined)
@@ -197,12 +220,12 @@ const HRPolicies = () => {
             const joined = values.join(' | ').toLowerCase();
             return joined.includes(q);
         });
-    }, [documents, searchQuery]);
+    }, [documents, searchQuery, activeTab]);
 
     return (
         <div className="w-full min-h-screen px-6 py-6" style={{padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF'}}>
             {/* Top banner that touches the navbar */}
-            <div className="relative w-full h-[120px] md:h-[120px] overflow-hidden rounded-b-3xl">
+            <div className="relative w-full h-[170px] md:h-[170px] overflow-hidden rounded-b-3xl">
                 <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/30"></div>
 
@@ -236,10 +259,14 @@ const HRPolicies = () => {
                 <div className="mb-3">
                     <h3 className="text-[25px] font-medium">Hey, <span style={{ color: '#1F89EF' }}>Vaishno</span></h3>
                 </div>
-                <div className='text-black/60 text-[12px]' style={{paddingBottom:"20px"}}>Welcome To HR Policies</div>
+                <div className='text-black/60 text-[12px]' style={{paddingBottom:"20px"}}>
+                    {activeTab === 'policies' ? 'Welcome To HR Policies' : 'View Holiday Calendar'}
+                </div>
                 {/* Header */}
                 <div className="mb-8 flex justify-between items-center">
-                <p style={{fontSize:"20px", fontWeight: 500}}>Organization Documents</p>
+                <p style={{fontSize:"20px", fontWeight: 500}}>
+                    {activeTab === 'policies' ? 'Organization Documents' : 'Holiday Calendar'}
+                </p>
                 <div className="flex items-center gap-4">
                     <div className="relative hidden md:flex items-center">
                         <div className="absolute left-3 flex items-center pointer-events-none">
@@ -256,22 +283,54 @@ const HRPolicies = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-10 pr-4 h-8 w-72 text-sm bg-white border border-neutral-300 rounded-sm placeholder:text-neutral-500 focus:outline-none focus:border-neutral-400"
-                            style={{ paddingLeft: '35px' }}
+                            style={{ paddingLeft: "35px" }}
                         />
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <label htmlFor="location-select" className="text-sm font-medium text-gray-700">Location:</label>
-                        <select
-                            id="location-select"
-                            value={selectedLocation}
-                            onChange={(e) => setSelectedLocation(e.target.value)}
-                            className="mt-1 block pl-3 pr-10 py-2 text-base border border-neutral-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        >
-                            <option>India</option>
-                            <option>USA</option>
-                            <option>Canada</option>
-                        </select>
+                        
+                        <div className="relative w-40">
+                            {/* SELECT BOX */}
+                            <div
+                                onClick={() => setOpen(!open)}
+                                className="cursor-pointer bg-white border border-neutral-300 rounded-md px-3 py-2 text-sm flex items-center justify-between shadow-sm hover:border-neutral-400"
+                                style={{padding:"6px"}}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <img src="/HRPolicies/locationIcon.png" alt="Location" className="w-4 h-4" />
+                                    <span>{selectedLocation}</span>
+                                </div>
+
+                                <svg
+                                    className={`w-4 h-4 text-gray-500 transition-transform ${open ? 'rotate-180' : ''}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+
+                            {/* DROPDOWN OPTIONS */}
+                            {open && (
+                                <div className="absolute z-50 mt-1 w-full bg-white border border-neutral-200 rounded-md shadow-lg overflow-hidden" style={{padding:"5px"}}>
+                                    {options.map(option => (
+                                        <div
+                                            key={option}
+                                            onClick={() => {
+                                                setSelectedLocation(option);
+                                                setOpen(false);
+                                            }}
+                                            className={`px-3 py-2 text-sm cursor-pointer hover:bg-indigo-50 ${selectedLocation === option ? 'bg-indigo-100 font-medium' : ''}`}
+                                            style={{padding:"5px"}}
+                                        >
+                                            {option}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

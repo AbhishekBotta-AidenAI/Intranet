@@ -8,10 +8,12 @@ import RecommendedSection from '../components/dashboard/RecommendedSection';
 import UpcomingApps from '../components/dashboard/UpcomingApps';
 import TimeWidget from '../components/dashboard/TimeWidget';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChatContext } from '../context/ChatContext';
 
 const Dashboard = () => {
     const { isChatExpanded } = useContext(ChatContext);
+    const navigate = useNavigate();
 
     // Always keep the md breakpoint multi-column layout so the middle column
     // (Organization Engagement) doesn't get pushed below when the chat expands.
@@ -72,7 +74,7 @@ const Dashboard = () => {
                                     <div className="w-full md:w-3/4 flex flex-col gap-4">
                                         <div className="flex w-full gap-4">
                                             <div className="w-1/2">
-                                                <QuickLinks />
+                                                <QuickLinks />font
                                             </div>
 
                                             <div className="w-1/2">
@@ -85,6 +87,19 @@ const Dashboard = () => {
                                                 <div className="bg-transparent rounded-lg p-3">
                                                     <div className="flex items-center justify-between">
                                                         <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
+                                                        <button
+                                                            onClick={() => navigate('/engage')}
+                                                            className="border-1 border-[#1F89EF] text-[#1F89EF] rounded-full font-semibold text-sm flex items-center gap-2"
+                                                            style={{ padding: "5px 20px" ,marginBottom:"10px"}}
+                                                        >
+                                                            <span>Engage</span>
+                                                            <img
+                                                                src="/Dashboard/Engage.svg"
+                                                                alt="Engage"
+                                                                className="w-4 h-4"
+                                                                style={{ filter: 'invert(34%) sepia(93%) saturate(1539%) hue-rotate(195deg) brightness(92%) contrast(91%)' }}
+                                                            />
+                                                        </button>
                                                     </div>
 
                                                     <div className="mt-3">
@@ -140,6 +155,19 @@ const Dashboard = () => {
                                     <div className="bg-transparent rounded-lg p-3">
                                         <div className="flex items-center justify-between">
                                             <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
+                                            <button
+                                                onClick={() => navigate('/engage')}
+                                                className="border-1 border-[#1F89EF] text-[#1F89EF] rounded-full font-semibold text-sm flex items-center gap-2"
+                                                style={{ padding: "5px 20px" ,marginBottom:"10px"}}
+                                            >
+                                                <span>Engage</span>
+                                                <img
+                                                    src="/Dashboard/Engage.svg"
+                                                    alt="Engage"
+                                                    className="w-4 h-4"
+                                                    style={{ filter: 'invert(34%) sepia(93%) saturate(1539%) hue-rotate(195deg) brightness(92%) contrast(91%)' }}
+                                                />
+                                            </button>
                                         </div>
 
                                         <div className="mt-3">

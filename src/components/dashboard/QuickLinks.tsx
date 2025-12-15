@@ -85,7 +85,7 @@ const QuickLinks = () => {
                                     className={isChatExpanded ? "ml-0 w-full h-10 text-white text-[13px] font-semibold rounded-md flex items-center justify-center gap-2 hover:opacity-90 transition" : "w-full h-9 text-white text-[11px] md:text-[13px] font-semibold rounded-md flex items-center justify-center gap-2 hover:opacity-90 transition"}
                                     style={{ backgroundColor: item.bg, border: '1px solid rgba(0,0,0,0.08)', padding: isChatExpanded ? '40px' : '0px' }}
                                 >
-                                    <span className="text-white underline">{item.sublabel}</span>
+                                    <span className="text-white hover:underline">{item.sublabel}</span>
                                     <img src="/Dashboard/LinkArrow.svg" alt="arrow" className="w-3 h-3 md:w-4 md:h-4" />
                                 </button>
 

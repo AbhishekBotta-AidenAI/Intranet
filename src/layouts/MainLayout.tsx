@@ -119,7 +119,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         style={{ paddingTop: '20px', paddingLeft: '60px' }}
       >
         {/* Sidebar (fixed internally) */}
-        <div className="flex-shrink-0 h-full" aria-hidden>
+        <div className="flex-shrink-0 h-full">
           <Sidebar />
         </div>
 

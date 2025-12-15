@@ -139,8 +139,9 @@ const OrganisationEngagement = () => {
                 <div className="space-y-6">
                     {/* fetched posts from backend */}
                     {posts && posts.map((p: any) => {
-                        const imgAtt = (p.attachments || []).find((a: any) => a.is_image);
-                        const imgSrc = imgAtt ? postsAPI.attachmentUrl(p.id, imgAtt.id) : null;
+                        const imageAtt = (p.attachments || []).find((a: any) => a.is_image);
+                        const otherAtts = (p.attachments || []).filter((a: any) => !a.is_image);
+                        const imgSrc = imageAtt ? postsAPI.attachmentUrl(p.id, imageAtt.id) : null;
                         return (
                         <div key={p.id} className="bg-white border rounded-xl p-4 shadow-sm"  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
                             <div className="flex items-center justify-between">
@@ -169,7 +170,30 @@ const OrganisationEngagement = () => {
 
                             {imgSrc && (
                                 <div className="mt-4 flex justify-center">
-                                    <img src={imgSrc} className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} />
+                                    <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} />
+                                </div>
+                            )}
+
+                            {otherAtts && otherAtts.length > 0 && (
+                                <div className="mt-4">
+                                    <div className="text-sm font-semibold mb-2">Attachments</div>
+                                    <ul className="space-y-2">
+                                        {otherAtts.map((a: any) => (
+                                            <li key={a.id} className="flex items-center gap-2">
+                                                <a
+                                                    href={postsAPI.attachmentUrl(p.id, a.id)}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-600 hover:underline text-sm"
+                                                >
+                                                    {a.filename || 'Download file'}
+                                                </a>
+                                                {typeof a.size === 'number' && (
+                                                    <span className="text-xs text-gray-500">{Math.round(a.size / 1024)} KB</span>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             )}
 
@@ -287,6 +311,14 @@ function Composer() {
     const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
     const [linkInputValue, setLinkInputValue] = useState<string>('');
 
+    // Poll-related states
+    const [showPoll, setShowPoll] = useState<boolean>(false);
+    const [pollQuestion, setPollQuestion] = useState<string>('');
+    const [pollOptions, setPollOptions] = useState<string[]>(['', '', '']);
+    const [pollExpiryDate, setPollExpiryDate] = useState<string>('');
+    const [pollNotifyPeople, setPollNotifyPeople] = useState<boolean>(false);
+    const [pollAnonymous, setPollAnonymous] = useState<boolean>(false);
+
     // Helper to execute commands
     const exec = (cmd: string, val?: string) => {
         document.execCommand(cmd, false, val);
@@ -316,7 +348,7 @@ function Composer() {
         }
     };
 
-    const handlePost = () => {
+    const handlePost = async () => {
         // build cleaned description (remove preview-only nodes)
         let description = '';
         if (descRef.current) {
@@ -339,32 +371,24 @@ function Composer() {
             fd.append('files', f, f.name);
         });
 
-        setIsPosting(true);
-
-        fetch('http://127.0.0.1:8000/api/posts/', {
-            method: 'POST',
-            body: fd,
-        }).then(async (res) => {
+        try {
+            setIsPosting(true);
+            const { postsAPI } = await import('../services/api');
+            await postsAPI.createPost(fd);
             setIsPosting(false);
-            if (!res.ok) {
-                const txt = await res.text();
-                console.error('Failed to create post', res.status, txt);
-                alert('Failed to create post');
-                return;
-            }
             // Success: reset UI
             setTitle('');
             if (descRef.current) descRef.current.innerHTML = '';
             setAnnounceType('general');
             setCollapsed(true);
             filesRef.current = [];
-            // refresh feed — simple approach: reload page so parent fetches posts
             window.location.reload();
-        }).catch((err) => {
+        } catch (err: any) {
             setIsPosting(false);
+            const msg = err?.response?.data?.detail || err?.message || 'Failed to create post';
             console.error('Create post error', err);
-            alert('Failed to create post');
-        });
+            alert(msg);
+        }
     };
 
     // Placeholder removed — image/attachment now use real file inputs
@@ -589,6 +613,21 @@ function Composer() {
         return () => document.removeEventListener('selectionchange', updateActiveFormats);
     }, []);
 
+    // Open specific composer mode based on URL param (mode=announcement|poll)
+    useEffect(() => {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const mode = params.get('mode');
+            if (mode === 'poll') {
+                setCollapsed(false);
+                setShowPoll(true);
+            } else if (mode === 'announcement') {
+                setCollapsed(false);
+                setShowPoll(false);
+            }
+        } catch {}
+    }, []);
+
     if (collapsed) {
         return (
             <div className="max-w-[1100px] mx-auto mb-3">
@@ -609,13 +648,196 @@ function Composer() {
                         <img src="/Organisation/announcements.png" alt="Announcement" className="w-4 h-4" />
                         <span>Announcement</span>
                     </button>
-                    <button className="flex items-center gap-2 hover:text-black text-sm">
+                    {/* <button className="flex items-center gap-2 hover:text-black text-sm">
                         <img src="/Organisation/Discussion.png" alt="Discussion" className="w-4 h-4" />
                         <span>Discussion</span>
-                    </button>
-                    <button className="flex items-center gap-2 hover:text-black text-sm">
+                    </button> */}
+                    <button onClick={() => { setCollapsed(false); setShowPoll(true); }} className="flex items-center gap-2 hover:text-black text-sm">
                         <img src="/Organisation/polls.png" alt="Poll" className="w-4 h-4" />
                         <span>Poll</span>
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // Poll handlers
+    const addPollOption = () => {
+        setPollOptions([...pollOptions, '']);
+    };
+
+    const removePollOption = (index: number) => {
+        if (pollOptions.length <= 2) return; // Keep at least 2 options
+        setPollOptions(pollOptions.filter((_, i) => i !== index));
+    };
+
+    const updatePollOption = (index: number, value: string) => {
+        const newOptions = [...pollOptions];
+        newOptions[index] = value;
+        setPollOptions(newOptions);
+    };
+
+    const handleCancelPoll = () => {
+        setShowPoll(false);
+        setPollQuestion('');
+        setPollOptions(['', '', '']);
+        setPollExpiryDate('');
+        setPollNotifyPeople(false);
+        setPollAnonymous(false);
+        setCollapsed(true);
+    };
+
+    const handlePostPoll = () => {
+        console.log({
+            question: pollQuestion,
+            options: pollOptions.filter(o => o.trim()),
+            expiryDate: pollExpiryDate,
+            notifyPeople: pollNotifyPeople,
+            anonymous: pollAnonymous
+        });
+        // TODO: Send poll data to backend
+        alert('Poll posted!');
+        handleCancelPoll();
+    };
+
+    if (showPoll) {
+        return (
+            <div className="bg-white rounded-xl p-6 max-w-[1100px] mx-auto font-sans relative">
+                <div className="absolute right-0 top-0">
+                    <button
+                        onClick={handleCancelPoll}
+                        className="text-sm text-[#1F89EF]"
+                    >
+                        Collapse
+                    </button>
+                </div>
+
+                {/* Profile Picture */}
+                <div className="flex items-center gap-3 mb-6">
+                    <img src="/Dashboard/UserPic.png" className="w-12 h-12 rounded-full border" alt="User" />
+                    <div>
+                        <p className="text-sm font-medium">Vaishno Medavaram</p>
+                        <p className="text-xs text-gray-500">Creating a poll</p>
+                    </div>
+                </div>
+
+                {/* Poll Question */}
+                <div className="mb-6" style={{padding:"20px 0px 5px 10px"}}>
+                    <label className="block text-sm font-medium mb-2" style={{paddingBottom:"10px"}}>What is this poll about?</label>
+                    <input
+                        value={pollQuestion}
+                        onChange={(e) => setPollQuestion(e.target.value)}
+                        placeholder="Enter poll question"
+                        className="w-full p-3 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        style={{height:"40px",paddingLeft:"10px"}}
+                    />
+                </div>
+
+                {/* Poll Options */}
+                <div className="mb-6" style={{padding:"0px 0px 20px 10px"}}>
+                    
+                    {pollOptions.map((option, index) => (
+                        <div key={index} className="flex items-center gap-2 mb-3" style={{paddingTop:"10px"}}>
+                            <input
+                                value={option}
+                                onChange={(e) => updatePollOption(index, e.target.value)}
+                                placeholder={`Option ${index + 1}`}
+                                className="w-130 p-3 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                style={{height:"40px",paddingLeft:"10px"}}
+                            />
+                            {pollOptions.length > 2 && (
+                                <button
+                                    onClick={() => removePollOption(index)}
+                                    className="text-red-500 hover:text-red-700"
+                                    title="Delete option"
+                                >
+                                    <img src="/Organisation/deleteIcon.svg" alt="Delete option" className="w-5 h-5" />
+                                </button>
+                            )}
+                        </div>
+                    ))}
+                    <button
+                        onClick={addPollOption}
+                        className="flex items-center gap-2 text-sm text-white bg-[#1F89EF] hover:bg-blue-700 rounded-lg px-4 py-2 mt-2 h-[35px]"
+                        style={{padding:"10px 30px 10px 30px",borderRadius:"25px",marginTop:"10px"}}
+                    >
+                        
+                        <span>ADD OPTION</span>
+                        <span className="text-[25px]">+</span>
+                    </button>
+                </div>
+
+                {/* Poll Expiry Date */}
+                <div className="mb-6" style={{padding:"0px 0px 0px 10px"}}>
+                    <label className="block text-sm text-[14px] mb-2" style={{paddingBottom:"10px"}}>Poll expires on</label>
+                    <div className="relative w-[520px]">
+                        <input
+                            type="date"
+                            value={pollExpiryDate}
+                            onChange={(e) => setPollExpiryDate(e.target.value)}
+                            className="w-full p-3 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            style={{height:"40px",paddingLeft:"10px",paddingRight:"45px"}}
+                        />
+                        <style>{`
+                            input[type="date"]::-webkit-calendar-picker-indicator {
+                                display: none;
+                            }
+                        `}</style>
+                        <img 
+                            src="/Organisation/calendarIcon.png" 
+                            alt="Calendar" 
+                            className="absolute w-5 h-5 cursor-pointer"
+                            style={{right:"12px",top:"50%",transform:"translateY(-50%)"}}
+                            onClick={(e) => {
+                                const input = (e.currentTarget.parentElement?.querySelector('input') as HTMLInputElement);
+                                input?.showPicker?.();
+                            }}
+                        />
+                    </div>
+                </div>
+
+                {/* Checkboxes */}
+                <div className="flex gap-6 mb-6" style={{padding:"20px 0px 0px 10px"}}>
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            id="notifyPeople"
+                            checked={pollNotifyPeople}
+                            onChange={(e) => setPollNotifyPeople(e.target.checked)}
+                            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        />
+                        <label htmlFor="notifyPeople" className="text-sm text-gray-700">Notify people</label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            id="anonymousPoll"
+                            checked={pollAnonymous}
+                            onChange={(e) => setPollAnonymous(e.target.checked)}
+                            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        />
+                        <label htmlFor="anonymousPoll" className="text-sm text-gray-700">Anonymous poll</label>
+                    </div>
+                </div>
+
+                <div className="my-3" style={{ height: 1, backgroundColor: '#E1E1E1', margin:"15px 0px 15px 0px" }} />
+
+                {/* Action Buttons */}
+                <div className="flex justify-end gap-3">
+                    <button
+                        onClick={handleCancelPoll}
+                        className="px-6 py-2 text-sm font-medium border-2 border-[#1F89EF] text-[#1F89EF] rounded-lg "
+                        style={{paddingLeft:"30px",paddingRight:"30px",height:"35px" ,borderRadius:"25px"}}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handlePostPoll}
+                        className="text-white font-medium px-6 py-2 rounded-md text-sm flex items-center"
+                        style={{paddingLeft:"30px",paddingRight:"30px",height:"35px" ,borderRadius:"25px",backgroundColor:"#1F89EF"}}
+                    >
+                        POST     
+                        <img src="/Dashboard/OrganisationEngagement/postdownArrow.svg" alt="Post down arrow" className="ml-2 w-4 h-4 inline-block"  style={{paddingLeft:"5px"}}/>
                     </button>
                 </div>
             </div>
@@ -629,9 +851,9 @@ function Composer() {
                     onClick={() => setCollapsed(true)}
                     className="text-sm text-[#1F89EF]"
                 >
-                    Collapse
+                    <img src="/Organisation/compressIcon.svg" alt="Collapse" className="w-4 h-4 inline-block mr-1" />
                 </button>
-            </div>
+            </div>  
             {/* Title Input */}
             <div className="mb-4" style={{padding:"30px 0px 5px 10px"}}>
                  <label className="block text-sm font-medium mb-1" >Title</label>
@@ -707,11 +929,11 @@ function Composer() {
                                 </div>
                             </div>
                         )}
+                    </div>
 
                     {/* Hidden file inputs for image and attachment uploads */}
                     <input ref={imageInputRef} type="file" accept="image/*" onChange={onImageSelected} className="hidden" />
                     <input ref={attachInputRef} type="file" onChange={onAttachSelected} className="hidden" />
-                    </div>
 
                     {/* Divider */}
                     <div className="w-px h-5 bg-white mx-1"></div>
@@ -773,7 +995,6 @@ function Composer() {
                     style={{padding:"10px"}}
                 ></div>
             </div>
-            
 
             {/* Announcement Type */}
             <div className="mt-4 px-2" style={{padding:"10px"}}>
