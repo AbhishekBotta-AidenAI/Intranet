@@ -70,10 +70,25 @@ const ChatBot = () => {
                 {/* Header */}
                 <div className="flex-shrink-0 bg-white p-4 md:p-6 border border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px",borderRadius:"10px" }}>
                     <div className="pt-0.5">
-                        <h3 className="font-bold text-base" style={{ background: '#1F89EF', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Evar</h3>
+                        <h3 className="font-bold text-base" style={{ background: '#1F89EF', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Chat with Eva</h3>
                         <p className="text-xs text-gray-600 mt-1">I'll make sure to help you with streamlining & fetching details.</p>
                     </div>
                     <div className="flex gap-1.5 flex-shrink-0 pt-0.5">
+                        {/* Compress Button */}
+                        <button
+                            onClick={() => { setIsChatExpanded(false); setIsOpen(true); }}
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-sm hover:opacity-80 transition"
+                            style={{ background: '#DEDEDE' }}
+                            title="Compress"
+                        >
+                            <img
+                                src="/Dashboard/chatBot/compressIcon.svg"
+                                alt="Compress"
+                                className="w-2 h-2 object-contain"
+                            />
+                        </button>
+
+                        {/* Close Button */}
                         <button
                             onClick={() => { setIsChatExpanded(false); setIsOpen(false); }}
                             className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-sm hover:opacity-80 transition"
