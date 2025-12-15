@@ -73,7 +73,7 @@ const HolidayCalendarModal = ({ isOpen, onClose }: Props) => {
 
     return (
         <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm">
-            <div className="w-[60%] h-[60%] bg-white rounded-xl overflow-hidden">
+            <div className="w-[90%] md:w-[60%] max-h-[85vh] bg-white rounded-xl overflow-hidden flex flex-col">
 
                 {/* Header */}
                 <div
@@ -110,7 +110,7 @@ const HolidayCalendarModal = ({ isOpen, onClose }: Props) => {
                 </div>
 
                 {/* Grid */}
-                <div className="p-6 overflow-y-auto" style={{ maxHeight: "calc(80vh - 96px)", backgroundColor: "#F7FBFF" }}>
+                <div className="p-6 overflow-y-auto flex-1" style={{ backgroundColor: "#F7FBFF" }}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" style={{ padding: "20px" }}>
 
                         {filteredHolidayData
