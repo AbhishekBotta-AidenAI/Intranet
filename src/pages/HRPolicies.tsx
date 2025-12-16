@@ -162,8 +162,9 @@ const HRPolicies = () => {
 
                         <button 
                             onClick={() => handleDownload(params.data)}
-                            className="p-2 hover:bg-neutral-100 rounded-lg transition-colors text-neutral-600 hover:text-neutral-900"
+                            className="p-2 rounded-lg transition-colors text-neutral-300 cursor-not-allowed"
                             title="Download document"
+                            disabled
                         >
                             <Download size={18} />
                         </button>
