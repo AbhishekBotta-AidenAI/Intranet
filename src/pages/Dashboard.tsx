@@ -17,7 +17,7 @@ const Dashboard = () => {
 
     // Always keep the md breakpoint multi-column layout so the middle column
     // (Organization Engagement) doesn't get pushed below when the chat expands.
-    const gridClass = 'flex flex-col md:flex-row gap-3 md:gap-4 items-start';
+    const gridClass = 'flex flex-col md:flex-row gap-4 md:gap-4 items-start';
 
     return (
         <div className="w-full" style={{ paddingBottom :"20px",background: '#E7EEFF'}}>
@@ -150,7 +150,7 @@ const Dashboard = () => {
                         </div>
 
                         {!isChatExpanded && (
-                            <div className="mt-4" style={{paddingTop:"10px"}}>
+                            <div className="mt-4" >
                                 <div className="w-full rounded-2xl" style={{padding: '15px', border: '1px solid #e1e1e1'}}>
                                     <div className="bg-transparent rounded-lg p-3">
                                         <div className="flex items-center justify-between">
@@ -175,7 +175,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="mt-4" style={{paddingTop:"20px"}}>
+                                <div className="mt-4" style={{paddingTop:"15px"}}>
                                     <RecommendedSection />
                                 </div>
                             </div>
