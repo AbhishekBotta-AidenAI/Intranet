@@ -53,10 +53,10 @@ const Dashboard = () => {
                 {/* Make the main content area scrollable inside this white card */}
                 <div className={`flex-1 px-4 pb-6 ${isChatExpanded ? 'overflow-y-auto h-full' : ''}`}>
 
-                {/* Main Content Grid: Left (66%) and Right (33%) */}
+                {/* Main Content Grid: Left (flexible) and Right (fixed 400px) */}
                 <div className={gridClass} style={{paddingLeft:"20px"}}>
-                    {/* Left Column (66%): Quick Access + UpcomingApps on top, Organization Engagement below */}
-                    <div className={isChatExpanded ? "w-full md:w-[98%] flex flex-col gap-4" : "w-full md:w-[65%] flex flex-col gap-4"}>
+                    {/* Left Column: Flexible width - fills remaining space */}
+                    <div className={isChatExpanded ? "w-full md:w-[98%] flex flex-col gap-4" : "w-full md:flex-1 flex flex-col gap-4"}>
                         <div className={isChatExpanded ? "flex w-full gap-4 items-stretch" : "flex items-start gap-4 w-full"}>
                             {!isChatExpanded ? (
                                 <>
@@ -190,9 +190,9 @@ const Dashboard = () => {
                         
                     </div>
 
-                    {/* Right Column (33%): Recommended Reads / other side content - hidden when chat expanded */}
+                    {/* Right Column: Fixed width 400px - hidden when chat expanded */}
                     { !isChatExpanded ? (
-                        <div className="w-full md:w-[35%] flex flex-col gap-4" style={{paddingRight:"20px"}}>
+                        <div className="hidden md:flex md:flex-col gap-4" style={{paddingRight:"20px", width: "400px", minWidth: "400px"}}>
                                 {/* Daily Picks Card moved to right column */}
                                 <div className="w-full rounded-2xl" style={{padding: '10px', border: '1px solid #e1e1e1'}}>
                                     <div className="bg-transparent rounded-lg p-3">

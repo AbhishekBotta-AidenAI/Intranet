@@ -12,7 +12,8 @@ const UpcomingApps = () => {
     ];
 
     return (
-        <div className={`w-full max-w-full md:max-w-[370px] rounded-2xl ${isChatExpanded ? 'h-full' : ''}`} style={{padding: "16px 5px 12px 20px",border:"1px solid #e1e1e1" }}>
+        // <div className={`w-full max-w-full md:max-w-[370px] rounded-2xl ${isChatExpanded ? 'h-full' : ''}`} style={{padding: "16px 5px 12px 20px",border:"1px solid #e1e1e1" }}>
+        <div className={`w-full max-w-full rounded-2xl ${isChatExpanded ? 'h-full' : ''}`} style={{padding: "16px 5px 12px 20px",border:"1px solid #e1e1e1" }}>
             <div className="bg-transparent rounded-lg p-3 h-full flex flex-col">
                 <div className="flex flex-col gap-2 flex-1" style={{paddingBottom:"7px"}}>
                     <div className="flex items-center justify-between">

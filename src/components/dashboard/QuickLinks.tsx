@@ -61,7 +61,8 @@ const QuickLinks = () => {
     };
 
     return (
-        <div className={`w-full max-w-full md:max-w-[370px] rounded-2xl ${isChatExpanded ? 'h-full' : ''}`} style={cardStyle}>
+        // <div className={`w-full max-w-full md:max-w-[370px] rounded-2xl ${isChatExpanded ? 'h-full' : ''}`} style={cardStyle}>
+        <div className={`w-full max-w-full rounded-2xl ${isChatExpanded ? 'h-full' : ''}`} style={cardStyle}>
             <div className="bg-transparent rounded-lg p-3 h-full flex flex-col">
                 <div className="flex flex-col gap-2 flex-1" style={{paddingBottom: isChatExpanded ? "20px" : "0px"}}>
                     <div className="flex items-center justify-between">
