@@ -177,7 +177,7 @@ const documentAPI = new DocumentAPI();
 class PostsAPI {
     private client = documentAPI['client'];
 
-    async listPosts(skip = 0, limit = 50) {
+    async listPosts(skip = 0, limit = 50, p0: { signal: AbortSignal; }) {
         const res = await this.client.get<{ total: number; posts: any[] }>(`/api/posts/`, { params: { skip, limit } });
         return res.data;
     }

@@ -1,3 +1,293 @@
+// import { useState, useRef, useEffect } from 'react';
+// import { postsAPI } from '../services/api';
+
+// const formatDate = (iso?: string) => {
+//     if (!iso) return '';
+//     try {
+//         const d = new Date(iso);
+//         if (Number.isNaN(d.getTime())) return '';
+//         return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(d);
+//     } catch {
+//         return '';
+//     }
+// };
+
+// const OrganisationEngagement = () => {
+//     const [activeTab, setActiveTab] = useState<'policies' | 'holidays'>('policies');
+//     const [posts, setPosts] = useState<any[]>([]);
+//     const [likedMap, setLikedMap] = useState<Record<number, boolean>>({});
+//     const [commentsMap, setCommentsMap] = useState<Record<number, string>>({});
+
+//     const currentUser = 'Vaishno Medavaram';
+
+//     const refreshPosts = async () => {
+//         try {
+//             const controller = new AbortController();
+//             const res = await postsAPI.listPosts(0, 50, { signal: controller.signal });
+//             const postsList = res.posts || [];
+//             // initialize likedMap from p.liked_users
+//             const map: Record<number, boolean> = {};
+//             postsList.forEach((p: any) => {
+//                 const liked = Array.isArray(p.liked_users) && p.liked_users.some((u: string) => String(u).toLowerCase() === currentUser.toLowerCase());
+//                 map[p.id] = !!liked;
+//             });
+
+//             // fetch replies for each post (so comments show)
+//             const repliesPromises = postsList.map(async (p: any) => {
+//                 try { const r = await postsAPI.listReplies(p.id); return r || []; } catch (e) { return []; }
+//             });
+//             const repliesArray = await Promise.all(repliesPromises);
+//             const enriched = postsList.map((p: any, idx: number) => ({ ...p, replies: repliesArray[idx] || [] }));
+
+//             setPosts(enriched);
+//             setLikedMap(map);
+//         } catch (err) {
+//             console.error('Failed to load posts', err);
+//         }
+//     };
+
+//     useEffect(() => {
+//         // initial load
+//         refreshPosts();
+//     }, []);
+
+//     const submitComment = async (postId: number) => {
+//         const text = (commentsMap[postId] || '').trim();
+//         if (!text) return;
+//         try {
+//             await postsAPI.addReply(postId, 'Vaishno Medavaram', text);
+//             // clear input
+//             setCommentsMap((m) => ({ ...m, [postId]: '' }));
+//             // refresh posts list to show new reply counts / content
+//             await refreshPosts();
+//         } catch (e) {
+//             console.error('Failed to post comment', e);
+//             alert('Failed to post comment');
+//         }
+//     };
+
+//     return (
+//         <div className="w-full min-h-screen px-6 py-6" style={{ padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF' }}>
+            
+//             {/* =========================
+//                  BANNER + TABS
+//             ========================== */}
+//             <div className="relative w-full h-[150px] md:h-[150px] overflow-hidden rounded-b-3xl">
+//                 <img 
+//                     src="/Organisation/OrgBanner.png" 
+//                     alt="HR Banner" 
+//                     className="w-full h-full object-cover" 
+//                 />
+
+//                 <div className="absolute inset-0 bg-black/30"></div>
+
+//                 {/* TABS ON BOTTOM OF BANNER */}
+//                 <div className="absolute bottom-0 left-12 w-full px-6 flex gap-3 pb-2"  >
+
+//                     {/* Policies */}
+//                     <button
+//                         onClick={() => setActiveTab('policies')}
+//                         style={{padding:"10px"}}
+//                         className={`px-4 py-1 rounded-t-lg text-[14px] transition-all 
+//                             ${activeTab === 'policies' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-white'}`}
+//                     >
+//                         Announcements & Polls
+//                     </button>
+
+//                     {/*
+//                         Holiday Calendar
+//                         <button
+//                             onClick={() => setActiveTab('holidays')}
+//                             style={{padding:"10px"}}
+//                             className={`px-4 py-1 rounded-t-lg text-[14px] transition-all ${activeTab === 'holidays' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-white'}`}
+//                         >
+//                             Holiday Calendar
+//                         </button>
+//                     */}
+//                 </div>
+
+//             </div>
+
+//             {/* =========================
+//                  MAIN CONTENT WRAPPER
+//             ========================== */}
+//             <div className="bg-white rounded-2xl shadow-md p-6 mt-6" style={{marginTop:"30px",padding:"20px"}}>
+
+//                 {/* Greeting */}
+//                 <div>
+//                     <h3 className="text-[25px] font-medium">
+//                         Hey, <span className="text-[#1F89EF]">Vaishno</span>
+//                     </h3>
+
+//                     <p className="text-black/60 text-[12px] pb-4">
+//                         Welcome To Organisation Engagement
+//                     </p>
+//                 </div>
+
+//                 {/* =========================
+//                      CREATE POST CARD
+//                 ========================== */}
+//                 <div className="bg-white rounded-xl p-4 mb-6 " style={{padding:"20px",marginBottom:"40px",marginTop:"20px", border: '1px solid #E1E1E1'}}>
+//                     <Composer />
+//                 </div>
+
+//                 {/* =========================
+//                      POST CARDS LIST
+//                 ========================== */}
+                
+//                 <div className="text-[20px] font-semibold mb-4" style={{padding:"0px 0px 20px 0px"}}>Newsfeed</div>
+
+//                 <div className="space-y-6">
+//                     {/* fetched posts from backend */}
+//                     {posts && posts.map((p: any) => {
+//                         const imageAtt = (p.attachments || []).find((a: any) => a.is_image);
+//                         const otherAtts = (p.attachments || []).filter((a: any) => !a.is_image);
+//                         const imgSrc = imageAtt ? postsAPI.attachmentUrl(p.id, imageAtt.id) : null;
+//                         return (
+//                         <div key={p.id} className="bg-white border rounded-xl p-4 shadow-sm"  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
+//                             <div className="flex items-center justify-between">
+//                                 <div className="flex items-center gap-3"> 
+//                                     <img src={'/Dashboard/UserPic.png'} className="w-10 h-10 rounded-full"/>
+//                                     <div>
+//                                         <p className="font-semibold text-sm">{p.author || 'Unknown Poster'}</p>
+//                                         <p className="text-[12px] text-gray-500">{formatDate(p.created_at)}</p>
+//                                     </div>
+//                                 </div>
+//                                 <div className="text-sm text-gray-500">Seen by {p.views_count ?? 0}</div>
+//                             </div>
+
+//                             <h4 className="font-medium mt-3" style={{paddingTop:"20px"}}>{p.title}</h4>
+//                             {p.description && (() => {
+//                                 // remove any data-URL images or preview wrappers that may remain
+//                                 let sanitized = String(p.description);
+//                                 // remove elements with data-preview="true"
+//                                 sanitized = sanitized.replace(/<[^>]*data-preview=["']true["'][^>]*>[\s\S]*?<\/[a-z0-9]+>/gi, '');
+//                                 // remove inline data: images
+//                                 sanitized = sanitized.replace(/<img[^>]*src=["']data:[^"']*["'][^>]*>/gi, '');
+//                                 return (
+//                                     <div className="text-sm mt-2" style={{padding:"10px 0px 10px 0px"}} dangerouslySetInnerHTML={{__html: sanitized}} />
+//                                 );
+//                             })()}
+
+//                             {imgSrc && (
+//                                 <div className="mt-4 flex justify-center">
+//                                     <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} />
+//                                 </div>
+//                             )}
+
+//                             {otherAtts && otherAtts.length > 0 && (
+//                                 <div className="mt-4">
+//                                     <div className="text-sm font-semibold mb-2">Attachments</div>
+//                                     <ul className="space-y-2">
+//                                         {otherAtts.map((a: any) => (
+//                                             <li key={a.id} className="flex items-center gap-2">
+//                                                 <a
+//                                                     href={postsAPI.attachmentUrl(p.id, a.id)}
+//                                                     target="_blank"
+//                                                     rel="noopener noreferrer"
+//                                                     className="text-blue-600 hover:underline text-sm"
+//                                                 >
+//                                                     {a.filename || 'Download file'}
+//                                                 </a>
+//                                                 {typeof a.size === 'number' && (
+//                                                     <span className="text-xs text-gray-500">{Math.round(a.size / 1024)} KB</span>
+//                                                 )}
+//                                             </li>
+//                                         ))}
+//                                     </ul>
+//                                 </div>
+//                             )}
+
+//                             {/* Render recent replies (comments) */}
+//                             {/* {p.replies && p.replies.length > 0 && (
+//                                 <div className="mt-4">
+//                                     <div className="text-sm font-semibold mb-2">Comments</div>
+//                                     <div className="space-y-2">
+//                                         {p.replies.map((r: any) => (
+//                                             <div key={r.id} className="flex items-start gap-3">
+//                                                 <img src="/Dashboard/UserPic.png" className="w-7 h-7 rounded-full" />
+//                                                 <div className="bg-gray-50 p-2 rounded-lg">
+//                                                     <div className="text-xs text-gray-600 font-semibold">{r.user}</div>
+//                                                     <div className="text-sm" dangerouslySetInnerHTML={{ __html: String(r.content) }} />
+//                                                     <div className="text-xs text-gray-400">{formatDate(r.created_at)}</div>
+//                                                 </div>
+//                                             </div>
+//                                         ))}
+//                                     </div>
+//                                 </div>
+//                             )} */}
+
+//                             <div style={{ borderTop: '1px solid #E1E1E1', marginTop: 4 ,marginBottom:16}} />
+
+//                             <div className="flex items-center justify-between text-gray-600 mt-4 text-sm">
+//                                 <div className="flex items-center gap-4">
+//                                     <button
+//                                         className={`flex items-center gap-2 ${likedMap[p.id] ? 'text-[#1F89EF]' : 'hover:text-blue-600'}`}
+//                                         style={{ paddingRight: "8px", background: 'transparent', border: 'none' }}
+//                                         onClick={async () => {
+//                                             // optimistic toggle
+//                                             setLikedMap((m) => ({ ...m, [p.id]: !m[p.id] }));
+//                                             try {
+//                                                 await postsAPI.addReaction(p.id, 'Vaishno Medavaram', 'like');
+//                                                 // refresh from backend to reflect persisted state
+//                                                 await refreshPosts();
+//                                             } catch (e) {
+//                                                 console.error('Failed to record like', e);
+//                                                 // revert optimistic toggle on error
+//                                                 setLikedMap((m) => ({ ...m, [p.id]: !m[p.id] }));
+//                                             }
+//                                         }}
+//                                     >
+//                                         <svg className="w-4 h-4" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+//                                             <path d="M5.41671 9.74967V22.7497H1.08337V9.74967H5.41671ZM9.75004 22.7497C9.17541 22.7497 8.6243 22.5214 8.21798 22.1151C7.81165 21.7087 7.58337 21.1576 7.58337 20.583V9.74967C7.58337 9.15384 7.82171 8.61217 8.22254 8.22217L15.3509 1.08301L16.4992 2.23134C16.7917 2.52384 16.9759 2.92467 16.9759 3.36884L16.9434 3.71551L15.9142 8.66634H22.75C23.3247 8.66634 23.8758 8.89461 24.2821 9.30094C24.6884 9.70727 24.9167 10.2584 24.9167 10.833V12.9997C24.9167 13.2813 24.8625 13.5413 24.765 13.7905L21.4934 21.428C21.1684 22.208 20.3992 22.7497 19.5 22.7497H9.75004ZM9.75004 20.583H19.5325L22.75 12.9997V10.833H13.2275L14.4517 5.06967L9.75004 9.78217V20.583Z"
+//                                                 fill={likedMap[p.id] ? '#1F89EF' : 'currentColor'} />
+//                                         </svg>
+//                                         <span className={`font-semibold ${likedMap[p.id] ? 'text-[#1F89EF]' : 'text-black'}`}>Like</span>
+//                                     </button>
+//                                     <button className="flex items-center gap-2 hover:text-blue-600" style={{paddingRight:"8px"}}>
+//                                         <img src="/Organisation/comment.png" alt="Comment" className="w-4 h-4" />
+//                                         <span className='font-semibold text-black'> Comment</span>
+//                                     </button>
+//                                     <button className="flex items-center gap-2 hover:text-blue-600">
+//                                         <img src="/Organisation/share.png" alt="Share" className="w-4 h-4" />
+//                                         <span className='font-semibold text-black' > Share</span>
+//                                     </button>
+//                                 </div>
+
+//                                 <div className="flex items-center gap-2 text-sm text-gray-600">
+//                                     <svg className="w-4 h-4" width="18" height="18" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+//                                         <path d="M5.41671 9.74967V22.7497H1.08337V9.74967H5.41671ZM9.75004 22.7497C9.17541 22.7497 8.6243 22.5214 8.21798 22.1151C7.81165 21.7087 7.58337 21.1576 7.58337 20.583V9.74967C7.58337 9.15384 7.82171 8.61217 8.22254 8.22217L15.3509 1.08301L16.4992 2.23134C16.7917 2.52384 16.9759 2.92467 16.9759 3.36884L16.9434 3.71551L15.9142 8.66634H22.75C23.3247 8.66634 23.8758 8.89461 24.2821 9.30094C24.6884 9.70727 24.9167 10.2584 24.9167 10.833V12.9997C24.9167 13.2813 24.8625 13.5413 24.765 13.7905L21.4934 21.428C21.1684 22.208 20.3992 22.7497 19.5 22.7497H9.75004ZM9.75004 20.583H19.5325L22.75 12.9997V10.833H13.2275L14.4517 5.06967L9.75004 9.78217V20.583Z" fill={likedMap[p.id] ? '#1F89EF' : 'currentColor'} />
+//                                     </svg>
+//                                     <div className="text-gray-700">{(p.liked_users && p.liked_users.length) ? p.liked_users[p.liked_users.length - 1] : ''}</div>
+//                                 </div>
+//                             </div>
+//                             {/* Comment input (like a search bar) */}
+//                             <div className="mt-3" style={{paddingTop:"20px"}}>
+//                                 <div className="flex items-center gap-3">
+//                                     <img src="/Dashboard/UserPic.png" className="w-8 h-8 rounded-full" />
+//                                     <input
+//                                         value={commentsMap[p.id] || ''}
+//                                         onChange={(e) => setCommentsMap((m) => ({ ...m, [p.id]: e.target.value }))}
+//                                         onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitComment(p.id); } }}
+//                                         placeholder="Write a comment..."
+//                                         className="flex-1 px-4 py-2 border border-[#E1E1E1] rounded-md "
+//                                         style={{height:"30px",padding:"10px",backgroundColor:"#F3F3F3"}}
+//                                     />
+//                                     {/* Enter key posts the comment; no separate button per spec */}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                         )
+//                     })}
+//                 </div>
+
+//             </div>
+//         </div>
+
+//     );
+// };
+
+// export default OrganisationEngagement;
 import { useState, useRef, useEffect } from 'react';
 import { postsAPI } from '../services/api';
 
@@ -17,51 +307,70 @@ const OrganisationEngagement = () => {
     const [posts, setPosts] = useState<any[]>([]);
     const [likedMap, setLikedMap] = useState<Record<number, boolean>>({});
     const [commentsMap, setCommentsMap] = useState<Record<number, string>>({});
+    const abortRef = useRef<AbortController | null>(null);
 
     const currentUser = 'Vaishno Medavaram';
 
+    /* =========================
+       OPTIMIZED POSTS FETCH
+    ========================== */
     const refreshPosts = async () => {
+        abortRef.current?.abort();
+        const controller = new AbortController();
+        abortRef.current = controller;
+
         try {
-            const res = await postsAPI.listPosts(0, 50);
+            const res = await postsAPI.listPosts(0, 10, {
+                signal: controller.signal
+            });
+
             const postsList = res.posts || [];
-            // initialize likedMap from p.liked_users
-            const map: Record<number, boolean> = {};
+
+            const liked: Record<number, boolean> = {};
             postsList.forEach((p: any) => {
-                const liked = Array.isArray(p.liked_users) && p.liked_users.some((u: string) => String(u).toLowerCase() === currentUser.toLowerCase());
-                map[p.id] = !!liked;
+                liked[p.id] =
+                    Array.isArray(p.liked_users) &&
+                    p.liked_users.some(
+                        (u: string) =>
+                            String(u).toLowerCase() === currentUser.toLowerCase()
+                    );
             });
 
-            // fetch replies for each post (so comments show)
-            const repliesPromises = postsList.map(async (p: any) => {
-                try { const r = await postsAPI.listReplies(p.id); return r || []; } catch (e) { return []; }
-            });
-            const repliesArray = await Promise.all(repliesPromises);
-            const enriched = postsList.map((p: any, idx: number) => ({ ...p, replies: repliesArray[idx] || [] }));
-
-            setPosts(enriched);
-            setLikedMap(map);
-        } catch (err) {
-            console.error('Failed to load posts', err);
+            setLikedMap(liked);
+            setPosts(postsList);
+        } catch (err: any) {
+            if (err.name !== 'AbortError') {
+                console.error('Failed to load posts', err);
+            }
         }
     };
 
     useEffect(() => {
-        // initial load
         refreshPosts();
+        return () => abortRef.current?.abort();
     }, []);
 
+    /* =========================
+       OPTIMIZED COMMENT
+    ========================== */
     const submitComment = async (postId: number) => {
         const text = (commentsMap[postId] || '').trim();
         if (!text) return;
+
+        // optimistic UI
+        setPosts((prev) =>
+            prev.map((p) =>
+                p.id === postId
+                    ? { ...p, reply_count: (p.reply_count || 0) + 1 }
+                    : p
+            )
+        );
+        setCommentsMap((m) => ({ ...m, [postId]: '' }));
+
         try {
-            await postsAPI.addReply(postId, 'Vaishno Medavaram', text);
-            // clear input
-            setCommentsMap((m) => ({ ...m, [postId]: '' }));
-            // refresh posts list to show new reply counts / content
-            await refreshPosts();
+            await postsAPI.addReply(postId, currentUser, text);
         } catch (e) {
             console.error('Failed to post comment', e);
-            alert('Failed to post comment');
         }
     };
 
@@ -138,7 +447,7 @@ const OrganisationEngagement = () => {
 
                 <div className="space-y-6">
                     {/* fetched posts from backend */}
-                    {posts && posts.map((p: any) => {
+                    {posts && posts.slice(0, 10).map((p: any) => {
                         const imageAtt = (p.attachments || []).find((a: any) => a.is_image);
                         const otherAtts = (p.attachments || []).filter((a: any) => !a.is_image);
                         const imgSrc = imageAtt ? postsAPI.attachmentUrl(p.id, imageAtt.id) : null;
@@ -170,7 +479,15 @@ const OrganisationEngagement = () => {
 
                             {imgSrc && (
                                 <div className="mt-4 flex justify-center">
-                                    <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} />
+                                    {/* <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} /> */}
+                                    <img
+                                            src={imgSrc}
+                                            alt="Post attachment"
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="rounded-xl max-w-full object-contain"
+                                            style={{ maxHeight: 400 }}
+                                        />
                                 </div>
                             )}
 
@@ -214,7 +531,7 @@ const OrganisationEngagement = () => {
                                         ))}
                                     </div>
                                 </div>
-                            )} */}
+                            )}  */}
 
                             <div style={{ borderTop: '1px solid #E1E1E1', marginTop: 4 ,marginBottom:16}} />
 
@@ -224,18 +541,28 @@ const OrganisationEngagement = () => {
                                         className={`flex items-center gap-2 ${likedMap[p.id] ? 'text-[#1F89EF]' : 'hover:text-blue-600'}`}
                                         style={{ paddingRight: "8px", background: 'transparent', border: 'none' }}
                                         onClick={async () => {
-                                            // optimistic toggle
-                                            setLikedMap((m) => ({ ...m, [p.id]: !m[p.id] }));
+                                            const wasLiked = likedMap[p.id];
+                                            setLikedMap((m) => ({ ...m, [p.id]: !wasLiked }));
+
+                                            setPosts(prev =>
+                                                prev.map(post =>
+                                                    post.id === p.id
+                                                        ? {
+                                                            ...post,
+                                                            like_count: (post.like_count || 0) + (wasLiked ? -1 : 1)
+                                                        }
+                                                        : post
+                                                )
+                                            );
+
                                             try {
                                                 await postsAPI.addReaction(p.id, 'Vaishno Medavaram', 'like');
-                                                // refresh from backend to reflect persisted state
-                                                await refreshPosts();
                                             } catch (e) {
-                                                console.error('Failed to record like', e);
-                                                // revert optimistic toggle on error
-                                                setLikedMap((m) => ({ ...m, [p.id]: !m[p.id] }));
+                                                // rollback on failure
+                                                setLikedMap((m) => ({ ...m, [p.id]: wasLiked }));
                                             }
                                         }}
+
                                     >
                                         <svg className="w-4 h-4" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
                                             <path d="M5.41671 9.74967V22.7497H1.08337V9.74967H5.41671ZM9.75004 22.7497C9.17541 22.7497 8.6243 22.5214 8.21798 22.1151C7.81165 21.7087 7.58337 21.1576 7.58337 20.583V9.74967C7.58337 9.15384 7.82171 8.61217 8.22254 8.22217L15.3509 1.08301L16.4992 2.23134C16.7917 2.52384 16.9759 2.92467 16.9759 3.36884L16.9434 3.71551L15.9142 8.66634H22.75C23.3247 8.66634 23.8758 8.89461 24.2821 9.30094C24.6884 9.70727 24.9167 10.2584 24.9167 10.833V12.9997C24.9167 13.2813 24.8625 13.5413 24.765 13.7905L21.4934 21.428C21.1684 22.208 20.3992 22.7497 19.5 22.7497H9.75004ZM9.75004 20.583H19.5325L22.75 12.9997V10.833H13.2275L14.4517 5.06967L9.75004 9.78217V20.583Z"
@@ -287,6 +614,11 @@ const OrganisationEngagement = () => {
 };
 
 export default OrganisationEngagement;
+
+/* =====================================================
+   COMPOSER COMPONENT — UNCHANGED UI, NO RELOAD
+===================================================== */
+
 function Composer() {
     const [title, setTitle] = useState("");
     const [announceType, setAnnounceType] = useState("general");
@@ -1041,5 +1373,3 @@ function Composer() {
         </div>
     );
 }
-
-// (ToolbarBtn removed)
