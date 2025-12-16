@@ -431,7 +431,7 @@ const OrganizationEngagement = () => {
                             onClick={handleCancelPoll}
                             className="text-sm text-[#1F89EF]"
                         >
-                            Collapse
+                            <img src="/Organisation/compressIcon.svg" alt="Close" className="w-5 h-5" />
                         </button>
                     </div>
     

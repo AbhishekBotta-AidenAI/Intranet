@@ -378,14 +378,14 @@ const OrganisationEngagement = () => {
             {/* =========================
                  BANNER + TABS
             ========================== */}
-            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden rounded-b-4xl">
+            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden" style={{borderEndStartRadius:"45px",borderEndEndRadius:"45px"}}>
                 <img 
                     src="/Organisation/OrgBanner.png" 
                     alt="HR Banner" 
                     className="w-full h-full object-cover" 
                 />
 
-                <div className="absolute inset-0 bg-black/30"></div>
+                <div className="absolute inset-0"></div>
 
                 {/* TABS ON BOTTOM OF BANNER */}
                 <div className="absolute bottom-0 left-12 w-full px-6 flex gap-3 pb-2"  >

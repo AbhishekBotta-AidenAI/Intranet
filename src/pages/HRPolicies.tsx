@@ -226,7 +226,7 @@ const HRPolicies = () => {
     return (
         <div className="w-full min-h-screen px-6 py-6" style={{padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF'}}>
             {/* Top banner that touches the navbar */}
-            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden rounded-b-4xl">
+            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden" style={{borderEndStartRadius:"45px",borderEndEndRadius:"45px"}}>
                 <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 "></div>
 
