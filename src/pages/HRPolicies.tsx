@@ -228,7 +228,7 @@ const HRPolicies = () => {
             {/* Top banner that touches the navbar */}
             <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden rounded-b-4xl">
                 <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/30"></div>
+                <div className="absolute inset-0 "></div>
 
                 {/* Bottom-left tab buttons (policies / holidays) */}
                 <div className="absolute left-10 bottom-0 z-40 flex items-center gap-6">

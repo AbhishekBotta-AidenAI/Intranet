@@ -70,8 +70,8 @@ const Login: React.FC = () => {
       <LoginNavbar />
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Left - 45% full-height banner with centered logo + text */}
-        <div className="w-full md:w-[45%] relative">
+        {/* Left - 50% full-height banner with centered logo + text */}
+        <div className="w-full md:w-[50%] relative">
           <img
             src="/login/loginSideBanner.png"
             alt="Banner"
@@ -89,8 +89,8 @@ const Login: React.FC = () => {
           </div>
         </div>
 
-        {/* Right - 55% login actions */}
-        <div className="w-full md:w-[55%] flex flex-col items-center justify-center p-8">
+        {/* Right - 50% login actions */}
+        <div className="w-full md:w-[50%] flex flex-col items-center justify-center p-8">
           <div className="w-full max-w-md flex flex-col items-center">
             <h2 className="text-2xl font-semibold mb-4 text-center" style={{paddingBottom:"40px"}}>Login To <em className="italic text-[#073663]">Aiden Nexus</em></h2>
             {/* <p className="text-neutral-500 mb-6">Sign in to continue to the intranet.</p> */}
