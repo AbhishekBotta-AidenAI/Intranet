@@ -42,8 +42,8 @@ const Dashboard = () => {
             >
                 {/* Greeting Section */}
                 <div className="mb-4 md:mb-6" style={{ paddingBottom: "12px", paddingTop: "20px" ,paddingLeft:"25px"}}>
-                    <h2 className="text-lg md:text-2xl font-semibold text-neutral-900 mb-1">
-                        <div className="justify-start"><span className="text-stone-900 font-normal font-['Mulish'] capitalize">Hey </span><span className="text-[#1F89EF] font-semibold font-['Mulish'] capitalize">Vaishno,</span></div>
+                    <h2 className="text-lg md:text-2xl font-bold mb-1">
+                        <div className="justify-start"><span className="font-semibold font-['Mulish'] capitalize">Hey </span><span className="text-[#1F89EF] font-semibold font-['Mulish'] capitalize">Vaishno,</span></div>
                     </h2>
                     <p className="text-neutral-600 text-xs md:text-sm">
                         Happy To See You ! Have A Look At Your Personalised Dashboard.
@@ -86,7 +86,7 @@ const Dashboard = () => {
                                             <div className="w-full rounded-2xl" style={{padding: '15px', border: '1px solid #e1e1e1'}}>
                                                 <div className="bg-transparent rounded-lg p-3">
                                                     <div className="flex items-center justify-between">
-                                                        <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
+                                                        <h3 className="md:text-[21px] font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
                                                         <button
                                                             onClick={() => navigate('/engage')}
                                                             className="border-1 border-[#1F89EF] text-[#1F89EF] rounded-full font-semibold text-sm flex items-center gap-2"
@@ -118,7 +118,7 @@ const Dashboard = () => {
                                     <div className="w-full md:w-1/4">
                                         <div className="w-full rounded-2xl" style={{padding: '10px', border: '1px solid #e1e1e1'}}>
                                             <div className="bg-transparent rounded-lg p-3">
-                                                <h3 className="text-md font-semibold" style={{paddingBottom:"10px",marginTop:"3px"}}>Daily Picks</h3>
+                                                <h3 className="text-[21px] font-semibold" style={{paddingBottom:"10px",marginTop:"3px"}}>Daily Picks</h3>
                                                 <div className={isChatExpanded ? "flex flex-col gap-3 mt-3 items-center" : "flex flex-col md:flex-row gap-3 mt-3"}>
                                                     <div className="flex justify-center items-start">
                                                         <div className="w-[120px] md:w-[170px]">
@@ -153,8 +153,8 @@ const Dashboard = () => {
                             <div className="mt-4" >
                                 <div className="w-full rounded-2xl" style={{padding: '15px', border: '1px solid #e1e1e1'}}>
                                     <div className="bg-transparent rounded-lg p-3">
-                                        <div className="flex items-center justify-between">
-                                            <h3 className="text-base md:text-lg font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
+                                        <div className="flex items-center justify-between" style={{paddingBottom:"10px"}}>
+                                            <h3 className="text-base md:text-[21px] font-bold text-neutral-800" style={{paddingBottom:"15px"}}>Organisation Engagement</h3>
                                             <button
                                                 onClick={() => navigate('/engage')}
                                                 className="border-1 border-[#1F89EF] text-[#1F89EF] rounded-full font-semibold text-sm flex items-center gap-2"
@@ -196,7 +196,7 @@ const Dashboard = () => {
                                 {/* Daily Picks Card moved to right column */}
                                 <div className="w-full rounded-2xl" style={{padding: '10px', border: '1px solid #e1e1e1'}}>
                                     <div className="bg-transparent rounded-lg p-3">
-                                        <h3 className="text-md font-semibold" style={{paddingBottom:"10px",marginTop:"3px"}}>Daily Picks</h3>
+                                        <h3 className="text-[21px] font-semibold" style={{paddingBottom:"10px",marginTop:"10px"}}>Daily Picks</h3>
                                         <div className="flex flex-col md:flex-row gap-3 mt-3">
                                             <div className="flex-1 flex justify-center items-start">
                                                 <div className="w-[120px] md:w-[170px]">

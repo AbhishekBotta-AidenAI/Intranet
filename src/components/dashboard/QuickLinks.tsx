@@ -66,7 +66,7 @@ const QuickLinks = () => {
             <div className="bg-transparent rounded-lg p-3 h-full flex flex-col">
                 <div className="flex flex-col gap-2 flex-1" style={{paddingBottom: isChatExpanded ? "20px" : "0px"}}>
                     <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-semibold" style={{paddingBottom: isChatExpanded ? "20px" : "0px"}}>Quick Access</h3>
+                        <h3 className="text-[21px] font-semibold" style={{paddingBottom: isChatExpanded ? "20px" : "0px"}}>Quick Access</h3>
                     </div>
 
                     <div className={isChatExpanded ? "flex flex-col gap-3" : "flex items-start gap-3"}>
@@ -75,7 +75,7 @@ const QuickLinks = () => {
                                 
                                 {/* FIXED HEIGHT LABEL → prevents button shifting */}
                                 <div className={isChatExpanded ? "w-full mb-2" : "h-[32px] flex items-center"} style={{paddingBottom:"10px"}}>
-                                    <p className={isChatExpanded ? "text-[11px] text-[#767A8B] font-semibold" : "text-[10px] md:text-[11px] text-[#767A8B] font-semibold leading-tight"}>
+                                    <p className={isChatExpanded ? "text-[14px] text-[#767A8B] font-semibold" : "text-[10px] md:text-[11px] text-[#767A8B] font-semibold leading-tight"}>
                                         {item.label}
                                     </p>
                                 </div>

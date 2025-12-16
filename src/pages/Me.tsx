@@ -55,7 +55,7 @@ const MePage: React.FC = () => {
       {/* Main content - FULL WIDTH, no side padding */}
       <div className="-mt-16 pb-10" style={{ padding: "16px"}}>
         {/* Profile Header Card */}
-        <div className="bg-white shadow-md rounded-t-none px-4 md:px-10 py-4 md:py-6 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center w-full">
+        <div className="bg-white  rounded-t-none px-4 md:px-10 py-4 md:py-6 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center w-full">
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div className="w-24 h-24 md:w-28 md:h-28 rounded-none border-[4px] border-[#FFE500] overflow-hidden bg-gray-100">

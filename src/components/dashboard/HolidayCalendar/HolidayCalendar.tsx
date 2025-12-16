@@ -113,9 +113,8 @@ const HolidayCalendarWidget = () => {
             <button
               className="
                 border-1 border-[#ffffff]
-                bg-transparent
                 text-white text-[15px] md:text-[13px] font-semibold 
-                hover:bg-white/10 transition
+                bg-black/20 hover:border-[#1F89EF] hover:scale-105 transition
                 px-6 py-1.5 rounded-full w-full
                 flex items-center justify-center
 

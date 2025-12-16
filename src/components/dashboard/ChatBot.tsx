@@ -216,7 +216,7 @@ const ChatBot = () => {
 
             {/* Floating chat window when not expanded */}
             <div
-                className={`fixed bottom-15 right-8 w-96 h-[450px] rounded-3xl bg-white shadow-2xl flex flex-col
+                className={`fixed bottom-15 right-8 w-96 h-[450px] rounded-3xl bg-white  flex flex-col
                 transform transition-all duration-300 ease-out z-50
                 ${(isOpen) ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"}
                 `}

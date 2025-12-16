@@ -353,7 +353,7 @@ const OrganizationEngagement = () => {
     
         if (collapsed) {
             return (
-                <div className="max-w-[1100px] mx-auto mb-3">
+                <div className="w-full mx-auto mb-3">
                     <div className="flex items-center gap-3">
                         <img src="/Dashboard/UserPic.png" className="w-13 h-13 rounded-full border" />
                         <button
@@ -425,7 +425,7 @@ const OrganizationEngagement = () => {
     
         if (showPoll) {
             return (
-                <div className="bg-white rounded-xl p-6 max-w-[1100px] mx-auto font-sans relative">
+                <div className="bg-white rounded-xl p-6 w-full mx-auto font-sans relative">
                     <div className="absolute right-0 top-0">
                         <button
                             onClick={handleCancelPoll}
@@ -568,7 +568,7 @@ const OrganizationEngagement = () => {
         }
     
         return (
-            <div className="bg-white rounded-xl p-6 max-w-[1100px] mx-auto font-sans relative">
+            <div className="bg-white rounded-xl p-6 w-full mx-auto font-sans relative">
                 <div className="absolute right-0 top-0 tex-[#1F89EF]" >
                     <button
                         onClick={() => setCollapsed(true)}
@@ -577,6 +577,15 @@ const OrganizationEngagement = () => {
                         <img src="/Organisation/compressIcon.svg" alt="Collapse" className="w-4 h-4 inline-block mr-1" />
                     </button>
                 </div>  
+                <div className="flex items-center gap-3 mb-6" style={{padding:"10px"}}>
+                    <div className="w-12 h-12 rounded-full bg-[#000000] flex items-center justify-center text-white font-semibold">
+                        VM
+                    </div>
+                    <div>
+                        <p className="text-sm font-medium">Vaishno Medavaram</p>
+                        <p className="text-xs text-gray-500">Creating an announcement</p>
+                    </div>
+                </div>
                 {/* Title Input */}
                 <div className="mb-4" style={{padding:"30px 0px 5px 10px"}}>
                      <label className="block text-sm font-medium mb-1" >Title</label>
@@ -623,7 +632,7 @@ const OrganizationEngagement = () => {
                             </div>
     
                             {formatDropdownOpen && (
-                                <div className="absolute left-0 mt-1 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                <div className="absolute left-0 mt-1 w-40 bg-white border border-gray-200 rounded-md  z-10">
                                     <div
                                         role="button"
                                         tabIndex={0}
@@ -672,7 +681,7 @@ const OrganizationEngagement = () => {
                                 <img src="/Dashboard/OrganisationEngagement/link.svg" alt="Link" className="w-4 h-4" />
                             </button>
                             {showLinkInput && (
-                                <div className="absolute top-8 left-0 bg-white border rounded-md p-2 shadow z-20 flex items-center gap-2">
+                                <div className="absolute top-8 left-0 bg-white border rounded-md p-2  z-20 flex items-center gap-2">
                                     <input value={linkInputValue} onChange={(e) => setLinkInputValue(e.target.value)} placeholder="https://example.com" className="text-sm p-1 border rounded w-48" />
                                     <button onClick={handleAddLink} className="px-2 py-1 bg-blue-600 text-white rounded text-sm">Add</button>
                                     <button onClick={() => { setShowLinkInput(false); setLinkInputValue(''); }} className="px-2 py-1 text-sm">Cancel</button>

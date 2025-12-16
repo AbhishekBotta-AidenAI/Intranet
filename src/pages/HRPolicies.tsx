@@ -226,7 +226,7 @@ const HRPolicies = () => {
     return (
         <div className="w-full min-h-screen px-6 py-6" style={{padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF'}}>
             {/* Top banner that touches the navbar */}
-            <div className="relative w-full h-[170px] md:h-[170px] overflow-hidden rounded-b-3xl">
+            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden rounded-b-4xl">
                 <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/30"></div>
 
@@ -255,7 +255,7 @@ const HRPolicies = () => {
             </div>
 
             {/* Card wrapper for Organization Documents header + table */}
-            <div className="bg-white rounded-2xl shadow-md p-6" style={{ marginTop: '30px',padding:"20px"}}>
+            <div className="bg-white rounded-2xl  p-6" style={{ marginTop: '30px',padding:"20px"}}>
                 {/* Greeting */}
                 <div className="mb-3">
                     <h3 className="text-[25px] font-medium">Hey, <span style={{ color: '#1F89EF' }}>Vaishno</span></h3>
@@ -294,7 +294,7 @@ const HRPolicies = () => {
                             {/* SELECT BOX */}
                             <div
                                 onClick={() => setOpen(!open)}
-                                className="cursor-pointer bg-white border border-neutral-300 rounded-md px-3 py-2 text-sm flex items-center justify-between shadow-sm hover:border-neutral-400"
+                                className="cursor-pointer bg-white border border-neutral-300 rounded-md px-3 py-2 text-sm flex items-center justify-between hover:border-neutral-400"
                                 style={{padding:"6px"}}
                             >
                                 <div className="flex items-center gap-2">
@@ -315,7 +315,7 @@ const HRPolicies = () => {
 
                             {/* DROPDOWN OPTIONS */}
                             {open && (
-                                <div className="absolute z-50 mt-1 w-full bg-white border border-neutral-200 rounded-md shadow-lg overflow-hidden" style={{padding:"5px"}}>
+                                <div className="absolute z-50 mt-1 w-full bg-white border border-neutral-200 rounded-md  overflow-hidden" style={{padding:"5px"}}>
                                     {options.map(option => (
                                         <div
                                             key={option}

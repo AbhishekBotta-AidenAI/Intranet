@@ -2,10 +2,10 @@ const Footer = () => {
     return (
         <footer className="bg-[#ffffff] text-black py-4 relative z-40">
             <div className="
-                max-w-7xl mx-auto 
+                w-full mx-auto 
                 px-6 
                 flex items-center justify-between
-        "       style={{padding:"10px",paddingLeft:"30px",paddingRight:"20px"}}
+        "       style={{padding:"10px",paddingLeft:"30px",paddingRight:"50px"}}
             >
                 
                 {/* Logo */}

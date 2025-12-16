@@ -54,7 +54,7 @@ const HeroBanner = () => {
     
 
     return (
-        <div className="relative w-full h-[160px] overflow-hidden rounded-2xl">
+        <div className="relative w-full h-[160px] overflow-hidden rounded-[12px]">
             {/* Background Image - with transition */}
             <img
                 src={currentBanner.image}

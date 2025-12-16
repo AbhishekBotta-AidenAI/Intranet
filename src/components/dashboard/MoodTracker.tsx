@@ -12,7 +12,7 @@ const MoodTracker = () => {
         { label: 'Awesome!', svg: '/Dashboard/moodTracker/Awesome.svg' },
     ];
 
-    const containerClass = `bg-white rounded-lg md:rounded-lg px-3 md:px-4 py-2 md:py-3 w-full max-w-full md:max-w-[370px] flex flex-col gap-2 ${isChatExpanded ? 'h-full min-h-[180px] md:min-h-[220px]' : 'h-[100px] md:h-[110px]'}`;
+    const containerClass = `bg-white rounded-[12px] md:rounded-[12px] px-3 md:px-4 py-2 md:py-3 w-full max-w-full md:max-w-[370px] flex flex-col gap-2 ${isChatExpanded ? 'h-full min-h-[180px] md:min-h-[220px]' : 'h-[100px] md:h-[110px]'}`;
 
     const moodsWrapperClass = isChatExpanded ? 'flex flex-col items-center gap-3 w-full px-2' : 'flex justify-between items-end';
 

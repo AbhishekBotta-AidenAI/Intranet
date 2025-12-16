@@ -54,7 +54,7 @@ const Sidebar = () => {
                             <img
                                 src={item.svg}
                                 alt={item.label}
-                                className="w-4 h-4 object-contain"
+                                className="w-5 h-5 object-contain"
                                 style={{ filter: 'brightness(0) invert(1)' }}
                             />
                         </button>

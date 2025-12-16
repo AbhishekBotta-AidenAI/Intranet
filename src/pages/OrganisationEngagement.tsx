@@ -111,7 +111,7 @@
 //             {/* =========================
 //                  MAIN CONTENT WRAPPER
 //             ========================== */}
-//             <div className="bg-white rounded-2xl shadow-md p-6 mt-6" style={{marginTop:"30px",padding:"20px"}}>
+//             <div className="bg-white rounded-2xl  p-6 mt-6" style={{marginTop:"30px",padding:"20px"}}>
 
 //                 {/* Greeting */}
 //                 <div>
@@ -144,7 +144,7 @@
 //                         const otherAtts = (p.attachments || []).filter((a: any) => !a.is_image);
 //                         const imgSrc = imageAtt ? postsAPI.attachmentUrl(p.id, imageAtt.id) : null;
 //                         return (
-//                         <div key={p.id} className="bg-white border rounded-xl p-4 shadow-sm"  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
+//                         <div key={p.id} className="bg-white border rounded-xl p-4"  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
 //                             <div className="flex items-center justify-between">
 //                                 <div className="flex items-center gap-3"> 
 //                                     <img src={'/Dashboard/UserPic.png'} className="w-10 h-10 rounded-full"/>
@@ -378,7 +378,7 @@ const OrganisationEngagement = () => {
             {/* =========================
                  BANNER + TABS
             ========================== */}
-            <div className="relative w-full h-[150px] md:h-[150px] overflow-hidden rounded-b-3xl">
+            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden rounded-b-4xl">
                 <img 
                     src="/Organisation/OrgBanner.png" 
                     alt="HR Banner" 
@@ -417,7 +417,7 @@ const OrganisationEngagement = () => {
             {/* =========================
                  MAIN CONTENT WRAPPER
             ========================== */}
-            <div className="bg-white rounded-2xl shadow-md p-6 mt-6" style={{marginTop:"30px",padding:"20px"}}>
+            <div className="bg-white rounded-2xl  p-6 mt-6" style={{marginTop:"30px",padding:"20px"}}>
 
                 {/* Greeting */}
                 <div>
@@ -450,7 +450,7 @@ const OrganisationEngagement = () => {
                         const otherAtts = (p.attachments || []).filter((a: any) => !a.is_image);
                         const imgSrc = imageAtt ? postsAPI.attachmentUrl(p.id, imageAtt.id) : null;
                         return (
-                        <div key={p.id} className="bg-white border rounded-xl p-4 shadow-sm"  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
+                        <div key={p.id} className="bg-white border rounded-xl p-4 "  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3"> 
                                     <img src={'/Dashboard/UserPic.png'} className="w-10 h-10 rounded-full"/>
@@ -466,26 +466,31 @@ const OrganisationEngagement = () => {
                             {p.description && (() => {
                                 // remove any data-URL images or preview wrappers that may remain
                                 let sanitized = String(p.description);
-                                // remove elements with data-preview="true"
+                                // remove elements with data-preview="true" (preview attachments/images from composer)
                                 sanitized = sanitized.replace(/<[^>]*data-preview=["']true["'][^>]*>[\s\S]*?<\/[a-z0-9]+>/gi, '');
                                 // remove inline data: images
                                 sanitized = sanitized.replace(/<img[^>]*src=["']data:[^"']*["'][^>]*>/gi, '');
+                                // remove all attachment-related divs (including PDF links, file attachments)
+                                sanitized = sanitized.replace(/<div[^>]*class=["'][^"']*flex[^"']*items-center[^"']*gap[^"']*["'][^>]*>[\s\S]*?<\/div>/gi, '');
+                                // remove any remaining anchor tags for file downloads/blob URLs
+                                sanitized = sanitized.replace(/<a[^>]*href=["']blob:[^"']*["'][^>]*>[\s\S]*?<\/a>/gi, '');
                                 return (
                                     <div className="text-sm mt-2" style={{padding:"10px 0px 10px 0px"}} dangerouslySetInnerHTML={{__html: sanitized}} />
                                 );
                             })()}
-
-                            {imgSrc && (
-                                <div className="mt-4 flex justify-center">
-                                    {/* <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} /> */}
-                                    <img
-                                            src={imgSrc}
-                                            alt="Post attachment"
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="rounded-xl max-w-full object-contain"
-                                            style={{ maxHeight: 400 }}
-                                        />
+                            {imgSrc && imgSrc.length > 0 && (
+                                <div style={{padding:"10px 0px 10px 0px",backgroundColor:"#E1E1E1"}}> 
+                                    <div className="mt-4 flex justify-center">
+                                        {/* <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} /> */}
+                                        <img
+                                                src={imgSrc}
+                                                alt="Post attachment"
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="rounded-xl max-w-full object-contain"
+                                                style={{ maxHeight: 400 }}
+                                            />
+                                    </div>
                                 </div>
                             )}
 
@@ -503,9 +508,9 @@ const OrganisationEngagement = () => {
                                                 >
                                                     {a.filename || 'Download file'}
                                                 </a>
-                                                {typeof a.size === 'number' && (
+                                                {/* {typeof a.size === 'number' && (
                                                     <span className="text-xs text-gray-500">{Math.round(a.size / 1024)} KB</span>
-                                                )}
+                                                )} */}
                                             </li>
                                         ))}
                                     </ul>
@@ -603,6 +608,16 @@ const OrganisationEngagement = () => {
                         </div>
                         )
                     })}
+                    {posts && posts.length > 0 && (
+                        <div className="flex justify-center py-6">
+                            <img
+                                src="/Organisation/youareallcaughtUp.png"
+                                alt="You're all caught up"
+                                // className="max-w-xs w-full h-auto opacity-90"
+                                style={{ maxWidth: '300px',height:"200px"}}
+                            />
+                        </div>
+                    )}
                 </div>
 
             </div>
@@ -844,7 +859,13 @@ function Composer() {
                 img.style.objectFit = 'contain';
                 img.className = 'rounded-xl';
                 wrapper.appendChild(img);
-                descRef.current?.appendChild(wrapper);
+                
+                // Always append at the very end, after all content
+                if (descRef.current) {
+                    descRef.current.appendChild(wrapper);
+                }
+                
+                // Don't move cursor - let user continue typing where they were
                 descRef.current?.focus();
                 setTimeout(() => updateActiveFormats(), 50);
             };
@@ -857,61 +878,126 @@ function Composer() {
 
     
 
+    // const onAttachSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const file = e.target.files?.[0];
+    //     if (!file) return;
+    //     // track file so it can be uploaded with the post
+    //     filesRef.current.push(file);
+    //     const name = file.name;
+    //     const sizeKB = Math.round(file.size / 1024);
+    //     const ext = name.split('.').pop()?.toLowerCase() ?? '';
+    //     const blobUrl = URL.createObjectURL(file);
+
+    //     // Create a nicer attachment block with icon, name, size and remove
+    //     const wrapper = document.createElement('div');
+    //     wrapper.setAttribute('data-preview', 'true');
+    //     wrapper.className = 'flex items-center gap-3 mt-2';
+
+    //     const icon = document.createElement('div');
+    //     icon.className = 'w-8 h-8 bg-gray-100 rounded flex items-center justify-center text-sm';
+    //     if (ext === 'pdf') icon.textContent = 'PDF';
+    //     else if (ext === 'doc' || ext === 'docx') icon.textContent = 'DOC';
+    //     else icon.textContent = 'FILE';
+
+    //     const info = document.createElement('div');
+    //     info.className = 'flex flex-col';
+
+    //     const a = document.createElement('a');
+    //     a.href = blobUrl;
+    //     a.download = name;
+    //     a.textContent = name;
+    //     a.className = 'text-blue-600 underline text-sm';
+
+    //     const meta = document.createElement('span');
+    //     meta.className = 'text-xs text-gray-500';
+    //     meta.textContent = `${sizeKB} KB`;
+
+    //     info.appendChild(a);
+    //     info.appendChild(meta);
+
+    //     const removeBtn = document.createElement('button');
+    //     removeBtn.className = 'ml-3 text-xs text-red-500';
+    //     removeBtn.textContent = 'Remove';
+    //     removeBtn.onclick = () => {
+    //         try { URL.revokeObjectURL(blobUrl); } catch {}
+    //         wrapper.remove();
+    //     };
+
+    //     wrapper.appendChild(icon);
+    //     wrapper.appendChild(info);
+    //     wrapper.appendChild(removeBtn);
+
+    //     // Always append at the very end, after all content
+    //     if (descRef.current) {
+    //         descRef.current.appendChild(wrapper);
+    //     }
+        
+    //     // Don't move cursor - let user continue typing where they were
+    //     descRef.current?.focus();
+    //     setTimeout(() => updateActiveFormats(), 50);
+    //     if (e.target) e.target.value = '';
+    // };
+    const ensureTrailingParagraph = () => {
+        if (!descRef.current) return;
+
+        const last = descRef.current.lastChild;
+        if (!last || last.nodeName !== "P") {
+            const p = document.createElement("p");
+            p.innerHTML = "<br />";
+            descRef.current.appendChild(p);
+        }
+    };
+    
     const onAttachSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        // track file so it can be uploaded with the post
+
         filesRef.current.push(file);
-        const name = file.name;
-        const sizeKB = Math.round(file.size / 1024);
-        const ext = name.split('.').pop()?.toLowerCase() ?? '';
-        const blobUrl = URL.createObjectURL(file);
 
-        // Create a nicer attachment block with icon, name, size and remove
-        const wrapper = document.createElement('div');
-        wrapper.setAttribute('data-preview', 'true');
-        wrapper.className = 'flex items-center gap-3 mt-2';
+        const wrapper = document.createElement("div");
+        wrapper.setAttribute("data-preview", "true");
+        wrapper.className = "flex items-center gap-3 mt-2";
 
-        const icon = document.createElement('div');
-        icon.className = 'w-8 h-8 bg-gray-100 rounded flex items-center justify-center text-sm';
-        if (ext === 'pdf') icon.textContent = 'PDF';
-        else if (ext === 'doc' || ext === 'docx') icon.textContent = 'DOC';
-        else icon.textContent = 'FILE';
+        const icon = document.createElement("div");
+        icon.className = "w-8 h-8 bg-gray-100 rounded flex items-center justify-center text-xs";
+        icon.textContent = file.name.split(".").pop()?.toUpperCase() || "FILE";
 
-        const info = document.createElement('div');
-        info.className = 'flex flex-col';
+        const info = document.createElement("div");
+        info.className = "flex flex-col";
 
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = name;
-        a.textContent = name;
-        a.className = 'text-blue-600 underline text-sm';
+        const name = document.createElement("span");
+        name.textContent = file.name;
+        name.className = "text-sm";
 
-        const meta = document.createElement('span');
-        meta.className = 'text-xs text-gray-500';
-        meta.textContent = `${sizeKB} KB`;
+        const size = document.createElement("span");
+        size.textContent = `${Math.round(file.size / 1024)} KB`;
+        size.className = "text-xs text-gray-500";
 
-        info.appendChild(a);
-        info.appendChild(meta);
+        info.appendChild(name);
+        info.appendChild(size);
 
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'ml-3 text-xs text-red-500';
-        removeBtn.textContent = 'Remove';
-        removeBtn.onclick = () => {
-            try { URL.revokeObjectURL(blobUrl); } catch {}
-            wrapper.remove();
-        };
+        const remove = document.createElement("button");
+        remove.textContent = "Remove";
+        remove.className = "text-xs text-red-500 ml-2";
+        remove.onclick = () => wrapper.remove();
 
         wrapper.appendChild(icon);
         wrapper.appendChild(info);
-        wrapper.appendChild(removeBtn);
+        wrapper.appendChild(remove);
 
-        descRef.current?.appendChild(wrapper);
+        if (descRef.current) {
+            ensureTrailingParagraph();
+            descRef.current.appendChild(wrapper);
+
+            // keep typing above attachments
+            const spacer = document.createElement("p");
+            spacer.innerHTML = "<br />";
+            descRef.current.appendChild(spacer);
+        }
+
         descRef.current?.focus();
-        setTimeout(() => updateActiveFormats(), 50);
-        if (e.target) e.target.value = '';
+        e.target.value = "";
     };
-
     const handleAddLink = () => {
         const url = linkInputValue.trim();
         if (!url) return;
@@ -960,7 +1046,7 @@ function Composer() {
 
     if (collapsed) {
         return (
-            <div className="max-w-[1100px] mx-auto mb-3">
+            <div className="w-full mx-auto mb-3">
                 <div className="flex items-center gap-3">
                     <img src="/Dashboard/UserPic.png" className="w-13 h-13 rounded-full border" />
                     <button
@@ -1032,7 +1118,7 @@ function Composer() {
 
     if (showPoll) {
         return (
-            <div className="bg-white rounded-xl p-6 max-w-[1100px] mx-auto font-sans relative">
+            <div className="bg-white rounded-xl p-6 w-full mx-auto font-sans relative">
                 <div className="absolute right-0 top-0">
                     <button
                         onClick={handleCancelPoll}
@@ -1175,7 +1261,7 @@ function Composer() {
     }
 
     return (
-        <div className="bg-white rounded-xl p-6 max-w-[1100px] mx-auto font-sans relative">
+        <div className="bg-white rounded-xl p-6 w-full mx-auto font-sans relative">
             <div className="absolute right-0 top-0 tex-[#1F89EF]" >
                 <button
                     onClick={() => setCollapsed(true)}
@@ -1183,9 +1269,21 @@ function Composer() {
                 >
                     <img src="/Organisation/compressIcon.svg" alt="Collapse" className="w-4 h-4 inline-block mr-1" />
                 </button>
-            </div>  
+            </div>
+            
+            {/* Profile Section */}
+            <div className="flex items-center gap-3 mb-6" style={{padding:"10px"}}>
+                <div className="w-12 h-12 rounded-full bg-[#000000] flex items-center justify-center text-white font-semibold">
+                    VM
+                </div>
+                <div>
+                    <p className="text-sm font-medium">Vaishno Medavaram</p>
+                    <p className="text-xs text-gray-500">Creating an announcement</p>
+                </div>
+            </div>
+            
             {/* Title Input */}
-            <div className="mb-4" style={{padding:"30px 0px 5px 10px"}}>
+            <div className="mb-4" style={{padding:"10px 0px 5px 10px"}}>
                  <label className="block text-sm font-medium mb-1" >Title</label>
                  <span className="text-xs float-right text-gray-400 mt-1">{title.length}/120</span>
                  <input
@@ -1230,7 +1328,7 @@ function Composer() {
                         </div>
 
                         {formatDropdownOpen && (
-                            <div className="absolute left-0 mt-1 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                            <div className="absolute left-0 mt-1 w-40 bg-white border border-gray-200 rounded-md z-10">
                                 <div
                                     role="button"
                                     tabIndex={0}
@@ -1279,7 +1377,7 @@ function Composer() {
                             <img src="/Dashboard/OrganisationEngagement/link.svg" alt="Link" className="w-4 h-4" />
                         </button>
                         {showLinkInput && (
-                            <div className="absolute top-8 left-0 bg-white border rounded-md p-2 shadow z-20 flex items-center gap-2">
+                            <div className="absolute top-8 left-0 bg-white border rounded-md p-2  z-20 flex items-center gap-2">
                                 <input value={linkInputValue} onChange={(e) => setLinkInputValue(e.target.value)} placeholder="https://example.com" className="text-sm p-1 border rounded w-48" />
                                 <button onClick={handleAddLink} className="px-2 py-1 bg-blue-600 text-white rounded text-sm">Add</button>
                                 <button onClick={() => { setShowLinkInput(false); setLinkInputValue(''); }} className="px-2 py-1 text-sm">Cancel</button>
