@@ -320,9 +320,7 @@ const OrganisationEngagement = () => {
         abortRef.current = controller;
 
         try {
-            const res = await postsAPI.listPosts(0, 10, {
-                signal: controller.signal
-            });
+            const res = await postsAPI.listPosts(0, 10);
 
             const postsList = res.posts || [];
 
