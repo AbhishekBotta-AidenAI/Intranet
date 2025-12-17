@@ -224,22 +224,26 @@ const HRPolicies = () => {
     }, [documents, searchQuery, activeTab]);
 
     return (
-        <div className="w-full min-h-screen px-6 py-6" style={{padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF'}}>
+        <div className="w-full min-h-screen px-6 py-6" style={{padding: "32px 32px 32px 32px", backgroundColor: '#EBF5FF'}}>
             {/* Top banner that touches the navbar */}
-            <div className="relative w-full h-[200px] md:h-[200px] overflow-hidden" style={{borderEndStartRadius:"45px",borderEndEndRadius:"45px"}}>
+            <div className="relative w-full h-[220px] md:h-[220px] overflow-hidden rounded-b-[40px]" >
                 <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 "></div>
 
                 {/* Bottom-left tab buttons (policies / holidays) */}
-                <div className="absolute left-10 bottom-0 z-40 flex items-center gap-6">
+                <div className="absolute left-20 bottom-0 z-40 flex items-center gap-6">
                     {/* POLICIES TAB */}
                     <button
                         type="button"
                         onClick={() => setActiveTab('policies')}
                         className={`px-4 py-1 rounded-t-lg text-[14px] transition-all ${activeTab === 'policies' ? 'bg-[#ECFFD5] text-black ' : 'text-white/90 hover:text-black'}`}
-                        style={{padding:"5px 10px 5px 10px"}}
+                        style={{
+                            padding:"5px 10px 5px 10px",
+                            borderBottom: activeTab === 'policies' ? '4px solid #909F7E' : 'none',
+                            boxShadow: activeTab === 'policies' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
+                        }}
                     >
-                        Policies & Process
+                        Organization Documents
                     </button>
 
                     {/* HOLIDAYS TAB */}
@@ -247,7 +251,10 @@ const HRPolicies = () => {
                         type="button"
                         onClick={() => setActiveTab('holidays')}
                         className={`px-4 py-1 rounded-t-lg text-[14px] transition-all ${activeTab === 'holidays' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-white'}`}
-                        style={{padding:"5px 10px 5px 10px"}}
+                        style={{
+                            padding:"5px 10px 5px 10px",
+                            borderBottom: activeTab === 'holidays' ? '4px solid #909F7E' : 'none'
+                        }}
                     >
                         Holiday Calendar
                     </button>
@@ -255,12 +262,12 @@ const HRPolicies = () => {
             </div>
 
             {/* Card wrapper for Organization Documents header + table */}
-            <div className="bg-white rounded-2xl  p-6" style={{ marginTop: '30px',padding:"20px"}}>
+            <div className="bg-white rounded-2xl  p-6" style={{ marginTop: '32px',padding:"32px"}}>
                 {/* Greeting */}
                 <div className="mb-3">
                     <h3 className="text-[25px] font-medium">Hey, <span style={{ color: '#1F89EF' }}>Vaishno</span></h3>
                 </div>
-                <div className='text-black/60 text-[12px]' style={{paddingBottom:"20px"}}>
+                <div className='text-black/60 text-[12px]' style={{paddingBottom:"32px"}}>
                     {activeTab === 'policies' ? 'Welcome To HR Policies' : 'View Holiday Calendar'}
                 </div>
                 {/* Header */}
@@ -268,7 +275,7 @@ const HRPolicies = () => {
                 <p style={{fontSize:"20px", fontWeight: 500}}>
                     {activeTab === 'policies' ? 'Organization Documents' : 'Holiday Calendar'}
                 </p>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center ">
                     <div className="relative hidden md:flex items-center">
                         <div className="absolute left-3 flex items-center pointer-events-none">
                             <img
@@ -283,18 +290,18 @@ const HRPolicies = () => {
                             placeholder="Search Document"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-4 h-8 w-72 text-sm bg-white border border-neutral-300 rounded-sm placeholder:text-neutral-500 focus:outline-none focus:border-neutral-400"
+                            className="pl-10 pr-4 h-8 w-72 text-sm bg-white border border-[#E6E7E8] rounded-[12px] placeholder:text-neutral-500 focus:outline-none focus:border-neutral-400"
                             style={{ paddingLeft: "35px" }}
                         />
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center" style={{paddingLeft:"32px",gap:"32px"}}>
                         
                         <div className="relative w-40">
                             {/* SELECT BOX */}
                             <div
                                 onClick={() => setOpen(!open)}
-                                className="cursor-pointer bg-white border border-neutral-300 rounded-md px-3 py-2 text-sm flex items-center justify-between hover:border-neutral-400"
+                                className="cursor-pointer bg-white border border-[#E6E7E8] rounded-[12px] px-3 py-2 text-sm flex items-center justify-between hover:border-neutral-400"
                                 style={{padding:"6px"}}
                             >
                                 <div className="flex items-center gap-2">
@@ -354,7 +361,7 @@ const HRPolicies = () => {
                     <div className="ag-theme-quartz rounded-t-2xl overflow-hidden mt-2" style={{ width: '100%',paddingTop:"25px"}}>
                         <style>{`
                             .custom-header {
-                                background-color: #9BBAD8 !important;
+                                background-color: #BFDAF0 !important;
                                 color: #000000ff !important;
                                 font-size: 13px !important;
                                 font-weight: 450 !important;

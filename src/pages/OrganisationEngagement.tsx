@@ -302,6 +302,27 @@ const formatDate = (iso?: string) => {
     }
 };
 
+const getInitials = (name?: string): string => {
+    if (!name) return '';
+    return name
+        .split(' ')
+        .map(n => n[0]?.toUpperCase())
+        .join('')
+        .slice(0, 2);
+};
+
+const renderAuthorAvatar = (author?: string) => {
+    if (author === 'Vaishno Medavaram') {
+        return <img src={'/Dashboard/UserPic.png'} className="w-10 h-10 rounded-full" alt={author} />;
+    }
+    const initials = getInitials(author);
+    return (
+        <div className="w-10 h-10 rounded-full bg-[#1F89EF] flex items-center justify-center text-white text-sm font-semibold">
+            {initials || '?'}
+        </div>
+    );
+};
+
 const OrganisationEngagement = () => {
     const [activeTab, setActiveTab] = useState<'policies' | 'holidays'>('policies');
     const [posts, setPosts] = useState<any[]>([]);
@@ -373,7 +394,7 @@ const OrganisationEngagement = () => {
     };
 
     return (
-        <div className="w-full min-h-screen px-6 py-6" style={{ padding: "0 25px 50px 25px", backgroundColor: '#EBF5FF' }}>
+        <div className="w-full min-h-screen px-6 py-6" style={{ padding: "0 32px 32px 32px", backgroundColor: '#EBF5FF' }}>
             
             {/* =========================
                  BANNER + TABS
@@ -393,9 +414,11 @@ const OrganisationEngagement = () => {
                     {/* Policies */}
                     <button
                         onClick={() => setActiveTab('policies')}
-                        style={{padding:"10px"}}
+                        style={{padding:"10px",borderBottom: activeTab === 'policies' ? '4px solid #909F7E' : 'none',
+                            boxShadow: activeTab === 'policies' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'}}
                         className={`px-4 py-1 rounded-t-lg text-[14px] transition-all 
                             ${activeTab === 'policies' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-white'}`}
+                        
                     >
                         Announcements & Polls
                     </button>
@@ -417,7 +440,7 @@ const OrganisationEngagement = () => {
             {/* =========================
                  MAIN CONTENT WRAPPER
             ========================== */}
-            <div className="bg-white rounded-2xl  p-6 mt-6" style={{marginTop:"30px",padding:"20px"}}>
+            <div className="bg-white rounded-2xl  p-6 mt-6" style={{marginTop:"30px",padding:"32px"}}>
 
                 {/* Greeting */}
                 <div>
@@ -433,7 +456,7 @@ const OrganisationEngagement = () => {
                 {/* =========================
                      CREATE POST CARD
                 ========================== */}
-                <div className="bg-white rounded-xl p-4 mb-6 " style={{padding:"20px",marginBottom:"40px",marginTop:"20px", border: '1px solid #E1E1E1'}}>
+                <div className="bg-white rounded-xl p-4 mb-6 " style={{padding:"24px",marginBottom:"32px",marginTop:"32px", border: '1px solid #E1E1E1'}}>
                     <Composer />
                 </div>
 
@@ -441,7 +464,7 @@ const OrganisationEngagement = () => {
                      POST CARDS LIST
                 ========================== */}
                 
-                <div className="text-[20px] font-semibold mb-4" style={{padding:"0px 0px 20px 0px"}}>Newsfeed</div>
+                <div className="text-[20px] font-semibold mb-4" style={{padding:"0px 0px 32px 0px"}}>Newsfeed</div>
 
                 <div className="space-y-6">
                     {/* fetched posts from backend */}
@@ -453,7 +476,7 @@ const OrganisationEngagement = () => {
                         <div key={p.id} className="bg-white border rounded-xl p-4 "  style={{border: '1px solid #E1E1E1' ,padding:"20px",marginBottom:"30px"}}>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3"> 
-                                    <img src={'/Dashboard/UserPic.png'} className="w-10 h-10 rounded-full"/>
+                                    {renderAuthorAvatar(p.author)}
                                     <div>
                                         <p className="font-semibold text-sm">{p.author || 'Unknown Poster'}</p>
                                         <p className="text-[12px] text-gray-500">{formatDate(p.created_at)}</p>
@@ -462,7 +485,7 @@ const OrganisationEngagement = () => {
                                 <div className="text-sm text-gray-500">Seen by {p.views_count ?? 0}</div>
                             </div>
 
-                            <h4 className="font-medium mt-3" style={{paddingTop:"20px"}}>{p.title}</h4>
+                            <h4 className="font-medium mt-3" style={{paddingTop:"20px",paddingBottom:"10px"}}>{p.title}</h4>
                             {p.description && (() => {
                                 // remove any data-URL images or preview wrappers that may remain
                                 let sanitized = String(p.description);
@@ -479,7 +502,7 @@ const OrganisationEngagement = () => {
                                 );
                             })()}
                             {imgSrc && imgSrc.length > 0 && (
-                                <div style={{padding:"10px 0px 10px 0px",backgroundColor:"#E1E1E1"}}> 
+                                <div style={{backgroundColor:"#f1f1f1"}}> 
                                     <div className="mt-4 flex justify-center">
                                         {/* <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} /> */}
                                         <img
@@ -487,7 +510,7 @@ const OrganisationEngagement = () => {
                                                 alt="Post attachment"
                                                 loading="lazy"
                                                 decoding="async"
-                                                className="rounded-xl max-w-full object-contain"
+                                                className="max-w-full object-contain"
                                                 style={{ maxHeight: 400 }}
                                             />
                                     </div>
@@ -593,14 +616,14 @@ const OrganisationEngagement = () => {
                             {/* Comment input (like a search bar) */}
                             <div className="mt-3" style={{paddingTop:"20px"}}>
                                 <div className="flex items-center gap-3">
-                                    <img src="/Dashboard/UserPic.png" className="w-8 h-8 rounded-full" />
+                                    {renderAuthorAvatar('Vaishno Medavaram')}
                                     <input
                                         value={commentsMap[p.id] || ''}
                                         onChange={(e) => setCommentsMap((m) => ({ ...m, [p.id]: e.target.value }))}
                                         onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitComment(p.id); } }}
                                         placeholder="Write a comment..."
                                         className="flex-1 px-4 py-2 border border-[#E1E1E1] rounded-md "
-                                        style={{height:"30px",padding:"10px",backgroundColor:"#F3F3F3"}}
+                                        style={{height:"40px",padding:"14px",backgroundColor:"#F3F3F3"}}
                                     />
                                     {/* Enter key posts the comment; no separate button per spec */}
                                 </div>

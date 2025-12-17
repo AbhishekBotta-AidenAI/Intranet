@@ -55,7 +55,8 @@ const QuickLinks = () => {
     ];
 
     const cardStyle = {
-        padding: "20px 20px 25px 20px",
+        // padding: "20px 20px 25px 20px",
+        padding:"24px",
         border: "1px solid #e1e1e1",
         minHeight: isChatExpanded ? '320px':"auto"
     };
@@ -66,15 +67,15 @@ const QuickLinks = () => {
             <div className="bg-transparent rounded-lg p-3 h-full flex flex-col">
                 <div className="flex flex-col gap-2 flex-1" style={{paddingBottom: isChatExpanded ? "20px" : "0px"}}>
                     <div className="flex items-center justify-between">
-                        <h3 className="text-[21px] font-semibold" style={{paddingBottom: isChatExpanded ? "20px" : "0px"}}>Quick Access</h3>
+                        <h3 className="text-[21px] font-semibold" style={{paddingBottom: isChatExpanded ? "24px" : "0px"}}>Quick Access</h3>
                     </div>
 
-                    <div className={isChatExpanded ? "flex flex-col gap-3" : "flex items-start gap-3"}>
+                    <div className={isChatExpanded ? "flex flex-col " : "flex items-start"} style={{gap:"32px"}}>
                         {links.map((item, index) => (
-                            <div key={index} className={isChatExpanded ? "w-full flex flex-col items-start gap-2" : "flex-1 flex flex-col items-center"}>
+                            <div key={index} className={isChatExpanded ? "w-full flex flex-col items-start gap-2" : "flex-1 flex flex-col items-center"} >
                                 
                                 {/* FIXED HEIGHT LABEL → prevents button shifting */}
-                                <div className={isChatExpanded ? "w-full mb-2" : "h-[32px] flex items-center"} style={{paddingBottom:"10px"}}>
+                                <div className={isChatExpanded ? "w-full mb-2" : "h-[45px] flex items-center"} >
                                     <p className={isChatExpanded ? "text-[14px] text-[#767A8B] font-semibold" : "text-[10px] md:text-[11px] text-[#767A8B] font-semibold leading-tight"}>
                                         {item.label}
                                     </p>

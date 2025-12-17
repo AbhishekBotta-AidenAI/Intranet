@@ -35,7 +35,7 @@ const TopNavbar = () => {
                                 text-sm
                                 bg-white
                                 border border-neutral-300
-                                rounded-sm
+                                rounded-[12px]
                                 placeholder:text-neutral-500
                                 focus:outline-none focus:border-neutral-400
                             "

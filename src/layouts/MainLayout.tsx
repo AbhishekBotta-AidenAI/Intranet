@@ -116,7 +116,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       {/* ───────────── Main Layout Row ───────────── */}
       <div
         className="flex flex-1 overflow-hidden"
-        style={{ paddingTop: '20px', paddingLeft: '60px' }}
+        style={{ paddingTop: '32px', paddingLeft: '60px' }}
       >
         {/* Sidebar (fixed internally) */}
         <div className="flex-shrink-0 h-full">

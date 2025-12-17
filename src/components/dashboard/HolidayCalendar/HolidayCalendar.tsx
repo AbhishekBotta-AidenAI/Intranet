@@ -114,7 +114,7 @@ const HolidayCalendarWidget = () => {
               className="
                 border-1 border-[#ffffff]
                 text-white text-[15px] md:text-[13px] font-semibold 
-                bg-black/20 hover:border-[#1F89EF] hover:scale-105 transition
+                bg-black/40 hover:border-[#1F89EF]
                 px-6 py-1.5 rounded-full w-full
                 flex items-center justify-center
 
