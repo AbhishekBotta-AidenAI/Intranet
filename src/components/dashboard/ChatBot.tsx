@@ -15,6 +15,7 @@ const ChatBot = () => {
     const [messages, setMessages] = useState<ChatMessage[]>([]); // EMPTY CHAT
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
+    const isDashboard = location.pathname === '/';
 
     // ---- SEND MESSAGE ---- //
     const handleSend = async () => {
@@ -67,7 +68,7 @@ const ChatBot = () => {
     if (isChatExpanded) {   
         return (
               <div className="flex flex-col bg-white  w-full border-l border-gray-200 pt-4 md:pt-6 relative z-50 overflow-hidden min-h-0"
-                  style={{ borderRadius: "10px", height: "calc(100vh - 180px)" }}>
+                  style={{ borderRadius: "10px", height: isDashboard ? "calc(100vh - 200px)" : "calc(100vh - 165px)"}}>
                 {/* Header */}
                 <div className="flex-shrink-0 bg-white p-4 md:p-6 border border-gray-200 flex items-start justify-between" style={{ padding: "15px", paddingLeft: "15px",borderRadius:"10px" }}>
                     <div className="pt-0.5">

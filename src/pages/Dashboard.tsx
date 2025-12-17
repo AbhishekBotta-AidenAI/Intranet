@@ -20,7 +20,7 @@ const Dashboard = () => {
     const gridClass = 'flex flex-col md:flex-row gap-4 md:gap-4 items-start';
 
     return (
-        <div className="w-full" style={{background: '#f0F2F5'}}>
+        <div className="w-full" style={{background: '#f0F2F5',paddingTop:"32px"}}>
             {/* Text Scroller - Dashboard only */}
             {/* <div className="mb-8 rounded-lg overflow-hidden" style={{paddingBottom:"20px"}}>
                 <TextScroller />
@@ -72,13 +72,13 @@ const Dashboard = () => {
                             ) : (
                                 <div className="flex w-full items-start" style={{paddingBottom:"32px"}}>
                                     {/* Left stack: QuickLinks + UpcomingApps on top, OrganisationEngagement below */}
-                                    <div className="w-full md:w-3/4 flex flex-col gap-4">
-                                        <div className="flex w-full" style={{gap:"32px"}}>
-                                            <div className="w-1/2">
-                                                <QuickLinks />font
+                                    <div className="w-full md:w-[60%] flex flex-col">
+                                        <div className="flex flex-col md:flex-row w-full" style={{gap:"32px",paddingBottom:"32px"}}>
+                                            <div className="w-full md:w-1/2">
+                                                <QuickLinks />
                                             </div>
 
-                                            <div className="w-1/2">
+                                            <div className="w-full md:w-1/2">
                                                 <UpcomingApps />
                                             </div>
                                         </div>
@@ -116,7 +116,7 @@ const Dashboard = () => {
                                     </div>
 
                                     {/* Right column: Daily Picks stays independent and won't affect left stack height */}
-                                    <div className="w-full md:w-1/4">
+                                    <div className="w-full md:w-[40%]" style={{paddingLeft:"32px"}}>
                                         <div className="w-full rounded-2xl" style={{padding: '32px', border: '1px solid #e1e1e1'}}>
                                             <div className="bg-transparent rounded-lg p-3" style={{paddingBottom:"32px"}}>
                                                 <h3 className="text-[21px] font-semibold" style={{paddingBottom:"10px",marginTop:"3px"}}>Daily Picks</h3>

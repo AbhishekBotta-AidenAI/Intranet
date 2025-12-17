@@ -1,13 +1,13 @@
 import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { useMemo, useState, useEffect } from 'react';
 import { Eye, Download, Loader } from 'lucide-react';
 import type { ColDef } from 'ag-grid-community';
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import DocumentAPI from '../services/api';
 
-// Register all community modules
-ModuleRegistry.registerModules([AllCommunityModule]);
+// // Register all community modules
+// ModuleRegistry.registerModules([AllCommunityModule]);
 
 interface PolicyDocument {
     id: number;
@@ -224,10 +224,10 @@ const HRPolicies = () => {
     }, [documents, searchQuery, activeTab]);
 
     return (
-        <div className="w-full min-h-screen px-6 py-6" style={{padding: "32px 32px 32px 32px", backgroundColor: '#EBF5FF'}}>
+        <div className="w-full min-h-screen px-6 py-6" style={{padding: "0px 32px 32px 32px", backgroundColor: '#f0F2F5' }}>
             {/* Top banner that touches the navbar */}
-            <div className="relative w-full h-[220px] md:h-[220px] overflow-hidden rounded-b-[40px]" >
-                <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover" />
+            <div className="relative w-full h-[220px] md:h-[220px]  rounded-b-[45px]" >
+                <img src="/HRPolicies/banner.png" alt="HR Banner" className="w-full h-full object-cover rounded-b-[45px]" />
                 <div className="absolute inset-0 "></div>
 
                 {/* Bottom-left tab buttons (policies / holidays) */}
@@ -366,9 +366,9 @@ const HRPolicies = () => {
                                 font-size: 13px !important;
                                 font-weight: 450 !important;
                             }
-                            .ag-theme-quartz {
-                                border-radius: 1rem !important;
-                            }
+                            // .ag-theme-quartz {
+                            //     border-radius: 1rem !important;
+                            // }
                             /* reduce font size for row cells */
                             .ag-theme-quartz .ag-cell {
                                 font-size: 12px !important;

@@ -394,7 +394,7 @@ const OrganisationEngagement = () => {
     };
 
     return (
-        <div className="w-full min-h-screen px-6 py-6" style={{ padding: "0 32px 32px 32px", backgroundColor: '#EBF5FF' }}>
+        <div className="w-full min-h-screen px-6 py-6" style={{ padding: "0 32px 32px 32px", backgroundColor: '#f0F2F5' }}>
             
             {/* =========================
                  BANNER + TABS
@@ -502,24 +502,32 @@ const OrganisationEngagement = () => {
                                 );
                             })()}
                             {imgSrc && imgSrc.length > 0 && (
-                                <div style={{backgroundColor:"#f1f1f1"}}> 
-                                    <div className="mt-4 flex justify-center">
-                                        {/* <img src={imgSrc} alt="Post attachment" className="rounded-xl max-w-full object-contain" style={{maxHeight: 400}} /> */}
+                                <div className="mt-4">
+                                    <div
+                                        className="w-full rounded-xl overflow-hidden flex items-center justify-center"
+                                        style={{
+                                            backgroundColor: '#ffffffff',
+                                           
+                                        }}
+                                    >
                                         <img
-                                                src={imgSrc}
-                                                alt="Post attachment"
-                                                loading="lazy"
-                                                decoding="async"
-                                                className="max-w-full object-contain"
-                                                style={{ maxHeight: 400 }}
-                                            />
+                                            src={imgSrc}
+                                            alt="Post attachment"
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="w-full h-full object-contain"
+                                            style={{
+                                                maxHeight: 420,
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             )}
 
+
                             {otherAtts && otherAtts.length > 0 && (
                                 <div className="mt-4">
-                                    <div className="text-sm font-semibold mb-2">Attachments</div>
+                                    {/* <div className="text-sm font-semibold mb-2">Attachments</div> */}
                                     <ul className="space-y-2">
                                         {otherAtts.map((a: any) => (
                                             <li key={a.id} className="flex items-center gap-2">

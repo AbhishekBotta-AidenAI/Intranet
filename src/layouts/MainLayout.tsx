@@ -91,7 +91,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const isDashboard = location.pathname === '/';
 
   return (
-    <div className="flex flex-col h-screen bg-[#E7EEFF]">
+    <div className="flex flex-col h-screen bg-[#f0F2F5]">
       {/* ───────────── Top Navbar (Fixed Height) ───────────── */}
       <div className="flex-shrink-0">
         <TopNavbar />
@@ -103,8 +103,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           className="w-full"
           style={{
             marginTop: '60px',
-            marginLeft: '60px',
-            width: 'calc(100% - 60px)',
+            // marginLeft: '120px',
+            // width: 'calc(100% - 60px)',
           }}
         >
           <div className="mb-2 relative z-30">
@@ -116,7 +116,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       {/* ───────────── Main Layout Row ───────────── */}
       <div
         className="flex flex-1 overflow-hidden"
-        style={{ paddingTop: '32px', paddingLeft: '60px' }}
+        style={{ paddingLeft: '60px' }}
       >
         {/* Sidebar (fixed internally) */}
         <div className="flex-shrink-0 h-full">
@@ -131,6 +131,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             bg-[#E7EEFF] m-4 rounded-lg ${
               isChatExpanded ? 'pb-20' : 'pb-6'
             }`}
+            style={{
+              marginTop: isChatExpanded && !isDashboard ? '40px' : '0px'
+            }}
           >
             {children}
           </main>
@@ -157,10 +160,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
         {/* ───────────── Chat Panel Column ───────────── */}
         <div
-          className={`flex-shrink-0 h-full ${
-            isChatExpanded ? 'w-96 md:w-[400px] p-4 relative z-40' : ''
+          className={`flex-shrink-0 bg-[#f0F2F5] ${
+            isChatExpanded ? 'w-96 md:w-[400px] p-4 relative z-40 ' : ''
           }`}
-        >
+          style={{
+            padding: isChatExpanded ? "32px 32px 32px 0px" : "0px",
+            marginTop: isChatExpanded && !isDashboard ? '60px' : '0px',
+            maxHeight: isDashboard ? isChatExpanded ? 'calc(100vh - 160px)' : 'auto' : isChatExpanded ? 'calc(100vh - 120px)' : 'auto',
+            
+          }}
+        > 
           <ChatBot />
         </div>
       </div>
