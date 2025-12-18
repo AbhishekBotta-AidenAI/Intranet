@@ -629,17 +629,8 @@ const ExperienceCard: React.FC<{
   </div>
 );
 
-interface PillProps {
-  children: React.ReactNode;
-  className?: string;
-}
 
-const Pill: React.FC<PillProps> = ({ children, className = "" }) => (
-  <div
-    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[11px] text-black ${className}`.trim()}
-  >
-    {children}
-  </div>
-);
+
+
 
 export default MePage;
