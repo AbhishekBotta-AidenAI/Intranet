@@ -37,89 +37,135 @@ const MePage: React.FC = () => {
     experience: true,
   });
 
+  const [activeTab, setActiveTab] = useState<'profile' | 'job' | 'documents'>("profile");
+
   const toggleSection = (key: SectionKey) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
-    <div className="min-h-screen bg-[#F3F4F8]">
-      {/* Top Banner
-      <div className="relative bg-[#0B2559] h-40 md:h-52 w-full overflow-hidden">
+
+    <div style={{padding:"32px",backgroundColor:"#f0F2F5"}}>
+      {/* Top Banner */}
+      <div className="relative h-[190px] md:h-[190px] w-full overflow-hidden">
         <img
-          src="/Dashboard/ProfileBannerPattern.png"
+          src="me/banner.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
+          className="absolute inset-0 h-[190px] md:h-[190px] object-cover rounded-b-[45px]"
         />
-      </div> */}    
+        {/* Banner bottom tabs */}
+        <div className="absolute left-20 right-0 bottom-0 z-40 flex items-start gap-6 justify-start pb-2">
+          {/* PROFILE TAB */}
+          <button
+            type="button"
+            onClick={() => setActiveTab('profile')}
+            className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'profile' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
+            style={{
+              padding: "5px 10px 5px 10px",
+              borderBottom: activeTab === 'profile' ? '4px solid #909F7E' : 'none',
+              boxShadow: activeTab === 'profile' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
+            }}
+          >
+            Profile
+          </button>
+          {/* JOB TAB */}
+          <button
+            type="button"
+            onClick={() => setActiveTab('job')}
+            className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'job' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
+            style={{
+              padding: "5px 10px 5px 10px",
+              borderBottom: activeTab === 'job' ? '4px solid #909F7E' : 'none',
+              boxShadow: activeTab === 'job' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
+            }}
+          >
+            Job
+          </button>
+          {/* DOCUMENTS TAB */}
+          <button
+            type="button"
+            onClick={() => setActiveTab('documents')}
+            className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'documents' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
+            style={{
+              padding: "5px 10px 5px 10px",
+              borderBottom: activeTab === 'documents' ? '4px solid #909F7E' : 'none',
+              boxShadow: activeTab === 'documents' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
+            }}
+          >
+            Documents
+          </button>
+        </div>
+      </div>    
+
+      {/* Tabs bar (full width, no side padding) - moved below hero/banner
+      <div className="bg-white border-b border-neutral-200 w-full">
+        <div className="flex text-sm font-medium">
+          {["Summary", "Profile", "Job", "Documents", "Assets"].map((tab, idx) => (
+            <button
+              key={tab}
+              className={`flex-1 text-center py-3 border-b-2 ${
+                idx === 1
+                  ? "border-[#1D4ED8] text-[#1D4ED8] bg-[#E5EDF9]"
+                  : "border-transparent text-neutral-600 hover:text-neutral-900"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      </div> */}
 
       {/* Main content - FULL WIDTH, no side padding */}
       <div className="-mt-16 pb-10" style={{ padding: "16px"}}>
         {/* Profile Header Card */}
-        <div className="bg-white  rounded-t-none px-4 md:px-10 py-4 md:py-6 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center w-full">
+        <div className=" rounded px-4 md:px-10 py-4 md:py-6 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center w-full">
           {/* Avatar */}
           <div className="relative flex-shrink-0">
-            <div className="w-24 h-24 md:w-28 md:h-28 rounded-none border-[4px] border-[#FFE500] overflow-hidden bg-gray-100">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-blue-600 overflow-hidden bg-gray-100">
               <img
                 src="/Dashboard/UserPic.png"
                 alt="Profile"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-full"
               />
             </div>
           </div>
 
           {/* Info */}
           <div className="flex-1 w-full">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3" style={{paddingBottom:"15px"}}>
               <div>
-                <h1 className="text-xl md:text-2xl font-semibold text-white">
+                <h1 className="text-[21px] md:text-2xl font-semibold">
                   Vaishno Medavaram
                 </h1>
-                <p className="text-sm text-white/80">
+                {/* <p className="text-sm text-black/80">
                   Center of Excellence
-                </p>
-                <p className="text-sm text-white/80 font-medium">
+                </p> */}
+                <p className="text-[12px] text-black/60 font-[5px]">
                   Head of COE
                 </p>
               </div>
 
               {/* Dept / RM like in screenshot */}
-              <div className="text-xs text-white/80 text-right space-y-1">
+              {/* <div className="text-xs text-black/80 text-right space-y-1">
                 <p>
                   <span className="font-semibold">Dept:</span> Center of Excellence
                 </p>
                 <p>
                   <span className="font-semibold">RM:</span> John Doe
                 </p>
-              </div>
+              </div> */}
             </div>
 
             {/* Contact pills row */}
             <div className="mt-4 flex flex-wrap gap-2">
-              <Pill>vaishno@aidenai.com</Pill>
-              <Pill>(999) 999 999</Pill>
-              <Pill>Aiden AI, USA/India</Pill>
-              <Pill>9999</Pill>
+              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md border border-black/20 text-[11px] text-white/80 bg-[#076363]" style={{padding:"5px 5px 5px 5px"}}>vaishno@aidenai.com</span>
+              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#7B24EB] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}>(999) 999 999</span>
+              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#FF6B0E] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}>Aiden AI, USA/India</span>
+              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#0EA3FF] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}>9999</span>
             </div>
           </div>
         </div>
 
-        {/* Tabs bar (full width, no side padding) */}
-        <div className="bg-white border-b border-neutral-200 w-full">
-          <div className="flex text-sm font-medium">
-            {["Summary", "Profile", "Job", "Documents", "Assets"].map((tab, idx) => (
-              <button
-                key={tab}
-                className={`flex-1 text-center py-3 border-b-2 ${
-                  idx === 1
-                    ? "border-[#1D4ED8] text-[#1D4ED8] bg-[#E5EDF9]"
-                    : "border-transparent text-neutral-600 hover:text-neutral-900"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* Sections (full width) */}
         <div className="mt-4 space-y-6" style={{padding:"10px"}}>
@@ -583,8 +629,15 @@ const ExperienceCard: React.FC<{
   </div>
 );
 
-const Pill: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[11px] text-white">
+interface PillProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Pill: React.FC<PillProps> = ({ children, className = "" }) => (
+  <div
+    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[11px] text-black ${className}`.trim()}
+  >
     {children}
   </div>
 );

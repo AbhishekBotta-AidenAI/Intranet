@@ -466,7 +466,8 @@ const OrganisationEngagement = () => {
                 
                 <div className="text-[20px] font-semibold mb-4" style={{padding:"0px 0px 32px 0px"}}>Newsfeed</div>
 
-                <div className="space-y-6">
+                {/* <div className="space-y-6"> */}
+                <div className=" space-y-6 overflow-y-auto no-scrollbar">
                     {/* fetched posts from backend */}
                     {posts && posts.slice(0, 10).map((p: any) => {
                         const imageAtt = (p.attachments || []).find((a: any) => a.is_image);
@@ -507,7 +508,7 @@ const OrganisationEngagement = () => {
                                         className="w-full rounded-xl overflow-hidden flex items-center justify-center"
                                         style={{
                                             backgroundColor: '#ffffffff',
-                                           
+                                            maxHeight: 600,
                                         }}
                                     >
                                         <img
@@ -1170,7 +1171,10 @@ function Composer() {
 
                 {/* Poll Question */}
                 <div className="mb-6" style={{padding:"20px 0px 5px 10px"}}>
-                    <label className="block text-sm font-medium mb-2" style={{paddingBottom:"10px"}}>What is this poll about?</label>
+                    {/* <label className="block text-sm font-medium mb-2" style={{paddingBottom:"10px"}}>What is this poll about?</label> */}
+                    {/* <label className="block text-sm font-medium mb-2">0/120</label> */}
+                    <label className="block text-sm font-medium mb-1" >What is this Poll about?</label>
+                    <span className="text-xs float-right text-gray-400 mt-1" style={{paddingBottom:"10px"}}>{title.length}/120</span>
                     <input
                         value={pollQuestion}
                         onChange={(e) => setPollQuestion(e.target.value)}

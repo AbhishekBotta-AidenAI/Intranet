@@ -7,7 +7,8 @@ const Sidebar = () => {
 
     const menuItems = [
         { svg: '/Dashboard/home.svg', label: 'Home', path: '/' },
-        { svg: '/Dashboard/me.svg', label: 'Me', path: '/me', disabled: true },
+        {svg: '/Dashboard/myappsIcon.png', label: 'MyApps', path: '/myapps'},
+        { svg: '/Dashboard/me.svg', label: 'Me', path: '/me'},
         { svg: '/Dashboard/Hrpolicies.svg', label: 'HR Policies', path: '/hr-policies' },
         { svg: '/Dashboard/Myteam.svg', label: 'My Team', path: '/my-team', disabled: true },
         { svg: '/Dashboard/myfinances.svg', label: 'My Finances', path: '/my-finances', disabled: true },
@@ -54,7 +55,7 @@ const Sidebar = () => {
                             <img
                                 src={item.svg}
                                 alt={item.label}
-                                className="w-5 h-5 object-contain"
+                                className= {item.label === "MyApps" ? "w-4 h-4 object-contain" : "w-5 h-5 object-contain"}
                                 style={{ filter: 'brightness(0) invert(1)' }}
                             />
                         </button>

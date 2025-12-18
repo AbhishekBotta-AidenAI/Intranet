@@ -171,3 +171,13 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* Invisible scrollbar – keeps scroll behavior */
+.no-scrollbar {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge legacy */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Edge */
+}

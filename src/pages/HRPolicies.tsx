@@ -265,7 +265,7 @@ const HRPolicies = () => {
             <div className="bg-white rounded-2xl  p-6" style={{ marginTop: '32px',padding:"32px"}}>
                 {/* Greeting */}
                 <div className="mb-3">
-                    <h3 className="text-[25px] font-medium">Hey, <span style={{ color: '#1F89EF' }}>Vaishno</span></h3>
+                    <h3 className="text-[25px] font-medium font-['Mulish']">Hey, <span style={{ color: '#1F89EF' }}>Vaishno</span></h3>
                 </div>
                 <div className='text-black/60 text-[12px]' style={{paddingBottom:"32px"}}>
                     {activeTab === 'policies' ? 'Welcome To HR Policies' : 'View Holiday Calendar'}

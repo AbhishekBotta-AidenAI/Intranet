@@ -7,6 +7,7 @@ import MePage from './pages/Me';
 import OrganizationEngagement from './pages/OrganisationEngagement';
 import Login from './pages/Login';
 import { useAuthRefresh } from './hooks/useAuthRefresh';
+import MyAppsPage from './pages/myApps';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const AppRoutes = () => {
           <Route path="/my-team" element={<Dashboard />} />
           <Route path="/my-finances" element={<Dashboard />} />
           <Route path="/engage" element={<OrganizationEngagement />} />
+          <Route path="/myapps" element={<MyAppsPage />} />
         </Routes>
       </MainLayout>
     </ChatProvider>
