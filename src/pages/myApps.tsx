@@ -16,6 +16,7 @@ const featuredApps = [
 		title: 'Aiden Demand',
 		description: 'Simplify Technical Support using Aiden Tech.',
 		icon: '/myApps/aidenDemand.png',
+		category: 'Utilities',
 		url: 'https://apps.aiden.ai/demand',
 	},
 	{
@@ -23,6 +24,7 @@ const featuredApps = [
 		title: 'Aiden SAP',
 		description: 'Simplify Technical Support using Aiden Tech.',
 		icon: '/myApps/SAP.png',
+		category: 'IT Desk',
 		url: 'https://apps.aiden.ai/demand',
 	},
 	{
@@ -30,6 +32,7 @@ const featuredApps = [
 		title: 'Aiden Bot',
 		description: 'Simplify Technical Support using Aiden Tech.',
 		icon: '/myApps/aidenBot.png',
+		category: 'Human Resources',
 		url: 'https://apps.aiden.ai/demand',
 	},
 	{
@@ -37,12 +40,39 @@ const featuredApps = [
 		title: 'Project Tracker',
 		description: 'Simplify Technical Support using Aiden Tech.',
 		icon: '/myApps/projectTracker.png',
+		category: 'Project Management',
+		url: 'https://apps.aiden.ai/demand',
+	},
+	{
+		id: 'BE',
+		title: 'BE',
+		description: 'Simplify Technical Support using Aiden Tech.',
+		icon: '/myApps/be.png',
+		category: 'Project Management',
+		url: 'https://apps.aiden.ai/demand',
+	},
+	{
+		id: 'invoice-generator',
+		title: 'invoice Generator',
+		description: 'Simplify Technical Support using Aiden Tech.',
+		icon: '/myApps/invoice.png',
+		category: 'Project Management',
+		url: 'https://apps.aiden.ai/demand',
+	},
+	{
+		id: 'margin',
+		title: 'Margin',
+		description: 'Simplify Technical Support using Aiden Tech.',
+		icon: '/myApps/margin.png',
+		category: 'Project Management',
 		url: 'https://apps.aiden.ai/demand',
 	},
 ];
 
 const MyAppsPage: React.FC = () => {
 	const [activeTab, setActiveTab] = useState<'apps' | 'favorites' | 'requests'>("apps");
+	const [searchTerm, setSearchTerm] = useState('');
+	const [selectedCategory, setSelectedCategory] = useState('All');
 	const navigate = useNavigate();
 
 	const getStatusColor = (url?: string) => {
@@ -52,8 +82,18 @@ const MyAppsPage: React.FC = () => {
 		if (url.includes('staging')) {
 			return 'group-hover:bg-orange-400';
 		}
-		return 'group-hover:bg-green-400';
+		return 'group-hover:bg-[#a9df2b]';
 	};
+
+	const filteredApps = featuredApps.filter((app) => {
+		const query = searchTerm.trim().toLowerCase();
+		const matchesSearch = !query
+			? true
+			: app.title.toLowerCase().includes(query) || app.description.toLowerCase().includes(query);
+		const matchesCategory =
+			selectedCategory === 'All' ? true : app.category === selectedCategory;
+		return matchesSearch && matchesCategory;
+	});
 
 	return (
 		<div style={{padding:"32px",backgroundColor:"#f0F2F5"}}>
@@ -129,23 +169,23 @@ const MyAppsPage: React.FC = () => {
 					<p className="text-gray-400 text-sm">Welcome to My Apps</p>
 					<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style={{paddingTop:"24px"}}>
 						<h2 className="text-[21px] font-semibold text-gray-900">My Apps</h2>
-						<div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4 w-full md:w-auto">
+						<div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4 w-full md:w-auto" style={{paddingTop:"10px"}} >
 							<div className="relative hidden md:flex items-center">
-                                <div className="absolute left-3 flex items-center pointer-events-none">
+                                <div className="absolute left-3 flex items-center pointer-events-none"  >
                                     <img
                                         src="/Dashboard/searchIcon.png"
                                         className="w-4 h-4"
                                         alt="search"
                                     />
-                                </div>
+								</div>
 
                                 <input
                                     type="text"
                                     placeholder="Search Apps"
-                                    // value={searchQuery}
-                                    // onChange={(e) => setSearchQuery(e.target.value)}
+									value={searchTerm}
+									onChange={(e) => setSearchTerm(e.target.value)}
                                     className="pl-10 pr-4 h-8 w-72 text-sm bg-white border border-[#E6E7E8] rounded-[12px] placeholder:text-neutral-500 focus:outline-none focus:border-neutral-400"
-                                    style={{ paddingLeft: "35px" }}
+                                    style={{ paddingLeft: "35px"}}
                                 />
                             </div>
 							<div className="flex items-center gap-2">
@@ -162,16 +202,22 @@ const MyAppsPage: React.FC = () => {
 							<button
 								key={category}
 								type="button"
-								className="rounded-full border border-gray-400 px-5 py-2 text-black/50 text-sm font-medium  transition hover:border-[#1F89EF] hover:text-white"
-                                style={{padding:"8px 20px",backgroundColor:'#F2F2F2'}}
+								onClick={() => setSelectedCategory(category)}
+								className={`rounded-full border px-5 py-2 text-sm font-medium transition ${selectedCategory === category ? 'border-[#1F89EF] bg-[#1F89EF] text-white' : 'border-gray-300 bg-[#F2F2F2] text-black/60 hover:border-[#1F89EF] hover:text-[#1F89EF]'}`}
+								style={{ padding: "8px 20px" }}
 							>
 								{category}
 							</button>
 						))}
 					</div>
 					<div className="pt-8" style={{paddingTop:"32px"}}>
+						{filteredApps.length === 0 ? (
+							<div className="rounded-2xl border border-dashed border-gray-200 p-8 text-center text-sm text-gray-500">
+								No apps match your search.
+							</div>
+						) : (
 						<div className="flex flex-wrap gap-7">
-							{featuredApps.map((app) => (
+							{filteredApps.map((app) => (
 								<div
 									key={app.id}
 									className="group relative flex h-[140px] w-[160px] flex-col items-center justify-between rounded-[15px] border border-gray-200 bg-white p-4 text-center "
@@ -189,6 +235,7 @@ const MyAppsPage: React.FC = () => {
 								</div>
 							))}
 						</div>
+						)}
 					</div>
 				</div>
 			</div>

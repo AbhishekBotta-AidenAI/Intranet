@@ -49,6 +49,7 @@
 
 // export default UpcomingApps;
 import { useContext, useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
 import { ChatContext } from '../../context/ChatContext';
 
 const UpcomingApps = () => {
@@ -67,9 +68,9 @@ const UpcomingApps = () => {
     }, []);
 
     const apps = [
-        { icon: '/Dashboard/AidenTech.png', label: 'Aiden Tech', color: 'bg-orange-500' },
-        { icon: '/Dashboard/AidenBot.png', label: 'Aiden Bot', color: 'bg-green-500' },
-        { icon: '/Dashboard/AidenLearn.png', label: 'Aiden Learn', color: 'bg-blue-500' },
+        { icon: '/myApps/aidenDemand.png', label: 'Aiden Demand', color: 'bg-orange-500' },
+        { icon: '/myApps/aidenBot.png', label: 'Aiden Bot', color: 'bg-green-500' },
+        { icon: '/myApps/projectTracker.png', label: 'Project Tracker', color: 'bg-blue-500' },
         { icon: '/Dashboard/TimeSheets.png', label: 'Timesheets', color: 'bg-primary' },
         { icon: '/Dashboard/people.svg', label: 'People', color: 'bg-cyan-500' },
     ];
@@ -84,10 +85,13 @@ const UpcomingApps = () => {
         >
             <div className="bg-transparent rounded-lg p-3 h-full flex flex-col">
                 <div className="flex flex-col gap-2 flex-1">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-4">
                         <h3 className="text-[21px] font-semibold pb-6" style={{paddingBottom:"22px"}}>
-                            Upcoming On The App
+                           My Apps
                         </h3>
+                        <button className="text-black font-semibold bg-[#F4F4F4] px-4 py-2 rounded-[25px] font-['Mulish'] text-[10px] h-[33px] w-[105px]" style={{marginBottom:"15px"}} onClick={() => window.location.href = '/myapps'}>
+                             READ ALL
+                        </button>
                     </div>
 
                     {/* GRID */}

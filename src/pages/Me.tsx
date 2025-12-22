@@ -47,7 +47,7 @@ const MePage: React.FC = () => {
 
     <div style={{padding:"32px",backgroundColor:"#f0F2F5"}}>
       {/* Top Banner */}
-      <div className="relative h-[190px] md:h-[190px] w-full overflow-hidden">
+      <div className="relative h-[190px] md:h-[190px] w-full overflow-hidden" style={{marginBottom:"32px"}}>
         <img
           src="me/banner.png"
           alt=""
@@ -59,7 +59,7 @@ const MePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('profile')}
-            className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'profile' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
+            className={`px-4 py-1 rounded-t-lg text-[14px]  font-semibold ${activeTab === 'profile' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
             style={{
               padding: "5px 10px 5px 10px",
               borderBottom: activeTab === 'profile' ? '4px solid #909F7E' : 'none',
@@ -72,7 +72,7 @@ const MePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('job')}
-            className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'job' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
+            className={`px-4 py-1 rounded-t-lg text-[14px] font-semibold ${activeTab === 'job' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
             style={{
               padding: "5px 10px 5px 10px",
               borderBottom: activeTab === 'job' ? '4px solid #909F7E' : 'none',
@@ -85,7 +85,7 @@ const MePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('documents')}
-            className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'documents' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
+            className={`px-4 py-1 rounded-t-lg text-[14px] font-semibold ${activeTab === 'documents' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
             style={{
               padding: "5px 10px 5px 10px",
               borderBottom: activeTab === 'documents' ? '4px solid #909F7E' : 'none',
@@ -116,19 +116,11 @@ const MePage: React.FC = () => {
       </div> */}
 
       {/* Main content - FULL WIDTH, no side padding */}
-      <div className="-mt-16 pb-10" style={{ padding: "16px"}}>
+      <div className="-mt-16 pb-10 bg-white rounded-[20px]" style={{ padding: "24px"}}>
         {/* Profile Header Card */}
         <div className=" rounded px-4 md:px-10 py-4 md:py-6 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center w-full">
           {/* Avatar */}
-          <div className="relative flex-shrink-0">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-blue-600 overflow-hidden bg-gray-100">
-              <img
-                src="/Dashboard/UserPic.png"
-                alt="Profile"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-          </div>
+          
 
           {/* Info */}
           <div className="flex-1 w-full">
@@ -143,6 +135,12 @@ const MePage: React.FC = () => {
                 <p className="text-[12px] text-black/60 font-[5px]">
                   Head of COE
                 </p>
+                <div className="mt-4 flex flex-wrap gap-2" style={{paddingTop:"20px"}}>
+                  <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md border border-black/20 text-[11px] text-white/80 bg-[#076363]" style={{padding:"5px 5px 5px 5px"}}><img src='/me/mail.png' style={{height:'12px'} }/>vaishno@aidenai.com</span>
+                  <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#7B24EB] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}><img src='/me/phone.png' style={{height:'15px'} }/>(999) 999 999</span>
+                  <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#FF6B0E] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}><img src='/me/location.png' style={{height:'15px'} }/>Aiden AI, USA/India</span>
+                  <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#0EA3FF] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}><img src='/me/idcard.png' style={{height:'15px'} }/>9999</span>
+                </div>
               </div>
 
               {/* Dept / RM like in screenshot */}
@@ -154,21 +152,25 @@ const MePage: React.FC = () => {
                   <span className="font-semibold">RM:</span> John Doe
                 </p>
               </div> */}
+              <div className="relative flex-shrink-0">
+                <div className="w-16 h-16 md:w-full md:h-full rounded-full border-2 border-blue-600 overflow-hidden bg-gray-100">
+                  <img
+                    src="/Dashboard/UserPic.png"
+                    alt="Profile"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Contact pills row */}
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md border border-black/20 text-[11px] text-white/80 bg-[#076363]" style={{padding:"5px 5px 5px 5px"}}>vaishno@aidenai.com</span>
-              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#7B24EB] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}>(999) 999 999</span>
-              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#FF6B0E] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}>Aiden AI, USA/India</span>
-              <span className="inline-flex items-center gap-2 px-2 py-1.5 rounded-md bg-[#0EA3FF] border border-black/20 text-[11px] text-white/80" style={{padding:"5px 5px 5px 5px"}}>9999</span>
-            </div>
+            
           </div>
         </div>
 
 
         {/* Sections (full width) */}
-        <div className="mt-4 space-y-6" style={{padding:"10px"}}>
+        <div className="mt-4 space-y-6 ">
           {/* Primary Details */}
           <SectionCard
             config={sections[0]}
@@ -318,7 +320,7 @@ const MePage: React.FC = () => {
             open={openSections.contact}
             onToggle={() => toggleSection("contact")}
           >
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6" style={{padding:"24px"}}>
               <Field label="Official Email" value="rohan@aidenai.com" required />
               <Field label="Personal Email" value="-Not Set-" required />
               <Field label="Phone Number" value="(999) 999 999" required />
@@ -488,7 +490,7 @@ const SectionCard: React.FC<{
   children: React.ReactNode;
 }> = ({ config, open, onToggle, children }) => {
   return (
-    <div className="bg-white border-t border-b border-neutral-200">
+    <div className="bg-white border border-neutral-200 rounded-[8px]" style={{marginBottom:"24px"}}>
       {/* Header */}
       <button
         onClick={onToggle}
@@ -496,16 +498,16 @@ const SectionCard: React.FC<{
         style={{padding:"15px"}}
       >
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#E9F0FF] text-[#1D4ED8] text-xs font-semibold">
+          {/* <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#E9F0FF] text-[#1D4ED8] text-xs font-semibold">
             {config.index}
-          </span>
-          <span className="text-sm md:text-base font-semibold text-neutral-900">
+          </span> */}
+          <span className="text-sm md:text-base font-semibold text-[#1F89EF]">
             {config.title}
           </span>
         </div>
         <div className="flex items-center gap-4">
           {/* Progress bar on right like screenshot */}
-          <div className="hidden md:flex flex-col items-end gap-1">
+          {/* <div className="hidden md:flex flex-col items-end gap-1">
             <span className="text-[11px] text-neutral-500">
               {config.progress}%
             </span>
@@ -515,7 +517,7 @@ const SectionCard: React.FC<{
                 style={{ width: `${config.progress}%` }}
               />
             </div>
-          </div>
+          </div> */}
           {/* Arrow */}
           <span
             className={`inline-block transform transition-transform ${
@@ -523,7 +525,7 @@ const SectionCard: React.FC<{
             }`}
           >
             <img
-              src="/Dashboard/RightArrow.svg"
+              src="/me/expandIcon.png"
               alt="Toggle"
               className="w-4 h-4"
             />
@@ -628,9 +630,5 @@ const ExperienceCard: React.FC<{
     </div>
   </div>
 );
-
-
-
-
 
 export default MePage;
