@@ -72,7 +72,7 @@ const UpcomingApps = () => {
         { icon: '/myApps/aidenBot.png', label: 'Aiden Bot', color: 'bg-green-500' },
         { icon: '/myApps/projectTracker.png', label: 'Project Tracker', color: 'bg-blue-500' },
         { icon: '/Dashboard/TimeSheets.png', label: 'Timesheets', color: 'bg-primary' },
-        { icon: '/Dashboard/people.svg', label: 'People', color: 'bg-cyan-500' },
+        { icon: '/Dashboard/people.svg', label: 'People', color: 'bg-cyan-500', link: 'https://dev.iapps.aidenai.com:3000/people' },
     ];
 
     // 🔑 layout rule
@@ -105,7 +105,14 @@ const UpcomingApps = () => {
                         {apps.map((app, index) => (
                             <button
                                 key={index}
+                                type="button"
                                 className="flex flex-col items-center gap-2 hover:scale-105 transition-transform w-full"
+                                onClick={() => {
+                                    if (app.link) {
+                                        window.location.href = app.link;
+                                    }
+                                }}
+                                style={app.link ? { cursor: 'pointer' } : { cursor: 'default' }}
                             >
                                 <div
                                     className={`${
