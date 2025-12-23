@@ -20,7 +20,7 @@ const featuredApps = [
 		url: 'https://apps.aiden.ai/demand',
 	},
 	{
-		id: 'aiden-demand',
+		id: 'aiden-sap',
 		title: 'Aiden SAP',
 		description: 'Simplify Technical Support using Aiden Tech.',
 		icon: '/myApps/SAP.png',
