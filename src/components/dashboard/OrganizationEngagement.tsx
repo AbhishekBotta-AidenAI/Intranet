@@ -6,9 +6,9 @@ const OrganizationEngagement = () => {
     // const [activeTab, setActiveTab] = useState("post");
     // const descRef = useRef<HTMLDivElement | null>(null);
     const { user } = useAuth();
-    useEffect(() => {
-        console.log('[OrganizationEngagement] render - user:', user, 'local user_name:', localStorage.getItem('user_name'));
-    }, [user]);
+    // useEffect(() => {
+    //     console.log('[OrganizationEngagement] render - user:', user, 'local user_name:', localStorage.getItem('user_name'));
+    // }, [user]);
     function Composer() {
         const [title, setTitle] = useState("");
         const [announceType, setAnnounceType] = useState("general");
@@ -79,7 +79,7 @@ const OrganizationEngagement = () => {
                 clone.querySelectorAll('[data-preview="true"]').forEach((n) => n.remove());
                 description = clone.innerHTML;
             }
-            console.log({ title, description, announceType });
+            // console.log({ title, description, announceType });
     
             // send multipart/form-data to backend
             const fd = new FormData();
@@ -411,13 +411,13 @@ const OrganizationEngagement = () => {
         };
     
         const handlePostPoll = () => {
-            console.log({
-                question: pollQuestion,
-                options: pollOptions.filter(o => o.trim()),
-                expiryDate: pollExpiryDate,
-                notifyPeople: pollNotifyPeople,
-                anonymous: pollAnonymous
-            });
+            // console.log({
+            //     question: pollQuestion,
+            //     options: pollOptions.filter(o => o.trim()),
+            //     expiryDate: pollExpiryDate,
+            //     notifyPeople: pollNotifyPeople,
+            //     anonymous: pollAnonymous
+            // });
             // TODO: Send poll data to backend
             alert('Poll posted!');
             handleCancelPoll();

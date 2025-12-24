@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false;
 
     const bootstrap = async () => {
-      console.log('[AuthProvider] bootstrap start - initializedRef:', initializedRef.current);
+      // console.log('[AuthProvider] bootstrap start - initializedRef:', initializedRef.current);
       try {
         await msalInstance.initialize();
 
@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser({ name: acctName || 'User', email: acctEmail || '' });
             setIsAuthenticated(true);
           }
-          console.log('[AuthProvider] wrote sessionStorage and localStorage and setUser', { acctName, acctEmail });
+         // console.log('[AuthProvider] wrote sessionStorage and localStorage and setUser', { acctName, acctEmail });
         } catch (e) {
           // ignore sessionStorage errors
         }
@@ -95,15 +95,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         //   familyName: account.familyName,
         };
 
-        console.log('=== 👤 MICROSOFT USER DETAILS ===');
-        console.log('Username:', userDetails.username);
-        console.log('Email:', userDetails.email);
-        console.log('Full Name:', userDetails.name);
-        // console.log('Given Name:', userDetails.givenName);
-        // console.log('Family Name:', userDetails.familyName);
-        console.log('Home Account ID:', userDetails.id);
-        console.log('ID Token:', idToken);
-        console.log('===================================');
+        // console.log('=== 👤 MICROSOFT USER DETAILS ===');
+        // console.log('Username:', userDetails.username);
+        // console.log('Email:', userDetails.email);
+        // console.log('Full Name:', userDetails.name);
+        // // console.log('Given Name:', userDetails.givenName);
+        // // console.log('Family Name:', userDetails.familyName);
+        // console.log('Home Account ID:', userDetails.id);
+        // console.log('ID Token:', idToken);
+        // console.log('===================================');
 
         if (cancelled) return;
 
@@ -125,8 +125,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setIsAuthenticated(true);
           setError(null);
 
-          console.log('✅ Authentication successful!');
-          console.log('Access Token:', accessToken);
+          // console.log('✅ Authentication successful!');
+          // console.log('Access Token:', accessToken);
         }
       } catch (err) {
         if (err instanceof InteractionRequiredAuthError) {

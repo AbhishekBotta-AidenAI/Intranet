@@ -9,7 +9,6 @@ import UpcomingApps from '../components/dashboard/UpcomingApps';
 import TimeWidget from '../components/dashboard/TimeWidget';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { ChatContext } from '../context/ChatContext';
 import { useAuth } from '../context/useAuth';
 const Dashboard = () => {
@@ -18,10 +17,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
     const displayName = user?.name ?? localStorage.getItem('user_name') ?? 'User';
-    console.log('=== 👤 MICROSOFT USER DETAILS ===');
-    console.log('Username:', displayName);
-    console.log('Email:', localStorage.getItem('user_email') ?? '');
-    console.log('Full Name:', displayName);
     // Always keep the md breakpoint multi-column layout so the middle column
     // (Organization Engagement) doesn't get pushed below when the chat expands.
     const gridClass = 'flex flex-col md:flex-row gap-4 md:gap-4 items-start';

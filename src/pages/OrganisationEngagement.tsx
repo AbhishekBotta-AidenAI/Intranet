@@ -328,7 +328,6 @@ const OrganisationEngagement = () => {
     const [commentsMap, setCommentsMap] = useState<Record<number, string>>({});
     const abortRef = useRef<AbortController | null>(null);
     const { user } = useAuth();
-    console.log(user);
     // Prefer full name from AuthContext; fall back to session storage; avoid generic 'User'
     const currentUser = (user?.name?.trim()) || (localStorage.getItem('user_name') || '').trim();
     /* =========================
@@ -773,7 +772,7 @@ function Composer({ currentUser, onNewPost }: { currentUser: string; onNewPost?:
             clone.querySelectorAll('[data-preview="true"]').forEach((n) => n.remove());
             description = clone.innerHTML;
         }
-        console.log({ title, description, announceType });
+        // console.log({ title, description, announceType });
 
         // send multipart/form-data to backend
         const fd = new FormData();

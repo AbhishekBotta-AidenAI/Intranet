@@ -79,10 +79,10 @@ const MyAppsPage: React.FC = () => {
 	const { user } = useAuth();
 	const displayName = user?.name ?? localStorage.getItem('user_name') ?? 'User';
 
-	console.log('=== 👤 MICROSOFT USER DETAILS ===');
-	console.log('Username:', displayName);
-	console.log('Email:', localStorage.getItem('user_email') ?? '');
-	console.log('Full Name:', displayName);
+	// console.log('=== 👤 MICROSOFT USER DETAILS ===');
+	// console.log('Username:', displayName);
+	// console.log('Email:', localStorage.getItem('user_email') ?? '');
+	// console.log('Full Name:', displayName);
 	const getStatusColor = (url?: string) => {
 		if (!url) {
 			return 'group-hover:bg-red-400';

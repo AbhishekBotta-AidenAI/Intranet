@@ -1,14 +1,14 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useAuth } from '../../context/useAuth';
 
 const TopNavbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { user } = useAuth();
-    useEffect(() => {
-        console.log('[TopNavbar] render - user:', user, 'local user_name:', localStorage.getItem('user_name'));
-    }, [user]);
+    // useEffect(() => {
+    //     console.log('[TopNavbar] render - user:', user, 'local user_name:', localStorage.getItem('user_name'));
+    // }, [user]);
     const displayName = user?.name ?? localStorage.getItem('user_name') ?? 'User';
     const displayEmail = user?.email ?? localStorage.getItem('user_email') ?? '';
     

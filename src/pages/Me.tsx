@@ -45,10 +45,7 @@ const MePage: React.FC = () => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  console.log('=== 👤 MICROSOFT USER DETAILS ===');
-  console.log('Username:', localStorage.getItem('user_name') || '');
-  console.log('Email:', localStorage.getItem('user_email') || '');
-  console.log('Full Name:', localStorage.getItem('user_name') || '');
+  
 
   return (
 
