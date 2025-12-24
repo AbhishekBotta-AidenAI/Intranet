@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Custom Animation for Text Scroller */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll {
+    animation: scroll 10s linear infinite;
+}
+
+.animate-scroll:hover {
+    animation-play-state: paused;
+}
+
+/* Avatar glow wrappers */
+.avatar-glow {
+    position: relative;
+    display: inline-flex;
+    /* border-radius: 9999px; */
+    overflow: visible;
+}
+
+.avatar-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;                  /* match the exact shape of the image */
+    transform: scale(1.4);     /* expand glow */
+    border-radius: 0;          /* no circle */
+    z-index: 0;
+    filter: blur(40px);
+    opacity: 1;
+    pointer-events: none;
+}
+
+
+/* Make sure the inner avatar element sits above the glow */
+.avatar-glow > * {
+    position: relative;
+    z-index: 10;
+}
+
+.glow-lime::before {
+    background: radial-gradient(circle at center, rgba(134,239,172,0.95) 0%, rgba(34,197,94,0.36) 30%, rgba(34,197,94,0) 60%);
+}
+
+.glow-blue::before {
+    background: radial-gradient(circle at center, rgba(147,197,253,0.95) 0%, rgba(59,130,246,0.36) 30%, rgba(59,130,246,0) 60%);
+}
+
+.glow-pink::before {
+    background: radial-gradient(circle at center, rgba(249,168,212,0.95) 0%, rgba(236,72,153,0.36) 30%, rgba(236,72,153,0) 60%);
+}
+
+/* MoodTracker hover mask and hover background */
+.mood-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.mood-circle {
+    position: relative;
+    z-index: 5;
+}
+
+.mood-hover-mask {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 160ms ease;
+    pointer-events: none;
+    z-index: 15;
+    filter: blur(0px);
+}
+
+.mood-wrapper:hover .mood-hover-mask {
+    opacity: 1;
+}
+
+.mood-wrapper:hover .mood-circle {
+    background: #368ADB !important;
+}
+
+/* HeroBanner custom styles (moved from inline styles in HeroBanner.tsx) */
+.hero-tag {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #75ff3fff;
+    background-color: #EAFFB9;
+    color: #333;
+    border-radius: 10px;
+    font-size: 10px;
+    display: inline-block;
+}
+
+.hero-button {
+    color: #ffffff;
+    background-color: #1F89EF;
+    border-radius: 25px;
+    padding: 5px 30px;
+    font-size: 10px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Invisible scrollbar – keeps scroll behavior */
+.no-scrollbar {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge legacy */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Edge */
+}
