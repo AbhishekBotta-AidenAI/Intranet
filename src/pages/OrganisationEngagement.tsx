@@ -315,7 +315,7 @@ const getInitials = (name?: string): string => {
 const renderAuthorAvatar = (author?: string) => {
     const initials = getInitials(author);
     return (
-        <div className="w-10 h-10 rounded-full bg-[#1F89EF] flex items-center justify-center text-white text-sm font-semibold">
+        <div className="w-10 h-10 rounded-full bg-[#000000] flex items-center justify-center text-white text-sm font-semibold">
             {initials || '?'}
         </div>
     );
@@ -1136,7 +1136,7 @@ function Composer({ currentUser, onNewPost }: { currentUser: string; onNewPost?:
         return (
             <div className="w-full mx-auto mb-3">
                 <div className="flex items-center gap-3">
-                    <img src="/Dashboard/UserPic.png" className="w-13 h-13 rounded-full border" />
+                    {/* <img src="/Dashboard/UserPic.png" className="w-13 h-13 rounded-full border" /> */}
                     <button
                         onClick={() => setCollapsed(false)}
                         className="flex-1 text-left p-2 text-sm text-black/70 bg-white rounded "
@@ -1218,7 +1218,9 @@ function Composer({ currentUser, onNewPost }: { currentUser: string; onNewPost?:
 
                 {/* Profile Picture */}
                 <div className="flex items-center gap-3 mb-6">
-                    <img src="/Dashboard/UserPic.png" className="w-12 h-12 rounded-full border" alt="User" />
+                    <div className="w-12 h-12 rounded-full bg-[#000000] flex items-center justify-center text-white font-semibold border">
+                        {getInitials(currentUser) || '?'}
+                    </div>
                     <div>
                         <p className="text-sm font-medium">{currentUser}</p>
                         <p className="text-xs text-gray-500">Creating a poll</p>
