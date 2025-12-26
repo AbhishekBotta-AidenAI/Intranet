@@ -109,6 +109,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const exchangeResponse = await authAPI.exchangeMicrosoftIdToken(idToken, 'aidenai');
 
+        // Log Microsoft refresh token for debugging (REMOVE before production!)
+        console.log('[AuthProvider] Microsoft refresh_token:', exchangeResponse);
+
         if (!cancelled) {
           const accessToken = exchangeResponse.access_token ?? '';
           sessionStorage.setItem('access_token', accessToken);

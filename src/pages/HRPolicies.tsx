@@ -23,10 +23,10 @@ const HRPolicies = () => {
     const { user } = useAuth();
     const [documents, setDocuments] = useState<PolicyDocument[]>([]);
     const displayName = user?.name ?? localStorage.getItem('user_name') ?? 'User';
-    console.log('=== 👤 MICROSOFT USER DETAILS ===');
-    console.log('Username:', displayName);
-    console.log('Email:', localStorage.getItem('user_email') ?? '');
-    console.log('Full Name:', displayName);
+    // console.log('=== 👤 MICROSOFT USER DETAILS ===');
+    // console.log('Username:', displayName);
+    // console.log('Email:', localStorage.getItem('user_email') ?? '');
+    // console.log('Full Name:', displayName);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedLocation, setSelectedLocation] = useState('India'); // Default location

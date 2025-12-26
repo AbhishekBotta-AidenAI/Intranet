@@ -110,7 +110,7 @@ const MyAppsPage: React.FC = () => {
 				<img
 					src="myApps/myAppsBanner.png"
 					alt=""
-					className="absolute inset-0 h-[190px] md:h-[190px] object-cover rounded-b-[45px]"
+					className="absolute inset-0 h-[190px] md:h-[190px] w-full object-cover rounded-b-[45px]"
 				/>
 		        <button
 		        	type="button"
@@ -125,48 +125,6 @@ const MyAppsPage: React.FC = () => {
 						Explore the tools designed to help you optimize your workflow efficiently.
 					</p>
 				</div>
-				{/* Banner bottom tabs */}
-				{/* <div className="absolute left-0 right-0 bottom-0 z-40 flex items-center gap-6 justify-center pb-2">
-					{/* APPS TAB */}
-					<button
-						type="button"
-						onClick={() => setActiveTab('apps')}
-						className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'apps' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
-						style={{
-							padding: "5px 10px 5px 10px",
-							borderBottom: activeTab === 'apps' ? '4px solid #909F7E' : 'none',
-							boxShadow: activeTab === 'apps' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
-						}}
-					>
-						My Apps
-					</button>
-					{/* FAVORITES TAB */}
-					<button
-						type="button"
-						onClick={() => setActiveTab('favorites')}
-						className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'favorites' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
-						style={{
-							padding: "5px 10px 5px 10px",
-							borderBottom: activeTab === 'favorites' ? '4px solid #909F7E' : 'none',
-							boxShadow: activeTab === 'favorites' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
-						}}
-					>
-						Favorites
-					</button>
-					{/* REQUESTS TAB */}
-					<button
-						type="button"
-						onClick={() => setActiveTab('requests')}
-						className={`px-4 py-1 rounded-t-lg text-[14px] transition-all font-semibold ${activeTab === 'requests' ? 'bg-[#ECFFD5] text-black' : 'text-white/90 hover:text-black'} shadow`}
-						style={{
-							padding: "5px 10px 5px 10px",
-							borderBottom: activeTab === 'requests' ? '4px solid #909F7E' : 'none',
-							boxShadow: activeTab === 'requests' ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
-						}}
-					>
-						Requests
-					</button>
-				{/* </div>       */}
 			</div>
 			{/* Main content area */}
 			<div className="-mt-16 pb-10" style={{ paddingTop: "24px"}}>
