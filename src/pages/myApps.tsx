@@ -71,7 +71,7 @@ const featuredApps = [
 ];
 
 const MyAppsPage: React.FC = () => {
-	const [activeTab, setActiveTab] = useState<'apps' | 'favorites' | 'requests'>("apps");
+	// const [activeTab, setActiveTab] = useState<'apps' | 'favorites' | 'requests'>("apps");
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('All');
 
